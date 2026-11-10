@@ -240,7 +240,7 @@ def execute(args):
 
 # verify_report is defined below after the artifact contracts.
 
-def verify_structure(root, report):
+def verify_structure(root, report, *, captured=None):
     require(report['schema'] == 'pgop1.static-ast.v2', 'SCHEMA')
     fields = {'schema','source','source_sha256','parser','python_version','budgets','status','PYTHON_SYNTAX','AST_COVERAGE','declarations','relations','units','total_detected','returned','remaining','omitted_by_budget','units_complete','units_unknown','execution','behavior','snapshot_id'}
     require(fields <= set(report) <= fields | {'execution_metrics','reason'}, 'STRUCTURE_ENVELOPE')
@@ -283,7 +283,9 @@ def verify_structure(root, report):
                 require(type(edge[key]) is int and edge[key] >= 0, 'RELATION_INTEGER_TYPE')
     source = report['source']
     require(report['source_sha256'] == source['sha256'], 'SOURCE_BINDING')
-    raw = read_source(root, source['path'], source['sha256'])
+    raw = (read_source(root, source['path'], source['sha256']) if captured is None
+           else captured[source['path']])
+    require(type(raw) is bytes and digest(raw) == source['sha256'], 'CAPTURE_PIN')
     require(len(raw) == source['bytes'], 'SOURCE_SIZE')
     require(type(source['bytes']) is int and source['bytes'] <= report['budgets']['bytes'], 'ADMISSION_BUDGET')
     require(report['AST_COVERAGE']['status'] == report['status'], 'COVERAGE_STATE')
@@ -665,7 +667,7 @@ def independent_literal(tree, scope, name, definition_line):
             'end_line':statement.end_lineno,'end_column':statement.end_col_offset}
 
 
-def verify_document_audit(root, report):
+def verify_document_audit(root, report, *, captured=None):
     require(set(report) == {'schema','catalog','catalog_sha256','structures','document_claims','scope'}, 'AUDIT_REPORT_SCHEMA')
     catalog = report['catalog']; pins = check_catalog(catalog)
     require(report['catalog_sha256'] == digest(compact(catalog)), 'CATALOG_DIGEST')
@@ -674,9 +676,16 @@ def verify_document_audit(root, report):
                                'natural_language_extraction':'MANUAL_TYPED_CLAIMS_ONLY'}, 'AUDIT_SCOPE')
     require(isinstance(report['structures'],list), 'AUDIT_STRUCTURES')
     bodies = {}; failures = {}
+    if captured is not None:
+        require(set(captured) == set(pins), 'CAPTURE_MEMBERSHIP')
     for path,pin in pins.items():
         try:
-            bodies[path] = read_source(root,path,pin['sha256'])
+            if captured is None:
+                bodies[path] = read_source(root,path,pin['sha256'])
+            else:
+                raw = captured[path]
+                require(type(raw) is bytes and len(raw) <= MAX_BYTES and digest(raw) == pin['sha256'], 'CAPTURE_PIN')
+                bodies[path] = raw
         except ValueError as exc:
             code = str(exc)
             failures[path] = ({'SOURCE_HASH_MISMATCH'} if code == 'SOURCE_HASH' else
@@ -692,7 +701,7 @@ def verify_document_audit(root, report):
         path = structure['source']['path']
         require(path in pins and pins[path]['kind'] == 'python' and path in bodies and path not in structural, 'STRUCTURE_CATALOG_BINDING')
         require(structure['source_sha256'] == pins[path]['sha256'], 'STRUCTURE_SOURCE_PIN')
-        structure_results.append(verify_structure(root,structure))
+        structure_results.append(verify_structure(root,structure,captured=captured))
         structural[path] = structure
     require(set(structural) == {p for p,v in pins.items() if v['kind'] == 'python' and p in bodies}, 'STRUCTURE_MEMBERSHIP')
     claims = report['document_claims']

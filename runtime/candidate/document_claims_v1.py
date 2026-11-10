@@ -266,21 +266,32 @@ def _select_scope(report, selector):
     return matches[0] if len(matches) == 1 else None
 
 
-def _capture_and_evaluate(source_root, catalog, *, budgets=None):
+def _capture_and_evaluate(source_root, catalog, *, budgets=None, captured=None):
     """Evaluate only registered pins. Source/admission errors become abstentions."""
     validate_catalog(catalog)
     bodies = {}
     errors = {}
-    for pin in sorted(catalog['sources'],key=lambda p:p['path']):
-        try:
-            bodies[pin['path']] = read_registered(source_root,pin['path'],pin['sha256'])
-        except AdmissionError as exc:
-            errors[pin['path']] = str(exc)
+    if captured is not None:
+        require(set(captured) == {p['path'] for p in catalog['sources']}, 'CAPTURE_MEMBERSHIP')
+        for pin in catalog['sources']:
+            raw = captured[pin['path']]
+            require(type(raw) is bytes and len(raw) <= 262144 and digest(raw) == pin['sha256'], 'CAPTURE_PIN')
+            bodies[pin['path']] = raw
+    else:
+        for pin in sorted(catalog['sources'],key=lambda p:p['path']):
+            try:
+                bodies[pin['path']] = read_registered(source_root,pin['path'],pin['sha256'])
+            except AdmissionError as exc:
+                errors[pin['path']] = str(exc)
     reports = {}
     for pin in catalog['sources']:
         if pin['kind'] == 'python' and pin['path'] in bodies and pin['path'] not in reports:
             try:
-                reports[pin['path']] = analyze_source(source_root,pin['path'],pin['sha256'],budgets=budgets)
+                if captured is None:
+                    reports[pin['path']] = analyze_source(source_root,pin['path'],pin['sha256'],budgets=budgets)
+                else:
+                    from .static_ast_v2 import analyze_captured
+                    reports[pin['path']] = analyze_captured(bodies[pin['path']],pin['path'],pin['sha256'],budgets=budgets)
             except AdmissionError as exc:
                 errors[pin['path']] = str(exc)
                 bodies.pop(pin['path'],None)
@@ -354,11 +365,11 @@ def evaluate_claims(source_root, catalog, *, budgets=None):
     return _capture_and_evaluate(source_root,catalog,budgets=budgets)[0]
 
 
-def audit_catalog(source_root, catalog, *, budgets=None):
+def audit_catalog(source_root, catalog, *, budgets=None, captured=None):
     validate_catalog(catalog)
     catalog = {'schema':catalog['schema'], 'sources':sorted(catalog['sources'],key=lambda p:p['path']),
                'claims':sorted(catalog['claims'],key=lambda p:p['claim_id'])}
-    claims, structures = _capture_and_evaluate(source_root,catalog,budgets=budgets)
+    claims, structures = _capture_and_evaluate(source_root,catalog,budgets=budgets,captured=captured)
     for report in structures:
         report.pop('execution_metrics',None)
     return {'schema':'pgop1.source-audit-report.v2','catalog':catalog,'catalog_sha256':digest(canonical(catalog)),

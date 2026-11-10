@@ -265,6 +265,15 @@ def analyze_source(source_root, relative_path, expected_sha256, *, budgets=None)
     """Read one explicitly registered file, then parse only in a timed child process."""
     budgets = _budgets(budgets)
     raw = read_registered(source_root, relative_path, expected_sha256, budgets['bytes'])
+    return analyze_captured(raw, relative_path, expected_sha256, budgets=budgets)
+
+
+def analyze_captured(raw, relative_path, expected_sha256, *, budgets=None):
+    """Analyze immutable supplied bytes; no source pathname admission is implied."""
+    budgets = _budgets(budgets)
+    path_parts(relative_path)
+    if type(raw) is not bytes or len(raw) > budgets['bytes'] or digest(raw) != expected_sha256:
+        raise AdmissionError('INVALID_CAPTURED_BYTES')
     started = time.perf_counter()
     payload = canonical({'raw_hex': raw.hex(), 'path': relative_path,
                          'sha': expected_sha256, 'budgets': budgets})
