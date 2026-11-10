@@ -35,6 +35,14 @@ def _directory(path):
 
 
 def write_artifacts(source_root, output, report, *, protected_roots=()):
+    """Legacy split writer: Windows reports without live capture custody refuse."""
+    if os.name == 'nt':
+        from candidate.windows_safe_io_v2 import SafeIOError
+        raise SafeIOError('WINDOWS_SPLIT_PUBLICATION_REQUIRES_TRANSACTION')
+    return _write_artifacts(source_root, output, report, protected_roots=protected_roots)
+
+
+def _write_artifacts(source_root, output, report, *, protected_roots=()):
     if os.name == 'nt':
         from candidate.windows_safe_io_v2 import safe_create_artifacts
         files, manifest = artifact_bytes(report)
@@ -112,24 +120,47 @@ def main():
     parser.add_argument('--output',required=True,type=cli_path,help='New directory; parent must exist, disjoint from source root')
     args = parser.parse_args()
     try:
-        with ExitStack() as transaction:
-            if os.name == 'nt':
-                from candidate.windows_safe_io_v2 import Directory
-                transaction.enter_context(Directory(args.source_root))
-                transaction.enter_context(Directory(args.catalog.parent))
-            return execute(args)
+        return execute(args)
     except (OSError, ValueError):
         print(json.dumps({'status':'ERROR','reason':'INVALID_ADMISSION_CONTRACT_OR_OUTPUT'}))
         return 2
 
 
+def audit_and_write(source_root, catalog_path, catalog_sha256, output):
+    """Capture and publish in one operation; never accepts a captured report.
+
+    All directory chains, including output parent, live before admission through
+    publication and close. Success is returned only after every handle closes.
+    """
+    with ExitStack() as transaction:
+        held = []
+        if os.name == 'nt':
+            from candidate.windows_safe_io_v2 import Directory, absolute, reject_membership
+            absolute(catalog_path)
+            drive, parts = absolute(output)
+            if not parts:
+                raise ValueError('UNSAFE_PATH')
+            for path in (source_root, Path(catalog_path).parent, ROOT):
+                held.append(transaction.enter_context(Directory(path)))
+            parent = transaction.enter_context(Directory(drive + '\\'.join(parts[:-1])))
+            for protected in (held[0], held[2]):
+                reject_membership(parent, protected)
+            held.append(parent)
+        catalog_path = Path(os.path.abspath(catalog_path))
+        raw = read_registered(catalog_path.parent, catalog_path.name, catalog_sha256)
+        report = audit_catalog(source_root, strict_json(raw))
+        for directory in held:
+            directory.validate()
+        manifest = _write_artifacts(source_root, output, report)
+        for directory in held:
+            directory.validate()
+    return report, manifest
+
+
 def execute(args):
     try:
-        catalog_path = Path(os.path.abspath(args.catalog))
-        raw = read_registered(catalog_path.parent,catalog_path.name,args.catalog_sha256)
-        catalog = strict_json(raw)
-        report = audit_catalog(args.source_root,catalog)
-        manifest = write_artifacts(args.source_root,args.output,report)
+        report, manifest = audit_and_write(args.source_root, args.catalog,
+                                           args.catalog_sha256, args.output)
         print(json.dumps({'status':'ARTIFACTS_WRITTEN','catalog_sha256':report['catalog_sha256'],
                           'manifest_sha256':digest(canonical(manifest)+b'\n'),
                           'source_error_count':len(report['document_claims']['source_errors']),

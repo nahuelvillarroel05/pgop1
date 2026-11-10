@@ -87,3 +87,40 @@ review reproduced that gap before the CLI transaction fix. Its source bytes were
 not overwritten, but output landed inside the renamed original admitted root.
 Per-operation safe path traversal does not establish cross-operation root custody.
 This is another explicit reason the whole intervention remains PARTIAL.
+
+## E1 custody convergence update (2026-11-10)
+
+The preceding split-call guidance is historical. On Windows, `write_artifacts`
+and `write_verification` now refuse split publication with
+`WINDOWS_SPLIT_PUBLICATION_REQUIRES_TRANSACTION` (an existing explicit input-name
+collision can still report `OUTPUT_OVERLAPS_INPUT`). Keeping a caller-owned
+Directory does not exempt a split writer. Serialized reports carry no custody.
+
+Use `tools.audit_source_v2.audit_and_write(source_root, catalog_path,
+catalog_sha256, output)` or the existing producer CLI. This complete operation
+opens source, product, catalog-parent and output-parent ancestor chains before
+admission, captures internally and returns `(report, manifest)` only after all
+handles close. Catalog parent is retained; its entire subtree is not excluded.
+The source/product trees must be physically disjoint from the new destination.
+
+Verifier CLI and `tools.verify_source_v2.execute(args)` retain source, product,
+artifact/report/pages parents and output-parent chains before verification through
+output/close. A verifier never accepts a caller-supplied verification body as
+publication authority. Read-only verify_report/read_artifacts remain available.
+
+There are no transferable custody tokens or reusable sessions. Each whole call
+owns fresh handles; concurrent calls share no operation state and exclusive
+creation arbitrates destination collisions. Private byte sinks and low-level
+safe_create primitives do not attest provenance and are not isolation boundaries
+against arbitrary Python running inside the process. No public MCP names, report
+schemas, POSIX I/O bodies, error classifications or V1/memory behavior changed.
+The two original Windows split-writer success expectations intentionally fail;
+original test files remain unchanged. Full suite is not declared PASS.
+
+Independent E1 boundary observation: ordinary source-file bytes can change after
+verify_report finishes and before the verification file is written; the verifier
+can still return PASS for its earlier observation. Directory custody prevents
+root/ancestry relocation; it does not retain every source-file handle or provide
+an atomic snapshot through output/ACK. A later independent verification detects
+the changed pin. Do not interpret a saved PASS as proof that source bytes remain
+unchanged at publication time or afterward.

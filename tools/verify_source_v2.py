@@ -105,7 +105,19 @@ def parse_source(raw):
 
 
 def write_verification(output, source_root, body, *, report_path=None, pages_path=None, artifacts=None):
-    """Write only a new external file; a verifier never alters admitted inputs."""
+    """Legacy split publication is unavailable on Windows without capture custody."""
+    if os.name == 'nt':
+        for item in (report_path, pages_path):
+            if item is not None:
+                require(os.path.normcase(os.fspath(output)) != os.path.normcase(os.fspath(item)),
+                        'OUTPUT_OVERLAPS_INPUT')
+        raise SafeIOError('WINDOWS_SPLIT_PUBLICATION_REQUIRES_TRANSACTION')
+    return _write_verification(output, source_root, body, report_path=report_path,
+                               pages_path=pages_path, artifacts=artifacts)
+
+
+def _write_verification(output, source_root, body, *, report_path=None, pages_path=None, artifacts=None):
+    """Internal byte sink, called only inside the whole verification operation."""
     if os.name == 'nt':
         # New-file exclusivity also prevents collisions with report/pages inputs.
         from candidate.windows_safe_io_v2 import absolute
@@ -163,21 +175,13 @@ def main():
     parser.add_argument('--pages', type=cli_path)
     args = parser.parse_args()
     try:
-        with ExitStack() as transaction:
-            if os.name == 'nt':
-                from candidate.windows_safe_io_v2 import Directory
-                transaction.enter_context(Directory(args.source_root))
-                for folder in (args.artifacts, args.report.parent if args.report else None,
-                               args.pages.parent if args.pages else None):
-                    if folder is not None:
-                        transaction.enter_context(Directory(folder))
-            return execute(args)
+        return execute(args)
     except (OSError, ValueError):
         print(json.dumps({'status':'FAIL','reason':'ARTIFACT_VERIFICATION_FAILED'}))
         return 1
 
 
-def execute(args):
+def _verify_inputs(args):
     try:
         if args.artifacts:
             report, manifest = read_artifacts(args.artifacts)
@@ -193,13 +197,43 @@ def execute(args):
             result['pagination'] = verify_pages(report, strict(pages_raw))
     except (OSError, ValueError, TypeError, KeyError, UnicodeError, RecursionError, MemoryError):
         result = {'status': 'FAIL', 'reason': 'ARTIFACT_VERIFICATION_FAILED'}
-    body = json.dumps(result, indent=2, sort_keys=True) + '\n'
-    if args.output:
-        try:
-            write_verification(args.output,args.source_root,body,report_path=args.report,pages_path=args.pages,artifacts=args.artifacts)
-        except (OSError,ValueError):
-            result = {'status':'FAIL','reason':'INVALID_NEW_EXTERNAL_OUTPUT'}
-            body = json.dumps(result,sort_keys=True) + '\n'
+    return result
+
+
+def execute(args):
+    try:
+        with ExitStack() as transaction:
+            held = []
+            if os.name == 'nt':
+                from candidate.windows_safe_io_v2 import Directory, absolute, reject_membership
+                for folder in (args.source_root, Path(__file__).absolute().parents[1],
+                               args.artifacts, args.report.parent if args.report else None,
+                               args.pages.parent if args.pages else None):
+                    if folder is not None:
+                        held.append(transaction.enter_context(Directory(folder)))
+                if args.output:
+                    drive, parts = absolute(args.output)
+                    if not parts:
+                        raise ValueError('UNSAFE_PATH')
+                    parent = transaction.enter_context(Directory(drive + '\\'.join(parts[:-1])))
+                    # File-input parents need custody, not subtree exclusion.
+                    for protected in held[:2] + (held[2:3] if args.artifacts else []):
+                        reject_membership(parent, protected)
+                    held.append(parent)
+            result = _verify_inputs(args)
+            for directory in held:
+                directory.validate()
+            body = json.dumps(result, indent=2, sort_keys=True) + '\n'
+            if args.output:
+                _write_verification(args.output, args.source_root, body, report_path=args.report,
+                                    pages_path=args.pages, artifacts=args.artifacts)
+            for directory in held:
+                directory.validate()
+        # No acknowledgement until all handles have closed successfully.
+    except (OSError, ValueError):
+        result = {'status':'FAIL','reason':('INVALID_NEW_EXTERNAL_OUTPUT' if args.output
+                                            else 'ARTIFACT_VERIFICATION_FAILED')}
+        body = json.dumps(result, sort_keys=True) + '\n'
     print(body, end='')
     return 0 if result['status'] == 'PASS' else 1
 
