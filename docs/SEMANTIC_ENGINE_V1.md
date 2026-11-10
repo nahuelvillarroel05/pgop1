@@ -119,6 +119,10 @@ descriptor locators. Archives do not accept SQLite/locks/staging, extra sources,
 versions or edges. Immutable outputs preserve previous evidence when new bytes
 create a different snapshot/integration identity. Recovery does not require the
 original sources. No legacy private store migration takes place.
+Integration payloads, snapshot manifests and observation/provenance comparisons
+use canonical JSON equality to preserve boolean/integer/float distinctions.
+Engine version manifests require exact fields and integer version 1; additional
+custody assertions reject even when every surrounding hash is recalculated.
 
 Integration/catalog/snapshot/report/claim/observation identities and semantic
 content exclude clocks, durations and storage locators. Engine source descriptors

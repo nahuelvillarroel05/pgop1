@@ -1,4 +1,4 @@
-﻿# Semantic engine integration E1: plan and contracts
+# Semantic engine integration E1: plan and contracts
 
 Base 5335a390cc646dd78b000415b576e58630b91803, tree cec28cf4e7a5638647b8503a8972f0577f7247cf.
 Mode IMPLEMENT. Windows only. All legacy files/tests/receipts remain unchanged except an additive API factory if needed. No AsterPG, Linux, SSH, push, merge or release.

@@ -44,7 +44,7 @@ def derive(catalog, snapshot, report, expected):
     """Authoritative semantics recomputed by existing independent snapshot verifier."""
     check_catalog(catalog, expected)
     inner = v.digest(v.compact(catalog['catalog']))
-    v.require(report['catalog'] == catalog['catalog'], 'REAL_INNER_CATALOG')
+    v.require(v.compact(report['catalog']) == v.compact(catalog['catalog']), 'REAL_INNER_CATALOG')
     verify_values(report, snapshot, inner)
     sources = []
     bodies = {}
@@ -94,11 +94,11 @@ def verify_bundle(folder, expected):
         sm = v.strict(files['SNAPSHOT_MANIFEST.json'])
         original_files = {n:dict(bytes=len(files[n]),sha256=v.digest(files[n]))
                           for n in ('SNAPSHOT.json','REPORT.json','FINAL_HANDOFF.md')}
-        v.require(sm == dict(schema='pgop1.evidence-snapshot-manifest.v1',
+        v.require(v.compact(sm) == v.compact(dict(schema='pgop1.evidence-snapshot-manifest.v1',
                             catalog_sha256=v.digest(v.compact(catalog['catalog'])),
-                            snapshot_id=snapshot['snapshot_id'], files=original_files), 'SNAPSHOT_MANIFEST')
+                            snapshot_id=snapshot['snapshot_id'], files=original_files)), 'SNAPSHOT_MANIFEST')
         envelope = derive(catalog,snapshot,report,expected)
-        v.require(v.strict(files['INTEGRATION.json']) == envelope, 'INTEGRATION_DERIVATION')
+        v.require(v.compact(v.strict(files['INTEGRATION.json'])) == v.compact(envelope), 'INTEGRATION_DERIVATION')
         rows = recover(v.strict(files['MEMORY.json']), envelope)
         held.validate()
     return envelope, rows

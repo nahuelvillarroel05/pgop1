@@ -97,11 +97,12 @@ class SemanticIntegrationTests(unittest.TestCase):
 
     def test_rehashed_integration_verdict_literal_metadata_and_link_rejected(self):
         self.produce(); original=json.loads((self.output/'INTEGRATION.json').read_bytes())
-        for field in ('verdict','literal','metadata','link'):
+        for field in ('verdict','literal','metadata','link','bool_line'):
             value=copy.deepcopy(original)
             if field=='verdict': value['claims'][0]['verdict']='SUPPORTED' if value['claims'][0]['verdict']!='SUPPORTED' else 'CONTRADICTED'
             elif field=='literal': value['claims'][0]['literal_span_hex']='00'
             elif field=='metadata': value['sources'][0]['version']='forged'
+            elif field=='bool_line': value['sources'][0]['start_line']=True
             else: value['claims'][0]['evidence_snapshot_id']='0'*64
             self.rehash('INTEGRATION.json',value)
             with self.assertRaises(ValueError): verifier.verify_bundle(self.output,self.sha)
@@ -110,10 +111,11 @@ class SemanticIntegrationTests(unittest.TestCase):
 
     def test_report_snapshot_and_external_catalog_rehash_rejected(self):
         self.produce()
-        for name in ('REPORT.json','SNAPSHOT.json','CATALOG.json'):
+        for name in ('REPORT.json','SNAPSHOT.json','CATALOG.json','SNAPSHOT_MANIFEST.json'):
             original=json.loads((self.output/name).read_bytes()); value=copy.deepcopy(original)
             if name=='REPORT.json': value['document_claims']['claims'][0]['verdict']='FORGED'
             elif name=='SNAPSHOT.json': value['captures'][0]['raw_hex']='00'*value['captures'][0]['bytes']
+            elif name=='SNAPSHOT_MANIFEST.json': value['files']['FINAL_HANDOFF.md']['bytes']=float(value['files']['FINAL_HANDOFF.md']['bytes'])
             else: value['sources'][0]['version']='forged'
             self.rehash(name,value)
             with self.assertRaises(ValueError): verifier.verify_bundle(self.output,self.sha)
@@ -130,6 +132,43 @@ class SemanticIntegrationTests(unittest.TestCase):
             self.rehash('MEMORY.json',value)
             with self.assertRaises((ValueError,KeyError)): verifier.verify_bundle(self.output,self.sha)
         self.assertFalse((self.base/'escape').exists())
+
+    def test_independent_audit_rehashed_manifest_fields_and_bool_versions_rejected(self):
+        from candidate.context_engine import canonical_json
+        self.produce(); original=json.loads((self.output/'MEMORY.json').read_bytes())
+        for mode in ('extra','bool_manifest','bool_graph','bool_provenance','bool_record','bool_observation','float_descriptor'):
+            value=copy.deepcopy(original); files=value['files']
+            prefix=next(n.rsplit('/',1)[0] for n in files if n.endswith('/manifest.json'))
+            manifest=json.loads(bytes.fromhex(files[prefix+'/manifest.json']))
+            graph=json.loads(bytes.fromhex(files[prefix+'/graph.json']))
+            provenance=json.loads(bytes.fromhex(files[prefix+'/provenance.json']))
+            if mode=='extra': manifest.update(source_current_at_ack='PASS',independent_custody='PROVEN')
+            if mode=='bool_manifest': manifest['version']=True
+            if mode=='bool_graph': graph['version']=True
+            if mode=='bool_provenance': provenance['graph_version']=True
+            if mode=='bool_record': provenance['records'][0]['graph_version']=True
+            if mode=='bool_observation':
+                row=next(r for r in graph['observations'] if r['kind']=='sources')
+                row['value']['start_line']=True
+            if mode=='float_descriptor':
+                name=next(n for n in files if n.startswith('sources/'))
+                descriptor=json.loads(bytes.fromhex(files.pop(name)))
+                descriptor['byte_length']=float(descriptor['byte_length'])
+                raw=canonical_json(descriptor)
+                files['sources/'+digest(raw)+'.json']=raw.hex()
+                graph['sources']=[descriptor]
+            graph_raw=canonical_json(graph); graph_sha=digest(graph_raw)
+            provenance['graph_sha256']=graph_sha
+            for row in provenance['records']: row['graph_sha256']=graph_sha
+            prov_raw=canonical_json(provenance)
+            manifest.update(graph_sha256=graph_sha,provenance_sha256=digest(prov_raw))
+            for name in list(files):
+                if name.startswith(prefix+'/'): del files[name]
+            new_prefix='versions/00000001-'+graph_sha
+            for name,raw in [('graph.json',graph_raw),('provenance.json',prov_raw),('manifest.json',canonical_json(manifest))]:
+                files[new_prefix+'/'+name]=raw.hex()
+            self.rehash('MEMORY.json',value)
+            with self.assertRaisesRegex(ValueError,'MEMORY_VERSION_|MEMORY_OBSERVATION|MEMORY_SOURCE_SCOPE'): verifier.verify_bundle(self.output,self.sha)
 
     def test_output_collision_and_source_or_catalog_membership_rejected(self):
         self.produce(); original=(self.output/'MANIFEST.json').read_bytes()

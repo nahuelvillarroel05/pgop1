@@ -72,6 +72,23 @@ def recover(archive, envelope):
             path = root/name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(raw)
+        version = next((root/'versions').iterdir())
+        manifest = strict_json_loads((version/'manifest.json').read_bytes())
+        graph = strict_json_loads((version/'graph.json').read_bytes())
+        provenance = strict_json_loads((version/'provenance.json').read_bytes())
+        require(isinstance(manifest,dict) and set(manifest) == {
+            'version','parent_sha256','graph_sha256','provenance_sha256'}
+            and type(manifest['version']) is int and manifest['version'] == 1
+            and manifest['parent_sha256'] is None
+            and manifest['graph_sha256'] == digest((version/'graph.json').read_bytes())
+            and manifest['provenance_sha256'] == digest((version/'provenance.json').read_bytes()),
+            'MEMORY_VERSION_MANIFEST')
+        require(isinstance(graph,dict) and type(graph.get('version')) is int and graph['version'] == 1
+                and isinstance(provenance,dict) and type(provenance.get('graph_version')) is int
+                and provenance['graph_version'] == 1 and isinstance(provenance.get('records'),list)
+                and all(isinstance(r,dict) and type(r.get('graph_version')) is int
+                        and r['graph_version'] == 1 for r in provenance['records']),
+                'MEMORY_VERSION_TYPES')
         engine = Engine(root)
         require(engine.verify() == {'status':'PASS','versions':1,'sources':1}, 'MEMORY_ENGINE_VERIFY')
         sha = digest(canonical(envelope))
@@ -80,7 +97,8 @@ def recover(archive, envelope):
         require(set(descriptor) == {'source_id','sha256','path','scope','byte_length'}
                 and descriptor['scope'] == 'ENGINEERING_RESULT'
                 and descriptor['source_id'] == 'semantic-' + sha
-                and descriptor['sha256'] == sha and descriptor['byte_length'] == len(canonical(envelope))
+                and descriptor['sha256'] == sha and type(descriptor['byte_length']) is int
+                and descriptor['byte_length'] == len(canonical(envelope))
                 and isinstance(descriptor['path'],str), 'MEMORY_SOURCE_SCOPE')
         require(set(engine._graph) == {'schema','sources','observations','edges','version','parent_sha256'}
                 and engine._graph['schema'] == 'I4-NEXT-v0.1', 'MEMORY_GRAPH_SCHEMA')
@@ -90,13 +108,11 @@ def recover(archive, envelope):
         by_id = {r['id']: r for r in actual}
         for row in expected:
             bound = dict(row['evidence_binding'], value_sha256=digest(canonical_json(row['value'])))
-            require(by_id.get(row['id']) == dict(row, evidence_binding=bound), 'MEMORY_OBSERVATION')
+            require(canonical(by_id.get(row['id'])) == canonical(dict(row, evidence_binding=bound)), 'MEMORY_OBSERVATION')
         # Membership is global, not just filtered query membership; no injected edges.
         require(engine._graph['observations'] == sorted(actual, key=lambda r:r['id'])
                 and engine._graph['edges'] == [] and len(engine._graph['sources']) == 1,
                 'MEMORY_GRAPH_SCOPE')
-        version = next((root/'versions').iterdir())
-        provenance = strict_json_loads((version/'provenance.json').read_bytes())
         expected_provenance = []
         for row in sorted(actual,key=lambda r:r['id']):
             expected_provenance.append(dict(observation_id=row['id'],graph_version=1,
@@ -105,8 +121,8 @@ def recover(archive, envelope):
                 task_id=envelope['integration_id'],run_id='UNKNOWN',session_id='UNKNOWN',
                 declared_actor_identity='UNKNOWN',provider_identity='UNKNOWN',process_identity='UNKNOWN',
                 tool_identity='UNKNOWN',timestamp='UNKNOWN',invocation_evidence='UNKNOWN',independent_custody='NOT_PROVEN'))
-        require(provenance == dict(schema='I5-NEXT-v0.1',graph_version=1,
-                                  graph_sha256=engine.latest()['graph_sha256'],records=expected_provenance),
+        require(canonical(provenance) == canonical(dict(schema='I5-NEXT-v0.1',graph_version=1,
+                                  graph_sha256=engine.latest()['graph_sha256'],records=expected_provenance)),
                 'MEMORY_PROVENANCE_SCOPE')
         require(engine.ingest(expected) == engine.latest(), 'MEMORY_REINGEST')
         return sorted(actual, key=lambda r:r['id'])
