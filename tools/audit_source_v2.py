@@ -4,11 +4,19 @@ from pathlib import Path
 import json
 import os
 import sys
+from contextlib import ExitStack
 
 ROOT = Path(__file__).absolute().parents[1]
 sys.path.insert(0,str(ROOT/'runtime'))
 from candidate.document_claims_v1 import audit_catalog, strict_json
 from candidate.static_ast_v2 import AdmissionError, canonical, digest, read_registered
+
+
+def cli_path(value):
+    if os.name == 'nt':
+        from candidate.windows_safe_io_v2 import absolute
+        absolute(value)  # before Path/abspath can normalize the raw argument
+    return Path(value)
 
 
 def _directory(path):
@@ -26,7 +34,12 @@ def _directory(path):
         raise
 
 
-def write_artifacts(source_root, output, report):
+def write_artifacts(source_root, output, report, *, protected_roots=()):
+    if os.name == 'nt':
+        from candidate.windows_safe_io_v2 import safe_create_artifacts
+        files, manifest = artifact_bytes(report)
+        safe_create_artifacts(source_root, output, files, (ROOT, *protected_roots))
+        return manifest
     source_root = Path(os.path.abspath(source_root));output = Path(os.path.abspath(output))
     if output.is_relative_to(source_root) or source_root.is_relative_to(output):
         raise ValueError('OUTPUT_MUST_BE_DISJOINT_FROM_SOURCE')
@@ -70,13 +83,47 @@ def write_artifacts(source_root, output, report):
     return manifest
 
 
+def artifact_bytes(report):
+    """Same published artifact contract; Windows I/O is a separate provider."""
+    counts = {}
+    for row in report['document_claims']['claims']:
+        counts[row['verdict']] = counts.get(row['verdict'], 0) + 1
+    handoff = ('# Source audit V2\n\n'
+               'Scope: pinned source declarations and manually typed documentary claims.\n'
+               'Target execution: NOT_PERFORMED. Behavioral correctness: NOT_PROVEN.\n'
+               'Legacy backend integration: DEFERRED. Context Engine persistence: NOT_IMPLEMENTED.\n\n'
+               f"Catalog SHA-256: `{report['catalog_sha256']}`\n\n"
+               f"Structural reports: {len(report['structures'])}; claims: {len(report['document_claims']['claims'])}.\n"
+               f"Verdict counts: `{json.dumps(counts,sort_keys=True)}`.\n\n"
+               'Source integrity and claim verdicts remain separate fields in REPORT.json.\n'
+               'No STALE verdict is inferred; no natural-language extraction or execution receipt is implemented.\n').encode()
+    files = {'REPORT.json': canonical(report) + b'\n', 'FINAL_HANDOFF.md': handoff}
+    manifest = {'schema': 'pgop1.source-audit-manifest.v2', 'catalog_sha256': report['catalog_sha256'],
+                'files': {name: {'bytes': len(body), 'sha256': digest(body)} for name, body in files.items()}}
+    files['MANIFEST.json'] = canonical(manifest) + b'\n'
+    return files, manifest
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--source-root',required=True,type=Path)
-    parser.add_argument('--catalog',required=True,type=Path)
+    parser.add_argument('--source-root',required=True,type=cli_path)
+    parser.add_argument('--catalog',required=True,type=cli_path)
     parser.add_argument('--catalog-sha256',required=True)
-    parser.add_argument('--output',required=True,type=Path,help='New directory; parent must exist, disjoint from source root')
+    parser.add_argument('--output',required=True,type=cli_path,help='New directory; parent must exist, disjoint from source root')
     args = parser.parse_args()
+    try:
+        with ExitStack() as transaction:
+            if os.name == 'nt':
+                from candidate.windows_safe_io_v2 import Directory
+                transaction.enter_context(Directory(args.source_root))
+                transaction.enter_context(Directory(args.catalog.parent))
+            return execute(args)
+    except (OSError, ValueError):
+        print(json.dumps({'status':'ERROR','reason':'INVALID_ADMISSION_CONTRACT_OR_OUTPUT'}))
+        return 2
+
+
+def execute(args):
     try:
         catalog_path = Path(os.path.abspath(args.catalog))
         raw = read_registered(catalog_path.parent,catalog_path.name,args.catalog_sha256)

@@ -15,6 +15,12 @@ from pathlib import Path
 import stat
 import tokenize
 import unicodedata
+import sys
+from contextlib import ExitStack
+
+if os.name == 'nt':
+    sys.path.insert(0, str(Path(__file__).absolute().parents[1] / 'runtime'))
+    from candidate.windows_safe_io_v2 import SafeIOError, safe_read, safe_create_new
 
 MAX_BYTES = 262144
 
@@ -46,6 +52,17 @@ def strict(raw):
 
 def read_source(root, name, expected, max_bytes=MAX_BYTES):
     """Walk descriptors with O_NOFOLLOW; bind read bytes and metadata to a pin."""
+    if os.name == 'nt':
+        try:
+            return safe_read(root, name, expected, max_bytes).raw
+        except SafeIOError as exc:
+            if exc.code == 'SOURCE_HASH_MISMATCH':
+                raise ValueError('SOURCE_HASH') from None
+            if exc.code in {'SIZE_LIMIT', 'NOT_REGULAR_FILE'}:
+                raise ValueError('SOURCE_SIZE_OR_TYPE') from None
+            if exc.code == 'SOURCE_CHANGED':
+                raise ValueError('SOURCE_CHANGED') from None
+            raise  # actual provider refusal, independently recomputed
     require(isinstance(name, str) and name and '\\' not in name and ':' not in name, 'UNSAFE_PATH')
     parts = name.split('/')
     require(not name.startswith('/') and all(p not in ('', '.', '..') for p in parts), 'UNSAFE_PATH')
@@ -89,6 +106,20 @@ def parse_source(raw):
 
 def write_verification(output, source_root, body, *, report_path=None, pages_path=None, artifacts=None):
     """Write only a new external file; a verifier never alters admitted inputs."""
+    if os.name == 'nt':
+        # New-file exclusivity also prevents collisions with report/pages inputs.
+        from candidate.windows_safe_io_v2 import absolute
+        absolute(output)
+        for item in (report_path, pages_path):
+            if item is not None:
+                absolute(item)
+                require(os.path.normcase(os.fspath(output)) != os.path.normcase(os.fspath(item)),
+                        'OUTPUT_OVERLAPS_INPUT')
+        protected = [source_root, Path(__file__).absolute().parents[1]]
+        if artifacts is not None:
+            protected.append(artifacts)
+        safe_create_new(output, body.encode('utf-8'), protected)
+        return
     output = Path(os.path.abspath(output))
     source_root = Path(os.path.abspath(source_root))
     require(not output.is_relative_to(source_root), 'OUTPUT_OVERLAPS_SOURCE')
@@ -115,15 +146,38 @@ def write_verification(output, source_root, body, *, report_path=None, pages_pat
         os.close(fd)
 
 
+def cli_path(value):
+    if os.name == 'nt':
+        from candidate.windows_safe_io_v2 import absolute
+        absolute(value)
+    return Path(value)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--source-root', required=True, type=Path)
+    parser.add_argument('--source-root', required=True, type=cli_path)
     inputs = parser.add_mutually_exclusive_group(required=True)
-    inputs.add_argument('--report', type=Path)
-    inputs.add_argument('--artifacts', type=Path)
-    parser.add_argument('--output', type=Path)
-    parser.add_argument('--pages', type=Path)
+    inputs.add_argument('--report', type=cli_path)
+    inputs.add_argument('--artifacts', type=cli_path)
+    parser.add_argument('--output', type=cli_path)
+    parser.add_argument('--pages', type=cli_path)
     args = parser.parse_args()
+    try:
+        with ExitStack() as transaction:
+            if os.name == 'nt':
+                from candidate.windows_safe_io_v2 import Directory
+                transaction.enter_context(Directory(args.source_root))
+                for folder in (args.artifacts, args.report.parent if args.report else None,
+                               args.pages.parent if args.pages else None):
+                    if folder is not None:
+                        transaction.enter_context(Directory(folder))
+            return execute(args)
+    except (OSError, ValueError):
+        print(json.dumps({'status':'FAIL','reason':'ARTIFACT_VERIFICATION_FAILED'}))
+        return 1
+
+
+def execute(args):
     try:
         if args.artifacts:
             report, manifest = read_artifacts(args.artifacts)
@@ -593,7 +647,8 @@ def verify_document_audit(root, report):
             code = str(exc)
             failures[path] = ({'SOURCE_HASH_MISMATCH'} if code == 'SOURCE_HASH' else
                               {'SOURCE_CHANGED'} if code == 'SOURCE_CHANGED' else
-                              {'SIZE_LIMIT','NOT_REGULAR_FILE'} if code == 'SOURCE_SIZE_OR_TYPE' else set())
+                              {'SIZE_LIMIT','NOT_REGULAR_FILE'} if code == 'SOURCE_SIZE_OR_TYPE' else
+                              {exc.code} if os.name == 'nt' and isinstance(exc, SafeIOError) else set())
             require(failures[path], 'UNKNOWN_SOURCE_FAILURE')
         except OSError:
             failures[path] = {'SOURCE_UNAVAILABLE_OR_UNSAFE'}

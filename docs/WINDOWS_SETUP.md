@@ -49,3 +49,9 @@ not a missing pip package or broken venv. Keep this abstention intact until a
 Windows native admission implementation is independently qualified. In
 particular, metadata-only Windows handles and sharing flags do not establish the
 ancestry locking needed for a safe path-walking substitute.
+
+Native Windows engineering update: an experimental handle-relative provider now
+exists for the opt-in AST V2 source/writer/verifier paths. Its qualification is
+PARTIAL; see [exact support and limitations](WINDOWS_SAFE_IO_V2.md). The earlier
+POSIX-only statements above describe the preceding implementation, not a new
+Windows security PASS. Captured-report memory and public MCP remain separate.

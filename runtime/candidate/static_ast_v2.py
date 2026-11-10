@@ -51,6 +51,17 @@ def read_registered(root, name, expected_sha256, max_bytes=262144):
     parts = path_parts(name)
     if not isinstance(expected_sha256, str) or not re.fullmatch('[0-9a-f]{64}', expected_sha256):
         raise AdmissionError('INVALID_HASH')
+    if os.name == 'nt':
+        if __package__:
+            from .windows_safe_io_v2 import SafeIOError, safe_read
+        else:
+            from windows_safe_io_v2 import SafeIOError, safe_read
+        try:
+            return safe_read(root, name, expected_sha256, max_bytes).raw
+        except SafeIOError as exc:
+            raise AdmissionError(exc.code) from None
+        except OSError:
+            raise AdmissionError('SOURCE_UNAVAILABLE_OR_UNSAFE') from None
     if not hasattr(os, 'O_NOFOLLOW'):
         raise AdmissionError('UNSUPPORTED_SAFE_READ_PLATFORM')
     root = Path(root).absolute()

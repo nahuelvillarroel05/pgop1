@@ -165,3 +165,8 @@ para contrastar una distribución, usar el hash confiable de su manifiesto.
 Las pruebas incluyen 400 funciones paginadas, ámbitos repetidos, Unicode,
 relaciones dinámicas, límites, timeout simulado, links/traversal y TOCTOU.
 La cobertura estructural no equivale a precisión, corrección funcional ni seguridad.
+
+For the subsequent experimental native Windows I/O selection and its PARTIAL
+qualification, see [Windows safe I/O V2](WINDOWS_SAFE_IO_V2.md). The published
+report fields, budgets and POSIX body above remain unchanged. Filename admission
+on Windows is deliberately narrower; this does not change source-content parsing.
