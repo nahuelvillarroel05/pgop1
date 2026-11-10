@@ -1,0 +1,22 @@
+﻿# Semantic engine integration E1: plan and contracts
+
+Base 5335a390cc646dd78b000415b576e58630b91803, tree cec28cf4e7a5638647b8503a8972f0577f7247cf.
+Mode IMPLEMENT. Windows only. All legacy files/tests/receipts remain unchanged except an additive API factory if needed. No AsterPG, Linux, SSH, push, merge or release.
+
+## Sources and composition
+Inspected real_handoff.RealEvidenceProfile (v1 catalog and real-static-v1 remain unchanged), document_claims_v1.audit_catalog(captured=...), static_ast_v2.analyze_captured, tools.audit_snapshot_v1.snapshot_and_write, tools.verify_snapshot_v1.verify_bundle/verify_values, source_audit_memory_v1, context_engine.Engine, i7_api, pg_i7 dispatcher and public MCP registration. Prior handoff and compatibility/reconciliation contracts were read from the preceding Windows intervention. This checkout has no CURRENT_STATE.md or AI24 authority matrix; this owner intervention is the engineering authority, not runtime promotion.
+
+New opt-in RealStaticV2Profile in candidate.semantic_engine_v1; separate tools/semantic_engine_v1.py CLI generate/verify/query. New catalog pgop1.real-static-catalog.v2 wraps the unchanged pgop1.source-audit-catalog.v2 plus exact per-source bytes/version/language and explicit complete registered-file scope. External SHA256 of canonical catalog required for every operation. No v1 catalog dispatch reinterpretation.
+
+## Transactions and memory
+Reuse snapshot V1 capture/publication. Source bytes are never reopened for AST or claims. Integrated output is a new exclusive flat bundle containing the verified snapshot files, versioned integration receipt, and a portable Context Engine store archive. Build Engine only from verified captured report/snapshot bytes in a fresh private temporary staging directory, never admit mutable native sources into Engine. Preserve the original Engine and memory V1 implementation. Archive only immutable Engine source/object/version files; derived SQLite is rebuilt on reopen. Memory contains bound observations (source inventory, complete structures including typed syntactic relations, claims and literal document spans). No Engine edges and no VERIFIED_CAUSAL conversion. Query paginates typed payloads after checking the full stored membership and recomputing evidence independently. Export/import is a versioned adapter; historical stores are never migrated. Temp workspaces must be on accessible D: for this intervention.
+
+## Identity, scope and threats
+Semantic integration identity excludes paths of output/temp stores, clocks and durations, includes contract/catalog/snapshot/report identities and selected metadata. Engine storage path declarations are locators, never source authority. Per-source hash/bytes/version/language/line ranges and AST coverage are recorded; document bytes and literal spans stay private. No free-prose truth judge, functional execution or security guarantee. Calls/inherits remain unresolved; lexical defines alone may be RESOLVED_STATIC.
+
+Threats: rehashed falsified reports/claims/catalog/spans/metadata, hostile archive membership/traversal, incomplete graph or snapshot, unsafe Windows paths/hardlinks/reparse, source/output ancestor relocation, partial publication/cancellation, output collision. Use existing Windows safe reader/writer and hold Directory chains for the whole final publication. Only newly created outputs outside sources/product/catalog inputs. Existence of a manifest is not ACK. SOURCE_CURRENT_AT_ACK and ARTIFACT_CURRENT_AT_ACK remain NOT_PROVEN. No continuous retention or atomic multi-file capture claim.
+
+## Validation and stopping criteria
+Baseline full discovery before functional changes, ID-by-ID regression after; original three Windows negative IDs must remain FAIL/ERROR. Add independent integration tests: support/contradiction/abstention, real PGOP1 source/doc pins, attacks with recalculated envelopes, recovery in fresh processes without native sources, changed bytes/new identity, deterministic semantic IDs, payload pagination incl 400 declarations, partial coverage, Windows custody attacks and collisions/failure. Reuse original snapshot/native Windows/SDK suites. Corpus 27 files and pg_i7 coverage independently rerun. Preserve all original evidence. Request separate Sol XHigh design and adversarial audit. Full suite remains NOT_PASS if legacy negatives remain. Any missing essential gate yields PARTIAL, never an exception for PASS.
+
+MCP_EXPERIMENTAL=DEFERRED. Public SDK tests do not prove Codex Desktop visibility. LINUX_REGRESSION=DEFERRED_BY_OWNER.
