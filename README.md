@@ -69,6 +69,12 @@ Los agregados incluidos son declaraciones históricas: no se vuelven a ejecutar.
 | Memoria y auditoría de código sintético | [ejemplos de experiment](examples/source-audit-synthetic/README.md) |
 | Integridad de archivos e historia Git completa | [auditoría pública](docs/AUDIT.md) |
 
+## Auditoría V2 opt-in (candidato local)
+
+[AST V2](docs/STATIC_AST_V2.md) y [claims documentales](docs/DOCUMENT_CLAIMS.md)
+explican los contratos independientes y sus límites. La herramienta adicional
+`tools/audit_source_v2.py` requiere fuentes autorizadas y fijadas por hash.
+
 ## Auditar en un comando
 
 Desde un clon con las dos ramas locales:

@@ -51,3 +51,10 @@ Los catálogos admitidos definen fuentes; no se descubre Engineering del autor.
 La auditoría pública crea ejemplos sintéticos y prueba esos perfiles.
 Git Governance E1 como adaptador del producto y el perfil legacy no están disponibles.
 La herramienta de integridad Git de esta distribución es independiente del motor.
+
+## Auditoría estructural y documental V2 (opt-in)
+
+La herramienta independiente `tools/audit_source_v2.py` genera un informe V2
+con manifiesto. No cambia las seis operaciones anteriores.
+Ver [AST V2](STATIC_AST_V2.md) y [claims documentales](DOCUMENT_CLAIMS.md)
+para contratos, preparación de fuentes autorizadas y comandos reproducibles.
