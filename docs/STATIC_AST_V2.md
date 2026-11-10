@@ -134,10 +134,15 @@ caracteres; otros nombres se sustituyen por `WITHHELD`. Expresiones conservan
 aparecen. La ruta admitida sí forma parte de la procedencia. El informe puede
 contener nombres públicos del código; no es un mecanismo de anonimización.
 
-El grafo se serializa independientemente con snapshot. La inspección de
-`Engine._validate`, `_binding` e `ingest` mostró contratos de evidencia distintos;
-no hay integración ni persistencia de relaciones V2 en Context Engine.
+El grafo del analizador se serializa independientemente con snapshot. La inspección
+de `Engine._validate`, `_binding` e `ingest` mostró contratos de evidencia distintos;
+el analizador no inserta directamente relaciones V2 en Context Engine.
 La integración a `RealEvidenceProfile` y a `generate/read` legacy queda diferida.
+
+Existe ahora un [adaptador opt-in de informes capturados](SOURCE_AUDIT_MEMORY_V1.md)
+que conserva registros V2 como observaciones del Context Engine. No cambia este
+analizador, su admisión POSIX ni las relaciones del Engine; tampoco completa la
+integración nativa de fuentes ni las operaciones legacy mencionadas arriba.
 
 ## Comando reproducible de API
 

@@ -9,9 +9,14 @@ claim conserva la responsabilidad de representar fielmente la prosa citada.
 El perfil `RealEvidenceProfile` existente ya acepta fuentes reales. Esta capacidad
 usa una herramienta adicional y contratos independientes para conservar sus
 recibos y formatos. La integración con sus operaciones `generate/read` y la
-persistencia en Context Engine quedan **diferidas**. El grafo estructural continúa
+persistencia directa del productor en Context Engine quedan **diferidas**. El grafo estructural continúa
 serializado en el informe V2; ninguna relación sintáctica se inserta en categorías
 `VERIFIED_*` del Engine.
+
+El [adaptador de memoria de informes capturados](SOURCE_AUDIT_MEMORY_V1.md) añade
+persistencia opt-in de resultados ya declarados, con su calificación explícita de
+no recomputación de fuentes. Los contratos de claims, recibos y perfiles legacy
+anteriores permanecen intactos; no constituye integración completa del productor.
 
 ## Contratos y abstenciones
 

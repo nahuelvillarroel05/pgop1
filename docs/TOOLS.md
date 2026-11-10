@@ -58,3 +58,7 @@ La herramienta independiente `tools/audit_source_v2.py` genera un informe V2
 con manifiesto. No cambia las seis operaciones anteriores.
 Ver [AST V2](STATIC_AST_V2.md) y [claims documentales](DOCUMENT_CLAIMS.md)
 para contratos, preparación de fuentes autorizadas y comandos reproducibles.
+
+La [memoria de informes V2 capturados](SOURCE_AUDIT_MEMORY_V1.md) tiene API y CLI
+opt-in separadas y un verificador de almacenamiento independiente. No amplía los
+seis nombres del MCP público. Ver también [diagnóstico Windows](WINDOWS_SETUP.md).
