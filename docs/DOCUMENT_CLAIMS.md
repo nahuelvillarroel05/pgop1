@@ -166,3 +166,10 @@ Pruebas focalizadas:
 ```bash
 .venv/bin/python -m unittest discover -s tests -p test_document_claims_v1.py -v
 ```
+
+El verificador imprime JSON en stdout. Su `--output` opcional exige un archivo
+nuevo fuera de `source_root` y del directorio de artefactos, y distinto de las
+entradas `--report`/`--pages`. Rechaza archivos existentes y symlinks en cualquier
+componente; nunca sobreescribe una fuente o un artefacto para guardar el resultado.
+El padre del archivo de salida debe existir. Un destino inválido devuelve exit 1
+y `INVALID_NEW_EXTERNAL_OUTPUT`, sin modificar los archivos existentes.

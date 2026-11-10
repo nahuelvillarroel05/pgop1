@@ -303,5 +303,43 @@ class IndependentAdmissionAndRelationTests(unittest.TestCase):
                 self.assertEqual(result.stderr,b'')
 
 
+class IndependentOutputSafetyTests(unittest.TestCase):
+    def test_cli_never_overwrites_source_inputs_or_link_targets(self):
+        import subprocess,tempfile
+        from runtime.candidate.static_ast_v2 import analyze_source,canonical,digest
+        with tempfile.TemporaryDirectory() as directory:
+            base=Path(directory);root=base/'source';root.mkdir();outside=base/'output';outside.mkdir()
+            raw=b'def f():pass\n';(root/'x.py').write_bytes(raw)
+            report=analyze_source(root,'x.py',digest(raw))
+            report_path=outside/'REPORT.json';report_raw=canonical(report);report_path.write_bytes(report_raw)
+            target=outside/'existing.json';target.write_bytes(b'unchanged')
+            (outside/'link.json').symlink_to(target)
+            (base/'linked-parent').symlink_to(outside,target_is_directory=True)
+            commands=[root/'x.py',outside/'link.json',base/'linked-parent'/'new.json',target,report_path]
+            for output in commands:
+                p=subprocess.run([sys.executable,str(ROOT/'tools/verify_source_v2.py'),'--source-root',str(root),'--report',str(report_path),'--output',str(output)],capture_output=True,timeout=10)
+                self.assertEqual(p.returncode,1)
+                self.assertEqual(json.loads(p.stdout)['reason'],'INVALID_NEW_EXTERNAL_OUTPUT')
+                self.assertEqual(p.stderr,b'')
+                self.assertEqual((root/'x.py').read_bytes(),raw)
+                self.assertEqual(target.read_bytes(),b'unchanged')
+                self.assertEqual(report_path.read_bytes(),report_raw)
+            good=outside/'NEW_VERIFICATION.json'
+            p=subprocess.run([sys.executable,str(ROOT/'tools/verify_source_v2.py'),'--source-root',str(root),'--report',str(report_path),'--output',str(good)],capture_output=True,timeout=10)
+            self.assertEqual(p.returncode,0)
+            self.assertEqual(json.loads(good.read_bytes())['status'],'PASS')
+
+    def test_output_writer_rejects_artifact_membership_and_creates_external_file(self):
+        import tempfile
+        sys.path.insert(0,str(ROOT/'tools'))
+        from verify_source_v2 import write_verification
+        with tempfile.TemporaryDirectory() as directory:
+            base=Path(directory);root=base/'source';root.mkdir();artifacts=base/'artifacts';artifacts.mkdir()
+            with self.assertRaises(ValueError):write_verification(artifacts/'new.json',root,'{}',artifacts=artifacts)
+            output=base/'new.json';write_verification(output,root,'{}')
+            self.assertEqual(output.read_bytes(),b'{}')
+            with self.assertRaises(FileExistsError):write_verification(output,root,'changed')
+
+
 if __name__ == '__main__':
     unittest.main()

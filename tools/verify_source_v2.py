@@ -86,6 +86,35 @@ def parse_source(raw):
     return tree
 
 
+
+def write_verification(output, source_root, body, *, report_path=None, pages_path=None, artifacts=None):
+    """Write only a new external file; a verifier never alters admitted inputs."""
+    output = Path(os.path.abspath(output))
+    source_root = Path(os.path.abspath(source_root))
+    require(not output.is_relative_to(source_root), 'OUTPUT_OVERLAPS_SOURCE')
+    if artifacts is not None:
+        require(not output.is_relative_to(Path(os.path.abspath(artifacts))), 'OUTPUT_OVERLAPS_ARTIFACTS')
+    for item in (report_path,pages_path):
+        if item is not None:
+            require(output != Path(os.path.abspath(item)), 'OUTPUT_OVERLAPS_INPUT')
+    fd = os.open('/',os.O_RDONLY | os.O_DIRECTORY)
+    try:
+        for part in output.parent.parts[1:]:
+            next_fd = os.open(part,os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW,dir_fd=fd)
+            os.close(fd)
+            fd = next_fd
+        target = os.open(output.name,os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,0o600,dir_fd=fd)
+        try:
+            with os.fdopen(target,'wb',closefd=False) as stream:
+                stream.write(body.encode('utf-8'))
+                stream.flush()
+                os.fsync(stream.fileno())
+        finally:
+            os.close(target)
+    finally:
+        os.close(fd)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source-root', required=True, type=Path)
@@ -112,7 +141,11 @@ def main():
         result = {'status': 'FAIL', 'reason': 'ARTIFACT_VERIFICATION_FAILED'}
     body = json.dumps(result, indent=2, sort_keys=True) + '\n'
     if args.output:
-        args.output.write_text(body, encoding='utf-8')
+        try:
+            write_verification(args.output,args.source_root,body,report_path=args.report,pages_path=args.pages,artifacts=args.artifacts)
+        except (OSError,ValueError):
+            result = {'status':'FAIL','reason':'INVALID_NEW_EXTERNAL_OUTPUT'}
+            body = json.dumps(result,sort_keys=True) + '\n'
     print(body, end='')
     return 0 if result['status'] == 'PASS' else 1
 
