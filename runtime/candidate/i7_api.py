@@ -25,6 +25,17 @@ def public_profile(*, package_root=None, output_root=None):
     return PublicProfile(package_root=package_root, output_root=output_root)
 
 
+def engineering_profile(*, package_root, output_root):
+    """Trusted setup manifest; operational inputs remain opaque IDs."""
+    from candidate.engineering_handoff import EngineeringProfile
+    return EngineeringProfile(package_root, output_root)
+
+
+def evidence_profile(*, package_root, output_root):
+    from candidate.evidence_handoff import profile_service
+    return profile_service(package_root, output_root)
+
+
 def _documents_policy(cli: Any):
     loader = getattr(cli, "_documents_policy_module", None)
     if not callable(loader):

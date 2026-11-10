@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import re
@@ -94,8 +95,13 @@ def parse(body):
         return result
     def invalid(value):
         raise ValueError("nonfinite number")
+    def finite_float(value):
+        number = float(value)
+        if not math.isfinite(number):
+            raise ValueError("nonfinite number")
+        return number
     try:
-        value = json.loads(body.decode("utf-8"), object_pairs_hook=pairs, parse_constant=invalid)
+        value = json.loads(body.decode("utf-8"), object_pairs_hook=pairs, parse_constant=invalid, parse_float=finite_float)
         if not isinstance(value, dict):
             raise ValueError("object required")
         return value
@@ -110,13 +116,23 @@ def bounded(value, low, high):
 
 
 class PublicProfile:
+    profile = PROFILE
+    version = VERSION
+
+    def project_report(self, report):
+        return report
+
+    def render_report(self, report):
+        return render(report)
+
     def __init__(self, package_root=None, output_root=None):
         self.root = checked(package_root or DEFAULT_PACKAGE)
         self.out = checked(output_root or Path.cwd() / "public-handoffs")
         # Output must be disjoint from registered inputs in both directions.
         if self.out == self.root or self.root in self.out.parents or self.out in self.root.parents:
             raise PublicError("OUTPUT_OVERLAP", "Output and package roots must be disjoint")
-        self.catalog_bytes = read_bytes(self.root / "CATALOG.json")
+        self.catalog_path = self.root / "CATALOG.json"
+        self.catalog_bytes = read_bytes(self.catalog_path)
         self.config = parse(self.catalog_bytes)
         if self.config.get("profile") != PROFILE or self.config.get("schema") != "pgop1.catalog.v1":
             raise PublicError("UNSUPPORTED_FORMAT", "Unsupported catalog schema/profile")
@@ -151,7 +167,7 @@ class PublicProfile:
         return self.entries[package_id]
 
     def availability(self):
-        return {"schema": "pgop1.public.v1", "version": VERSION, "profile": PROFILE,
+        return {"schema": "pgop1.public.v1", "version": VERSION, "profile": self.profile,
                 "capabilities": list(OPERATIONS), "registered_packages": list(self.entries),
                 "limits": {"file_bytes": MAX_BYTES, "files": MAX_FILES, "page_chars": 16000},
                 "scope": "PUBLIC_AGGREGATES_ONLY", "historical_execution": "NOT_PERFORMED",
@@ -166,7 +182,7 @@ class PublicProfile:
                 "next_offset": offset+limit if offset+limit < len(items) else None}
 
     def snapshot(self, package_id):
-        if read_bytes(self.root / "CATALOG.json") != self.catalog_bytes:
+        if read_bytes(self.catalog_path) != self.catalog_bytes:
             raise PublicError("CONFIG_CHANGED", "Catalog changed after setup; restart with reviewed configuration")
         entry = self.entry(package_id)
         observations, bodies = [], {}
@@ -258,7 +274,7 @@ class PublicProfile:
             errors.append("SUMMARY_UNAVAILABLE")
         failed = any(s["status"] == "HASH_MISMATCH" for s in sources) or any(x.startswith("CONTRADICTORY") or x in ("INVALID_SCHEMA", "INVALID_JSON") for x in errors)
         status = "FAIL" if failed else "PARTIAL" if errors or any(s["status"] != "PASS" for s in sources) else "PASS"
-        receipt = {"schema": "pgop1.verification.v1", "profile": PROFILE, "package_id": package_id,
+        receipt = {"schema": "pgop1.verification.v1", "profile": self.profile, "package_id": package_id,
                    "snapshot_id": snapshot, "status": status, "sources": sources,
                    "checks": {"registered_bytes": "PERFORMED", "aggregate_consistency": errors or ["PASS"],
                               "aggregate_consistency_scope": "PROJECTED_TOP_LEVEL_COUNTS_ONLY",
@@ -284,7 +300,7 @@ class PublicProfile:
         current, metrics, historical = self.analyze(package_id)
         if receipt_id != current["receipt_id"]:
             raise PublicError("STALE_RECEIPT", "Receipt is not compatible with the current input snapshot")
-        binding = {"package_id": package_id, "receipt_id": receipt_id, "request_key": request_key, "profile": PROFILE}
+        binding = {"package_id": package_id, "receipt_id": receipt_id, "request_key": request_key, "profile": self.profile}
         report_id = "report-"+sha(request_key.encode())[:40]
         folder = checked(self.out / report_id)
         self.out.mkdir(parents=True, exist_ok=True)
@@ -301,8 +317,8 @@ class PublicProfile:
             return self.completed(report_id)
         # Exclusive directory claim supports concurrent clients; incomplete attempts remain visible.
         self.write_new(folder / "REQUEST.json", encoded(binding))
-        report = {"schema": "pgop1.report.v1", "generator_version": VERSION, "template_version": "1",
-                  "profile": PROFILE, "report_id": report_id, "package_id": package_id,
+        report = {"schema": "pgop1.report.v1", "generator_version": self.version, "template_version": "1",
+                  "profile": self.profile, "report_id": report_id, "package_id": package_id,
                   "generation": "REPORT_GENERATED", "historical_result": historical,
                   "historical_source": {"source_id": self.entry(package_id)["summary"],
                                         "selector": "/EXECUTION_STATUS", "operation": "READ_AGGREGATE",
@@ -314,7 +330,8 @@ class PublicProfile:
                                   "Hash consistency is not external authenticity, custody or semantic truth.",
                                   "Report generation does not imply RUN_PASS or new authority."],
                   "continuity": {"status": "NO_NEW_AUTHORIZATION", "documented_pending": "UNKNOWN"}}
-        bodies = {"REPORT.json": encoded(report), "FINAL_HANDOFF.md": render(report).encode("utf-8")}
+        report = self.project_report(report)
+        bodies = {"REPORT.json": encoded(report), "FINAL_HANDOFF.md": self.render_report(report).encode("utf-8")}
         if any(len(body) > MAX_BYTES for body in bodies.values()):
             self.write_new(folder / "FAILURE.json", encoded({"code": "OUTPUT_SIZE_LIMIT", "generation": "NOT_GENERATED"}))
             raise PublicError("OUTPUT_SIZE_LIMIT", "Generated report exceeds retrieval limit; attempt retained without final publication")
@@ -353,6 +370,13 @@ class PublicProfile:
             body = read_bytes(folder / name)
             if item != {"sha256": sha(body), "bytes": len(body)}:
                 raise PublicError("ARTIFACT_INTEGRITY_ERROR", "Final artifact bytes changed")
+        # Prospective scoped reports cannot be retrieved through a legacy reader
+        # pointed at the same directory. Existing unscoped artifacts are unchanged.
+        report = parse(read_bytes(folder / "REPORT.json"))
+        if "report_scope" in report:
+            scope = getattr(self, "report_scope", None)
+            if not callable(scope) or report["report_scope"] != scope():
+                raise PublicError("REPORT_SCOPE_MISMATCH", "Report belongs to another configured scope")
         return {"report_id": report_id, "generation": "REPORT_GENERATED",
                 "manifest_sha256": sha(manifest_bytes), "artifacts": list(files)+["MANIFEST.json"]}
 
@@ -378,10 +402,12 @@ def render(report):
                 ("5. Fallos, contradicciones y limitaciones", report["limitations"]),
                 ("6. Artefactos y referencias", {"canonical": "REPORT.json", "binding": "MANIFEST.json", "references": "See metric source selectors and observed SHA-256 values."}),
                 ("7. Continuidad documentada", report["continuity"])]
+    if 'report_scope' in report:
+        sections[0][1]['report_scope'] = report['report_scope']
     return "# FINAL_HANDOFF\n\n" + "\n".join("## "+title+"\n\n```json\n"+json.dumps(value, ensure_ascii=True, sort_keys=True, indent=2).replace("`", "\\u0060")+"\n```\n" for title, value in sections)
 
 
-def main(argv=None):
+def main(argv=None, *, service_class=PublicProfile):
     parser = argparse.ArgumentParser(description="PGOP1 public aggregate profile; no historical execution")
     parser.add_argument("--package-root", type=Path)
     parser.add_argument("--output-root", type=Path)
@@ -407,7 +433,7 @@ def main(argv=None):
     args.pop("json")
     package_root, output_root = args.pop("package_root"), args.pop("output_root")
     try:
-        result = getattr(PublicProfile(package_root, output_root), operation)(**args)
+        result = getattr(service_class(package_root, output_root), operation)(**args)
         print(encoded(result).decode(), end="")
         return 0  # Domain FAIL/PARTIAL is structured output, not a transport failure.
     except (PublicError, OSError) as exc:

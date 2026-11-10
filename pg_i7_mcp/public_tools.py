@@ -11,22 +11,24 @@ Page = Annotated[int, Field(ge=1, le=16000)]
 
 
 def register(server, service):
+    engineering = getattr(service, "profile", "") == "engineering-local-v1"
+    evidence = getattr(service, "profile", "") == "evidence-local-v1"
     readonly = ToolAnnotations(readOnlyHint=True, destructiveHint=False, openWorldHint=False)
     writing = ToolAnnotations(readOnlyHint=False, destructiveHint=False, idempotentHint=True, openWorldHint=False)
 
-    @server.tool(annotations=readonly, description="Discover public aggregate profile, registered sources, capabilities and exact limits. No historical execution or final authority.")
+    @server.tool(annotations=readonly, description=("Discover bounded static analysis and persistent evidence capabilities under this local manifest." if evidence else "Discover approved engineering projections, registered sources and exact limits. No historical execution or final authority." if engineering else "Discover public aggregate profile, registered sources, capabilities and exact limits. No historical execution or final authority."))
     def availability() -> dict[str, Any]:
         return service.availability()
 
-    @server.tool(annotations=readonly, description="List registered public packages, with explicit pagination. Does not register sources.")
+    @server.tool(annotations=readonly, description=("List registered engineering packages and synthetic markers with explicit pagination. Does not register sources." if engineering else "List registered public packages, with explicit pagination. Does not register sources."))
     def catalog(offset: Offset = 0, limit: Annotated[int, Field(ge=1, le=20)] = 10) -> dict[str, Any]:
         return service.catalog(offset, limit)
 
-    @server.tool(annotations=readonly, description="Consult one public package: historical declarations with selectors/hashes, current coverage and limits. No original tests or semantic regrade.")
+    @server.tool(annotations=writing if evidence else readonly, description=("Consult registered per-source properties and persistent synthetic evidence; no code execution or raw source exposure." if evidence else "Consult approved engineering scalars with selectors/hashes, current coverage and limits. Private bodies withheld; no original tests or semantic regrade." if engineering else "Consult one public package: historical declarations with selectors/hashes, current coverage and limits. No original tests or semantic regrade."))
     def query(package_id: Opaque) -> dict[str, Any]:
         return service.query(package_id)
 
-    @server.tool(annotations=readonly, description="Verify registered aggregate bytes and count consistency; obtain snapshot-bound receipt_id. Domain FAIL/PARTIAL remains a successful tool result.")
+    @server.tool(annotations=writing if evidence else readonly, description=("Verify selected source identities, explicit relations or static properties; initializes derived local memory when needed. No global code verdict." if evidence else "Verify registered engineering bytes and explicit scalar relations; obtain snapshot-bound receipt_id. Domain FAIL/PARTIAL remains a successful tool result." if engineering else "Verify registered aggregate bytes and count consistency; obtain snapshot-bound receipt_id. Domain FAIL/PARTIAL remains a successful tool result."))
     def verify(package_id: Opaque) -> dict[str, Any]:
         return service.verify(package_id)
 

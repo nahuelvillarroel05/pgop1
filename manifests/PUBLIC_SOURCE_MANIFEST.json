@@ -35,7 +35,7 @@
     {
       "path": "PUBLIC_PROFILE_MANIFEST.json",
       "bytes": 3537,
-      "sha256": "dbffacd1189c20bda00fc126549ce9f6ae080f51c761543aabd7f1c7cc9961e0"
+      "sha256": "595fe58ff487728dfe23e1204300c9ffa5df7bb4469ac3606722bbe2de2310bd"
     },
     {
       "path": "README.md",
@@ -89,8 +89,8 @@
     },
     {
       "path": "manifests/SOURCE_PROVENANCE.json",
-      "bytes": 13333,
-      "sha256": "4619eb5a866aa876f4a4ec746f5d5ec73d89a221cf06b62bacf9959f1d26b2f0"
+      "bytes": 18673,
+      "sha256": "26809a61b1ba018456f64a5a9b491bd53ef01995ead8b20fc09485ad6c613428"
     },
     {
       "path": "pg_i7_mcp/__init__.py",
@@ -99,13 +99,13 @@
     },
     {
       "path": "pg_i7_mcp/public_tools.py",
-      "bytes": 2691,
-      "sha256": "c8a97d64d53141b754a69147c639edf405c1c52a5079c98b3f3596e9eaea0d9e"
+      "bytes": 3945,
+      "sha256": "b5414f1145536609b8da9e0679a24412254d0b94deaca2ada86f486bd3291ecd"
     },
     {
       "path": "pg_i7_mcp/server.py",
-      "bytes": 13953,
-      "sha256": "483226ad864a16cdcee86f6aa97d183d7ed713a1d80100c46feae88b59e540de"
+      "bytes": 14516,
+      "sha256": "f148d5e85677b1d545866f28ff782924324f5fd6ea92e3f030673ac59d53f7bd"
     },
     {
       "path": "public_profile/README.md",
@@ -143,19 +143,39 @@
       "sha256": "1daf44ffb8ddae81b7be63c97648d5668d8b8d5e9829be3fe733245d48f37919"
     },
     {
+      "path": "runtime/candidate/context_engine.py",
+      "bytes": 32611,
+      "sha256": "21ce7dec011707d7119134714e8a540fb61d131613ae237d0ae0fac888403aee"
+    },
+    {
+      "path": "runtime/candidate/engineering_handoff.py",
+      "bytes": 16176,
+      "sha256": "ae46630f07d2b49debf8c9121c13f19e2e7b470d1ae8b3fa47d72d553f5e5242"
+    },
+    {
+      "path": "runtime/candidate/evidence_handoff.py",
+      "bytes": 32384,
+      "sha256": "a83d1be1eba9568f0afde023ffb2b038eac8b1055d76c6a7f4c1107d4cc117cb"
+    },
+    {
       "path": "runtime/candidate/i7_api.py",
-      "bytes": 41103,
-      "sha256": "904669b7aa289a944c8d262d9babc6b0651c79f8a337593db54cd1533462ab6d"
+      "bytes": 41532,
+      "sha256": "19dd0afe85b6881d752545bd5b6edbb9d1e702ca3257f3e15c2a500bb30e118c"
     },
     {
       "path": "runtime/candidate/pg_i7.py",
-      "bytes": 150422,
-      "sha256": "cf3cf8d03663380e3cf68e6145b917a9e942469c827cf6d342a4eeb0d9093021"
+      "bytes": 151965,
+      "sha256": "826143fd9e53be37b76184af3a4d1d02db60d165a39394ca7472181f2c4ae67d"
     },
     {
       "path": "runtime/candidate/public_handoff.py",
-      "bytes": 24880,
-      "sha256": "8d7107d9966dbf7792127ec4211eeed82e655f182a5f74ebace4b511dd6dd813"
+      "bytes": 26003,
+      "sha256": "e2fe9a1d88fc3c51b0123b08508176a39e2ae8683486a6902f21064704fa5814"
+    },
+    {
+      "path": "runtime/candidate/real_handoff.py",
+      "bytes": 14238,
+      "sha256": "8f40bda458a955bae872ea4cc8aedd6737c84cef51454b2022ad13d3145f1922"
     },
     {
       "path": "runtime/public_profile/CATALOG.json",
@@ -173,14 +193,39 @@
       "sha256": "d1f86755b9acd605cf9461a2ffc6df404580f452306c71fcf1cc1e369386445c"
     },
     {
+      "path": "tests/evidence_fixtures.py",
+      "bytes": 2402,
+      "sha256": "fb4c23aeddaa1161540df22673e3b82aec86916941259df6497563e8a9ed1c48"
+    },
+    {
       "path": "tests/test_distribution_audit.py",
       "bytes": 6182,
       "sha256": "97956877e0f220bd0c0cdc059630709e70a864829fec4e57cc148daa821229fe"
     },
     {
+      "path": "tests/test_engineering_handoff_v02.py",
+      "bytes": 15036,
+      "sha256": "f1f4ed56cada185e702ae335839cfb57bb8154550e62b10ee54cc0328e58f93e"
+    },
+    {
+      "path": "tests/test_evidence_handoff_v03.py",
+      "bytes": 8901,
+      "sha256": "ecc962b6d6957280fde0214a26ef2afa470ee2c7d075f489f27665e827fff78c"
+    },
+    {
+      "path": "tests/test_prepublication_v041.py",
+      "bytes": 6742,
+      "sha256": "594c9f844b9d7906d726ec2f91b4ef94e47bf4e2ec586cdb7a86a3a075c40c6b"
+    },
+    {
       "path": "tests/test_public_handoff_v0.py",
       "bytes": 17704,
       "sha256": "cd818d61a13f4bc1921e7e9889c5fcd68385a2f28026e2bae798887dc27d69c3"
+    },
+    {
+      "path": "tests/test_real_handoff_v04.py",
+      "bytes": 5425,
+      "sha256": "66ce8c1690270a75d2cda2cc680fc2c075807e8ff762616dcd4eb51ac0bcda7a"
     },
     {
       "path": "tools/audit_distribution.py",
@@ -198,9 +243,24 @@
       "sha256": "ca53508dc861c69ef4d479469852ddcef10d1f9d95e4fee0e591920059a08b1b"
     },
     {
+      "path": "tools/create_evidence_demo.py",
+      "bytes": 1377,
+      "sha256": "6abaae8b9d8d4165a31a353956b1ea397e742fe136b9ba43540c52456c38705a"
+    },
+    {
       "path": "tools/demo_public.py",
       "bytes": 1121,
       "sha256": "cbc3617bd9f62b1b0bfca7a52420c8bc60083da3ee4e6369b6c8e9e57afeaab3"
+    },
+    {
+      "path": "tools/test_engineering_mcp.py",
+      "bytes": 5582,
+      "sha256": "640355179ecf2db3bc143e309df1d319f7272cb4d79ec80fa5b44fc74ce3076b"
+    },
+    {
+      "path": "tools/test_evidence_mcp.py",
+      "bytes": 5638,
+      "sha256": "7aed1da52efb157e617d4692df3bcbf69c0f0a9dad71628f0d0ab401249a8cbc"
     },
     {
       "path": "tools/test_public_mcp.py",

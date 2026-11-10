@@ -22,6 +22,23 @@ from typing import Any
 
 sys.dont_write_bytecode = True
 
+# Prospective source evidence uses the existing six-operation dispatcher.
+if __name__ == '__main__' and sys.argv[1:3] == ['--profile', 'evidence-local']:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from candidate.evidence_handoff import profile_service as EvidenceProfile
+    from candidate.public_handoff import main as evidence_main
+    raise SystemExit(evidence_main(sys.argv[3:], service_class=EvidenceProfile))
+
+# Engineering uses the same six-operation CLI dispatcher before legacy discovery.
+if __name__ == "__main__" and sys.argv[1:3] == ["--profile", "engineering-local"]:
+    if __package__:
+        from .engineering_handoff import EngineeringProfile
+        from .public_handoff import main as profile_main
+    else:
+        from engineering_handoff import EngineeringProfile
+        from public_handoff import main as profile_main
+    raise SystemExit(profile_main(sys.argv[3:], service_class=EngineeringProfile))
+
 # Public CLI must not discover historical focused-workspace configuration.
 if __name__ == "__main__" and sys.argv[1:3] == ["--profile", "public"]:
     if __package__:
@@ -2324,6 +2341,16 @@ def _dispatch(args: argparse.Namespace) -> dict[str, Any]:
 def main(argv: list[str] | None = None) -> int:
     global ACTIVE_OUTPUT_DIR
     public_args = list(argv if argv is not None else sys.argv[1:])
+    if public_args[:2] == ['--profile', 'evidence-local']:
+        from candidate.evidence_handoff import profile_service as EvidenceProfile
+        from candidate.public_handoff import main as evidence_main
+        return evidence_main(public_args[2:], service_class=EvidenceProfile)
+
+    if public_args[:2] == ["--profile", "engineering-local"]:
+        from candidate.engineering_handoff import EngineeringProfile
+        from candidate.public_handoff import main as profile_main
+        return profile_main(public_args[2:], service_class=EngineeringProfile)
+
     if public_args[:2] == ["--profile", "public"]:
         if __package__:
             from .public_handoff import main as public_main

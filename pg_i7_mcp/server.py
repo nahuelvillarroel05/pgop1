@@ -186,18 +186,23 @@ _enforce_wire_arguments()
 def main() -> None:
     global _workspace
     parser = argparse.ArgumentParser()
-    parser.add_argument("--profile", choices=("legacy", "public"), default="legacy")
+    parser.add_argument("--profile", choices=("legacy", "public", "engineering-local", "evidence-local"), default="legacy")
     parser.add_argument("--package-root", type=Path, help="Public profile setup only: registered catalog root")
     parser.add_argument("--output-root", type=Path, help="Public profile setup only: report output root")
     parser.add_argument("--workspace-id", help="Opaque workspace id; stored beneath this campaign's workspaces directory")
     parser.add_argument("--initialize-workspace", action="store_true", help="Create/bind a fresh producer workspace; omit for read-only attachment to an existing workspace")
     args = parser.parse_args()
-    if args.profile == "public":
+    if args.profile in ("public", "engineering-local", "evidence-local"):
         if args.workspace_id or args.initialize_workspace:
             parser.error("Public profile does not initialize or attach producer workspaces")
         from pg_i7_mcp.public_tools import register
-        public_server = MCPServer("package-g-public-handoff-v1")
-        register(public_server, i7_api.public_profile(package_root=args.package_root, output_root=args.output_root))
+        engineering = args.profile == "engineering-local"
+        evidence = args.profile == 'evidence-local'
+        public_server = MCPServer('pgop1_evidence' if evidence else 'pgop1_engineering' if engineering else 'package-g-public-handoff-v1')
+        if (engineering or evidence) and (args.package_root is None or args.output_root is None):
+            parser.error("Engineering requires explicit trusted package/output roots")
+        factory = i7_api.evidence_profile if evidence else i7_api.engineering_profile if engineering else i7_api.public_profile
+        register(public_server, factory(package_root=args.package_root, output_root=args.output_root))
         _enforce_wire_arguments(public_server, redact_io=True)
         public_server.run(transport="stdio")
         return
