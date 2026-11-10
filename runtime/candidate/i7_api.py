@@ -36,6 +36,12 @@ def evidence_profile(*, package_root, output_root):
     return profile_service(package_root, output_root)
 
 
+def source_audit_memory_v1(*, memory_root):
+    """Opt-in captured V2 report store; does not change the public profiles."""
+    from candidate.source_audit_memory_v1 import SourceAuditMemory
+    return SourceAuditMemory(memory_root)
+
+
 def _documents_policy(cli: Any):
     loader = getattr(cli, "_documents_policy_module", None)
     if not callable(loader):
