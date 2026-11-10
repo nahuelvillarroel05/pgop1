@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PGOP1 factual public report v1",
+  "type": "object",
+  "required": ["schema", "profile", "generator_version", "template_version", "report_id", "package_id", "generation", "historical_result", "historical_source", "verification", "metrics", "operations", "limitations", "continuity"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {"const": "pgop1.report.v1"},
+    "profile": {"const": "public-aggregate-v1"},
+    "generator_version": {"type": "string"},
+    "template_version": {"type": "string"},
+    "report_id": {"type": "string", "pattern": "^report-[0-9a-f]{40}$"},
+    "package_id": {"type": "string"},
+    "generation": {"const": "REPORT_GENERATED"},
+    "historical_result": {"type": "string"},
+    "historical_source": {"type": "object"},
+    "verification": {"type": "object", "required": ["status", "snapshot_id", "receipt_id", "sources", "checks", "coverage"]},
+    "metrics": {"type": "array", "items": {"type": "object", "required": ["name", "value", "denominator", "denominator_scope", "source"]}},
+    "operations": {"type": "object", "required": ["performed", "not_performed"]},
+    "limitations": {"type": "array", "items": {"type": "string"}},
+    "continuity": {"type": "object"}
+  }
+}

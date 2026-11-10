@@ -1,0 +1,9 @@
+# SETUP: replace both placeholders with explicit local paths; preserve existing config.
+# Do not use this template unchanged. No global config or credential change required.
+[mcp_servers.pgop1_public]
+command = "REPLACE_WITH_VENV_PYTHON"
+args = ["-m", "pg_i7_mcp.server", "--profile", "public", "--output-root", "public-handoffs"]
+cwd = "REPLACE_WITH_EXTRACTED_ROOT"
+enabled_tools = ["availability", "catalog", "query", "verify", "generate", "read"]
+startup_timeout_sec = 20
+tool_timeout_sec = 30

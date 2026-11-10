@@ -1,0 +1,6 @@
+.venv/
+audit-output/
+public-handoffs/
+verification-output/
+__pycache__/
+*.pyc

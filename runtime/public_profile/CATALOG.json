@@ -1,0 +1,20 @@
+{
+  "schema": "pgop1.catalog.v1",
+  "profile": "public-aggregate-v1",
+  "identity": {
+    "version": "0.1.0",
+    "base_commit": "36e17fbfc2b49a4db8b60d313a1492097d0f347b",
+    "base_tree": "04bf55db2ca809127a1e395d7d5963ba1cddfac3",
+    "identity_scope": "Version and packaged manifest; no Git requirement"
+  },
+  "packages": {
+    "RUN012_PUBLIC": {
+      "format": "run012-aggregate-v1",
+      "summary": "run012/EXECUTION_RESULTS.json",
+      "files": {
+        "run012/EXECUTION_RESULTS.json": "f31146513e3dd89a66817844d3a8ae317024faebeb00198ddfb9f80ba2f26c9a",
+        "run012/HISTORICAL_MANIFEST.json": "d1f86755b9acd605cf9461a2ffc6df404580f452306c71fcf1cc1e369386445c"
+      }
+    }
+  }
+}

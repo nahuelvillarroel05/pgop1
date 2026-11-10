@@ -1,0 +1,242 @@
+{
+  "schema": "pgop1.provenance.v1",
+  "files": [
+    {
+      "path": "LICENSE",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "LICENSE",
+      "source_oid": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+      "source_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "transformation": "IDENTICAL_BYTES",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "pg_i7_mcp/__init__.py",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/pg_i7_mcp/__init__.py",
+      "source_oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "pg_i7_mcp/public_tools.py",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/pg_i7_mcp/public_tools.py",
+      "source_oid": "71de8ef04b2d90a22f1f9615a34901c85d892b03",
+      "source_sha256": "c8a97d64d53141b754a69147c639edf405c1c52a5079c98b3f3596e9eaea0d9e",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "pg_i7_mcp/server.py",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/pg_i7_mcp/server.py",
+      "source_oid": "18c0d95c15969826d6e608d56ddef80b9994de26",
+      "source_sha256": "483226ad864a16cdcee86f6aa97d183d7ed713a1d80100c46feae88b59e540de",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "public_profile/REPORT.schema.json",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/public_profile/REPORT.schema.json",
+      "source_oid": "80d249c1010d6606837e7f63ac774357751da4ec",
+      "source_sha256": "494523bd63890227a38887037b39c9add4a9439a4389d05eb47b8078311a2814",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "public_profile/config.example.toml",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/public_profile/config.example.toml",
+      "source_oid": "82a430c400e0246b218be732016856a3f7094878",
+      "source_sha256": "6f0852ebd5359776557e90ea2520b34f06e5294db46f7e188485ff0fff840692",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "public_profile/launch.cmd",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/public_profile/launch.cmd",
+      "source_oid": "587583d53999ab241402fd1773791a4de4cba4c9",
+      "source_sha256": "71555a7ee8d39c7f85c9716ad633ee99d25e05c34e0842db9792f982beec3001",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "public_profile/launch.ps1",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/public_profile/launch.ps1",
+      "source_oid": "8a2feec23ca533fb27d8050f0318d6568a45d51f",
+      "source_sha256": "d76bc1bdb4c939cf791340978b887f896a921b444d8cb282b5693f8ea7b76fdb",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "public_profile/launch.sh",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/public_profile/launch.sh",
+      "source_oid": "a5c6168207a5502b4ea38500421f150411f6f051",
+      "source_sha256": "8ade029dcd27730eedc063899cd125990bc6cfb77bb9d290be786b44d0b9aa02",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "public_profile/requirements.lock",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/public_profile/requirements.lock",
+      "source_oid": "3124cb083999bb2ce22741e3497f4f5087537b97",
+      "source_sha256": "1daf44ffb8ddae81b7be63c97648d5668d8b8d5e9829be3fe733245d48f37919",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "runtime/candidate/i7_api.py",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/runtime/candidate/i7_api.py",
+      "source_oid": "cb308196b34f7f6c8f15c2317bae14e7ac2fa1b1",
+      "source_sha256": "904669b7aa289a944c8d262d9babc6b0651c79f8a337593db54cd1533462ab6d",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "runtime/candidate/pg_i7.py",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/runtime/candidate/pg_i7.py",
+      "source_oid": "83e5c85de476e1ad3dd8a008250bbfa72ad22e64",
+      "source_sha256": "cf3cf8d03663380e3cf68e6145b917a9e942469c827cf6d342a4eeb0d9093021",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "runtime/candidate/public_handoff.py",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/runtime/candidate/public_handoff.py",
+      "source_oid": "a27bb385af1eb9c1b4c7de19d9cfbf6d1dc18973",
+      "source_sha256": "8d7107d9966dbf7792127ec4211eeed82e655f182a5f74ebace4b511dd6dd813",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "runtime/public_profile/CATALOG.json",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/runtime/public_profile/CATALOG.json",
+      "source_oid": "4c0a488d65fd2c45cedb4e2038e7309e41a368aa",
+      "source_sha256": "5266bfef1299e3a0b44ecc3ea97ee1d362c8486521da3081d582cd1f4e800e78",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "runtime/public_profile/run012/EXECUTION_RESULTS.json",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/runtime/public_profile/run012/EXECUTION_RESULTS.json",
+      "source_oid": "70a53e1f2b424770f1021fe3d23d0385a9350edb",
+      "source_sha256": "f31146513e3dd89a66817844d3a8ae317024faebeb00198ddfb9f80ba2f26c9a",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "runtime/public_profile/run012/HISTORICAL_MANIFEST.json",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/runtime/public_profile/run012/HISTORICAL_MANIFEST.json",
+      "source_oid": "80fbf964e0fcd8830a7950bae2e9fd5697b1c4b4",
+      "source_sha256": "d1f86755b9acd605cf9461a2ffc6df404580f452306c71fcf1cc1e369386445c",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "tests/test_public_handoff_v0.py",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/tests/test_public_handoff_v0.py",
+      "source_oid": "29b62f73c70a1c23b5d4a4dc89ca2564d98ff0c7",
+      "source_sha256": "cd818d61a13f4bc1921e7e9889c5fcd68385a2f28026e2bae798887dc27d69c3",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "tools/build_public_profile.py",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/tools/build_public_profile.py",
+      "source_oid": "a8f829c93e3c25f1000dc500d98b8b4eefcb742c",
+      "source_sha256": "ca53508dc861c69ef4d479469852ddcef10d1f9d95e4fee0e591920059a08b1b",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "tools/test_public_mcp.py",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/tools/test_public_mcp.py",
+      "source_oid": "ff891e426dced0c56c4a0c8f0e558c13e43ff7a6",
+      "source_sha256": "ec4b3b5dcdf30c776fa975bcf1372e840d3dd36c02b569a391124f484a2a4c07",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "tools/verify_public_profile.py",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/tools/verify_public_profile.py",
+      "source_oid": "9bde3e6a4855d09de56d83b3a272bf4cebce5115",
+      "source_sha256": "55c69c115e05d24705738fd194b2b144cc1e29f7a9ca51e46b7f34dc45381870",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
+    }
+  ],
+  "new_files": "All other manifest members are prospective distribution documentation, audit tools or controlled fixtures under Apache-2.0; no historical authorship claimed.",
+  "excluded": "Private archives, source bodies outside pinned selections, stores, transcripts, model data and historical Git excluded. Legacy producer dependencies and RUN013 runner excluded; legacy profile unavailable. Git Governance E1 adapter unavailable: not admitted in the specified candidates.",
+  "adaptations": [
+    {
+      "path": "public_profile/README.md",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/public_profile/README.md",
+      "source_oid": "f25788c4bae087b5b85dd3d238f50b30723ce0d7",
+      "source_sha256": "b0fa655954a651344ae6cbde1881474348930bdf626a2a0bd98cd2f0aadbcd5d",
+      "current_sha256": "f8d424309173110c9e799538d4e48adff4da040aff409d4cdef726b614dea1f2",
+      "transformation": "Replace historical usage text with PGOP1 distribution guide; no runtime change",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "NOTICE",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "NOTICE",
+      "source_oid": "72e82238f41a7b17d02b3c8f432c7437874ac21b",
+      "source_sha256": "7ed69a7037e1cb04ef7f0252bb14fbe7d5da371ea5079b02f42e20fb4d1e91e9",
+      "current_sha256": "48973e91f0616bd1aa1412adf845dd49f98e694b34544424216dc55a64f48d8c",
+      "transformation": "Retain Apache and no new authorship notices; replace broad historical core inventory with exact selected-scope notice",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "PUBLIC_PROFILE_MANIFEST.json",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/PUBLIC_PROFILE_MANIFEST.json",
+      "source_oid": "508ece0768789097a740e0885be5de5b9bf967b9",
+      "source_sha256": "5879e03653fa61cf6bf7082898593f545c2cca8706545cb9e106c3872585a3f6",
+      "current_sha256": "dbffacd1189c20bda00fc126549ce9f6ae080f51c761543aabd7f1c7cc9961e0",
+      "transformation": "Deterministically regenerate files map for current R1 compatibility subset; preserve historical identity metadata",
+      "license": "Apache-2.0"
+    }
+  ]
+}
