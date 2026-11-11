@@ -62,3 +62,20 @@ para contratos, preparación de fuentes autorizadas y comandos reproducibles.
 La [memoria de informes V2 capturados](SOURCE_AUDIT_MEMORY_V1.md) tiene API y CLI
 opt-in separadas y un verificador de almacenamiento independiente. No amplía los
 seis nombres del MCP público. Ver también [diagnóstico Windows](WINDOWS_SETUP.md).
+
+
+## Code-only E3 (opt-in, Windows)
+
+See [code-only claims](CODE_ONLY_CLAIMS.md) and [static module resolution](STATIC_MODULE_RESOLUTION.md).
+Tested separate-process CLI commands from the checkout, using the existing virtual environment:
+
+```text
+.venv\Scripts\python.exe -B tools/code_only_v1.py analyze --source-root ABSOLUTE_SOURCE_ROOT --catalog ABSOLUTE_CATALOG --catalog-sha256 EXTERNAL_SHA256 --output NEW_DISJOINT_DIRECTORY
+.venv\Scripts\python.exe -B tools/code_only_v1.py query --artifacts ABSOLUTE_BUNDLE --catalog-sha256 EXTERNAL_SHA256 --kind claims --offset 0 --limit 7
+.venv\Scripts\python.exe -B tools/verify_code_only_v1.py --artifacts ABSOLUTE_BUNDLE --catalog-sha256 EXTERNAL_SHA256
+```
+
+Replace placeholders with caller-authorized pins/paths. Analyze errors exit2; verifier errors exit1.
+REJECTED is a query admission result, distinct from INSUFFICIENT_EVIDENCE. Full bundle verification precedes pagination.
+MEMORY_INTEGRATION=DEFERRED; six public MCP names unchanged; no target source execution.
+SOURCE_CURRENT_AT_ACK and ARTIFACT_CURRENT_AT_ACK remain NOT_PROVEN.
