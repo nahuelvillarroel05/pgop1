@@ -39,23 +39,28 @@
     },
     {
       "path": "README.md",
-      "bytes": 3036,
-      "sha256": "91f16e3c1ae134e553b8906a9cb308c4f47d126397bb69e7b4d75eba21f58319"
+      "bytes": 4136,
+      "sha256": "774d35de732b3f5599902b5b425d3418f17f2fff4aa711829b3420e8476d2d6d"
     },
     {
       "path": "docs/ARCHITECTURE.md",
-      "bytes": 909,
-      "sha256": "d0e7ecc8379db0e6c7fac371b163464d65359ac9d92d397a39ab4d0fae94f6b5"
+      "bytes": 976,
+      "sha256": "4ca59561abaed50349d39d35d9d414d9851383ddf073e4fdfe87a1890c0f222f"
     },
     {
       "path": "docs/AUDIT.md",
-      "bytes": 3828,
-      "sha256": "41fbe013714b00dcf014f8863bc0b5369c37e72cd797487f41a14012752a5a3e"
+      "bytes": 7073,
+      "sha256": "ce8c7945a4ea850999b5da721b395681a9287aa9dc449b2dcbf1523c8c8c6d3d"
+    },
+    {
+      "path": "docs/DEMO.md",
+      "bytes": 2209,
+      "sha256": "42690c982ebe7c01d0ac7e154f69945062a1270cfe15ce4b861a5146486caa50"
     },
     {
       "path": "docs/HISTORY.md",
-      "bytes": 797,
-      "sha256": "a5438339a04b9a5549462f9a0c3bc92dd965a2792683a2bdd054466c40a266c5"
+      "bytes": 1256,
+      "sha256": "e51ac9f15369772093010ee47d57599d1c7d5459bd6b3dda69c0417ac9876980"
     },
     {
       "path": "docs/LIMITATIONS.md",
@@ -84,8 +89,8 @@
     },
     {
       "path": "examples/source-audit-synthetic/README.md",
-      "bytes": 583,
-      "sha256": "b82b938631330c4693311c373e17f5f0bcd61527b214288aea9bb1aa3bf50e2c"
+      "bytes": 808,
+      "sha256": "11c6064796bc7e132845dace212c9f00faa5a761959a0df2fa8639400628fa31"
     },
     {
       "path": "manifests/SOURCE_PROVENANCE.json",
@@ -183,14 +188,24 @@
       "sha256": "cd818d61a13f4bc1921e7e9889c5fcd68385a2f28026e2bae798887dc27d69c3"
     },
     {
+      "path": "tests/test_release_audit.py",
+      "bytes": 9303,
+      "sha256": "c1dffa98a41329fa555e527199c3370e3d7a322957077fa6dee1b28a90e9c7fd"
+    },
+    {
       "path": "tools/audit_distribution.py",
       "bytes": 12959,
       "sha256": "74de9a393f1a10320155ba52e6d2608f40a352a43da414862b2b4279ba94d07f"
     },
     {
       "path": "tools/audit_public.py",
-      "bytes": 3645,
-      "sha256": "03f4bc001fae902020da152a1e75923fce94b12233543fa8ad6761b6dc720bac"
+      "bytes": 4960,
+      "sha256": "ca9384c2b3e5c5017be2517f13db5fb4114f380967e4945d5c76849a4919397d"
+    },
+    {
+      "path": "tools/audit_release.py",
+      "bytes": 9088,
+      "sha256": "23394466bd47ae75aa80387e3dff0a81a7c401f25ecb17feae1cac84a20af1b2"
     },
     {
       "path": "tools/build_public_profile.py",
