@@ -1,90 +1,84 @@
-# PGOP1
+# pgopcore
 
-PGOP1 verifica vínculos entre evidencia, conserva memoria de consultas y genera
-informes de auditoría estructural. Sus interfaces CLI y MCP usan el mismo backend.
-La rama `main` ofrece el perfil de agregados públicos; `experiment` añade memoria
-multifuente y análisis estático de fuentes autorizadas.
+Este repositorio contiene el prototipo de código abierto de **pgopcore**,
+desarrollado y coordinado por Nahuel Villarroel. Permite consultar evidencia
+identificada y generar informes trazables mediante CLI, API Python y MCP.
+La entrega basada en `main` recibe
+agregados JSON registrados, comprueba sus hashes y consistencia acotada, y produce
+`REPORT.json`, `FINAL_HANDOFF.md` y recibos recuperables con paginación.
 
-## Inicio en tres pasos
+[Sitio oficial](https://pgopcore.com) · [nahuel@pgopcore.com](mailto:nahuel@pgopcore.com)
 
-Requisitos: Git y Python 3.14. Instalá desde un clon completo con ambas ramas;
-[auditoría desde cero](docs/AUDIT.md) explica cómo preparar sus referencias.
+`PGOP1`/`pgop1` es el identificador técnico e histórico de este repositorio.
+La identidad pública actual es `pgopcore`.
 
-**1. Instalá** en un entorno virtual nuevo, desde la raíz del clon.
+La hipótesis de usuario son equipos que necesitan revisar qué fuentes respaldan
+el trabajo de un agente y conservar sus límites junto al resultado. Esa necesidad
+comercial todavía no está validada con clientes. El desarrollo experimental añade
+lectura de fuentes autorizadas y contraste de determinadas afirmaciones estáticas.
 
-PowerShell y CMD:
+| Estado | Alcance |
+|---|---|
+| Disponible en esta entrega de `main` | Consulta, integridad/consistencia de agregados públicos e informes locales. Auditoría independiente R2 del commit, árbol y checkout. |
+| Demostrable en `experiment` | Memoria de cuatro fuentes y contraste estático sintético, fijados a `1dca71b232d0c517a4379abeb3661e67caddea49`; [demo reproducible](docs/DEMO.md). |
+| Experimental en E8 | Desarrollo posterior en `feature/e8-windows-native-directory-enumeration-001`, observado en `ab93335ff3e843d154eeaaf48e05a281cde7b72e`; fuera de esta entrega, con calificación Windows parcial. |
+| Pendiente de medir | Beneficio comparativo en calidad, tiempo, tokens y coste; sin superioridad ni ahorro demostrado por esta entrega. |
+
+## Probar el perfil público
+
+Requisitos: Git, Python 3.14 y un clon completo. Desde la raíz de esta entrega,
+en PowerShell o CMD:
 
 ```bat
 python -m venv .venv
 .venv\Scripts\python.exe -m pip install -r public_profile/requirements.lock
-```
-
-Bash (Linux; ejecución pendiente en la preparación local):
-
-```bash
-python3 -m venv .venv
-.venv/bin/python -m pip install -r public_profile/requirements.lock
-```
-
-**2. Consultá** el [ejemplo R1](examples/public-r1/README.md).
-
-PowerShell y CMD:
-
-```bat
 .venv\Scripts\python.exe runtime/candidate/pg_i7.py --profile public --json query RUN012_PUBLIC
-```
-
-Bash:
-
-```bash
-.venv/bin/python runtime/candidate/pg_i7.py --profile public --json query RUN012_PUBLIC
-```
-
-**3. Generá y recuperá** `FINAL_HANDOFF.md` mediante el backend real.
-
-PowerShell y CMD:
-
-```bat
 .venv\Scripts\python.exe tools/demo_public.py
 ```
 
-Bash:
+La demo imprime la ruta del informe. Abrilo con un editor; junto a él quedan
+`REPORT.json`, `MANIFEST.json` y los recibos. [Ejemplo público](examples/public-r1/README.md).
+En Bash, los comandos equivalentes usan `python3 -m venv .venv` y
+`.venv/bin/python` en lugar de `.venv\Scripts\python.exe`. Linux no se ejecutó
+en la preparación de esta candidata; el lock incluye MCP 2.3.0.
 
-```bash
-.venv/bin/python tools/demo_public.py
+`RUN012_PUBLIC` contiene declaraciones históricas: leerlo no repite sus pruebas.
+Declara cero etiquetas independientes y métricas independientes no computables;
+sus decisiones no representan precisión del 100 %.
+
+## Verificar una entrega concreta
+
+Obtené el SHA completo esperado del recibo externo de la entrega, por un canal
+confiable. En PowerShell, sustituyendo el texto entre comillas por ese SHA:
+
+```powershell
+$ExpectedCommit = 'SHA_COMPLETO_DEL_RECIBO_EXTERNO'
+python tools/audit_release.py --expected-commit $ExpectedCommit --output audit-output/release-r2.json
 ```
 
-El comando imprime la ruta del informe; abrilo con tu editor. Junto a él quedan
-`REPORT.json`, `MANIFEST.json` y los recibos de solicitud y finalización.
-Los agregados incluidos son declaraciones históricas: no se vuelven a ejecutar.
+Este control sólo requiere Python estándar y Git. R2 verifica el árbol completo,
+el manifiesto y el checkout frente al commit fijado. Permite otras referencias,
+como E8, fuera de su alcance: no certifica todo el historial ni todos los objetos.
+No obtengas el ancla esperada del mismo checkout que pretendés autenticar.
 
-## Herramientas
+Para añadir pruebas, CLI/API y MCP real, con el Python del venv y el mismo SHA:
 
-| Herramienta | Acceso directo |
-|---|---|
-| Disponibilidad y catálogo | [availability / catalog](docs/TOOLS.md#consultar) |
-| Consulta y verificación | [query / verify](docs/TOOLS.md#consultar) |
-| Generar y leer informes | [generate / read](docs/TOOLS.md#informes) |
-| Servidor MCP local, stdio | [iniciar MCP](docs/TOOLS.md#mcp) |
-| Memoria y auditoría de código sintético | [ejemplos de experiment](examples/source-audit-synthetic/README.md) |
-| Integridad de archivos e historia Git completa | [auditoría pública](docs/AUDIT.md) |
-
-## Auditar en un comando
-
-Desde un clon con las dos ramas locales:
-
-```text
-python tools/audit_public.py
+```powershell
+.venv\Scripts\python.exe tools/audit_public.py --contract release-r2 --expected-commit $ExpectedCommit
 ```
 
-Ejecuta el verificador separado, pruebas y operaciones CLI/API/MCP reales.
-Los comandos, versiones, exit codes e inventario de todos los objetos Git quedan
-en una carpeta nueva bajo `audit-output/`. Requiere las dependencias instaladas:
-usá el Python del entorno virtual (o activalo antes).
+El recibo de integridad y los resultados de pruebas son controles distintos.
+Una dependencia ausente conserva el fallo de la comprobación afectada.
+[Contrato R2 y auditoría histórica R1](docs/AUDIT.md).
 
-Generar un informe no aprueba una tarea; hashes no autentican al productor y
-análisis estático no demuestra corrección funcional. [Límites](docs/LIMITATIONS.md).
+## Interpretar los informes
 
-[Herramientas](docs/TOOLS.md) · [Auditoría](docs/AUDIT.md) ·
+La integridad de una fuente y el estado de una afirmación son cosas distintas:
+una demo puede tener integridad `PASS` y una afirmación `CONTRADICTED`.
+`UNKNOWN` e `INSUFFICIENT_EVIDENCE` conservan lo que no se pudo establecer.
+Un informe generado no aprueba una tarea; un hash no autentica al productor y
+una propiedad sintáctica no demuestra corrección funcional. [Límites](docs/LIMITATIONS.md).
+
+[CLI/API/MCP](docs/TOOLS.md) · [Demo experimental](docs/DEMO.md) ·
 [Arquitectura](docs/ARCHITECTURE.md) · [Procedencia](docs/PROVENANCE.md) ·
 [Historia](docs/HISTORY.md) · [Licencia Apache-2.0](LICENSE)

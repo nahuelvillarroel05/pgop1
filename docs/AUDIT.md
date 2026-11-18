@@ -1,68 +1,121 @@
-# Auditoría pública desde cero
+# Auditoría de distribución
 
-Obtené este repositorio nuevo completo, nunca con --depth ni --filter.
-Para la entrega local: `git clone --no-local --no-hardlinks RUTA_GIT_NUEVO pgop1`.
-RUTA_GIT_NUEVO es la ubicación entregada por el Owner; no un dato privado necesario
-para ejecutar el producto. Para publicación futura usá la URL que autorice el Owner.
-Un ZIP de fuentes no contiene historia: obtené también el Git bundle de entrega
-o un clon completo. No se requiere Engineering privado.
+## R2: una entrega fijada, en un clon ordinario
 
-Entrá al clon y materializá ambas ramas locales antes de auditar:
+`tools/audit_release.py` implementa **PGOP1_RELEASE_R2**, independiente del productor,
+con biblioteca estándar y Git. R1 permanece en `tools/audit_distribution.py` sin
+modificar. La selección no cambia automáticamente cuando una comprobación falla.
 
-```text
-git branch --no-track experiment origin/experiment
-git switch main
-```
-
-Si clonaste `--branch experiment`, creá `main` desde `origin/main` en su lugar.
-No ejecutes el comando de creación si la rama local ya existe.
-Instalá en un venv nuevo con los comandos del README y usá ese Python:
+Cloná sin `--depth` ni `--filter`, usando un directorio nuevo:
 
 ```text
-python tools/audit_public.py
+git clone --no-hardlinks https://github.com/nahuelvillarroel05/pgop1.git pgop1-release
+cd pgop1-release
 ```
 
-La salida audit-output/UUID incluye versiones de Python/SO/dependencias, comandos,
-exit codes, stdout/stderr, TEST_RESULTS.json, HISTORY_GRAPH_AND_OBJECTS.json,
-MCP_TRACE.json y el handoff generado con sus vínculos verificados por un programa
-separado. Sólo se ejecutan herramientas y tests de esta distribución; los módulos
-objeto del análisis estático son datos inertes. El test de enlaces que requiere
-POSIX se omite en Windows con motivo explícito; otras denegaciones se conservan.
-Linux integral no fue ejecutado en la preparación local (WSL denegado, Docker
-sin motor). No se afirma CI hospedado ni cliente Codex probado.
+Si el recibo identifica una candidata disponible sólo como repositorio local,
+usá `git clone --no-local --no-hardlinks RUTA_CANDIDATA pgop1-release`.
+Sustituí `RUTA_CANDIDATA` por la ubicación del repositorio entregado.
+Obtené el commit esperado del recibo externo, verificá su procedencia y seleccioná
+esa identidad. En PowerShell, desde el clon:
 
-El verificador independiente también puede ejecutarse solo (Python stdlib + Git):
+```powershell
+$ExpectedCommit = 'SHA_COMPLETO_DEL_RECIBO_EXTERNO'
+git switch --detach $ExpectedCommit
+python tools/audit_release.py --expected-commit $ExpectedCommit --output audit-output/release-r2.json
+```
+
+En Bash: `ExpectedCommit='SHA_COMPLETO_DEL_RECIBO_EXTERNO'`, seguido de
+`git switch --detach "$ExpectedCommit"` y
+`python3 tools/audit_release.py --expected-commit "$ExpectedCommit" --output audit-output/release-r2.json`.
+Los marcadores requieren el SHA real; no son comandos para ejecutar literalmente.
+El archivo de salida debe ser nuevo. Puede quedar fuera del clon o en una carpeta
+generada admitida, nunca sobre archivos auditados ni dentro de `.git`.
+
+### Contrato y cobertura
+
+- `--commit` (por defecto HEAD) se resuelve una sola vez a un OID inmutable.
+  `--expected-commit` es obligatorio, SHA-1 completo en minúsculas obtenido fuera
+  del árbol. `--expected-tree` permite además comprobar un árbol esperado.
+- Se comprueba el OID del commit seleccionado y de todos los trees/blobs de su
+  árbol, con tamaño, SHA-256, modo y tipo. El límite por cuerpo es 2.000.000 bytes.
+  No enlaces, reparse points ni submódulos entre miembros o almacenamiento Git.
+- El manifiesto `manifests/PUBLIC_SOURCE_MANIFEST.json`, esquema v1 conservado,
+  debe listar exactamente todos los archivos del árbol menos él mismo, por ruta
+  ordenada, tamaño y SHA-256. Duplicados, JSON no finito, rutas inseguras,
+  inventario incompleto y hashes inconsistentes fallan. También se preservan los
+  controles de procedencia del verificador independiente R1.
+- El manifiesto está vinculado por su blob Git al árbol esperado; su OID y hash
+  aparecen en el recibo externo. No intenta incluir su propio hash ni el SHA del
+  futuro commit. Todos los documentos, scripts y tests nuevos están inventariados.
+- El checkout completo, incluido el manifiesto, debe coincidir byte a byte y en
+  membresía con el árbol, y HEAD debe ser el commit fijado. Se contrastan modos
+  ejecutables en POSIX; en Windows ese control se marca NOT_APPLICABLE_WINDOWS.
+  No existe un éxito objects-only que oculte modificaciones del runtime.
+- Exclusiones de fuentes: sólo el propio manifiesto y los generados declarados
+  `.git`, `.venv`, `audit-output`, `public-handoffs`, `verification-output` y
+  `__pycache__` (este último también anidado). No se pueden incorporar archivos
+  de producto versionados bajo esos directorios para ocultarlos del inventario.
+  El entorno instalado y los caches excluidos no quedan certificados por R2.
+- Se exige almacenamiento Git autónomo, sin shallow/partial clone, alternates,
+  grafts, commondir externo, replacements ni enlaces duros en objects. Se comprueba
+  disponibilidad de ancestros; su contenido no se audita. Variables GIT heredadas
+  no redirigen las lecturas. Para el cierre usá `--no-local --no-hardlinks`.
+- Otras refs son admisibles y se enumeran como fuera de la auditoría de contenido.
+  R2 no certifica esas ramas, los objetos ajenos, todo el historial, licencias,
+  autenticidad del productor, seguridad o corrección semántica. Es una observación
+  puntual, sin bloqueo contra escrituras concurrentes o posteriores.
+
+La salida declara contrato, alcance, identidad observada/esperada, manifiesto,
+cobertura, objetos y controles NOT_RUN/NOT_PROVEN. Un fallo conserva exit 1 y su
+causa; argumentos inválidos reciben exit 2. Sin ancla confiable, un conjunto de
+código y manifiesto coherente no prueba autenticidad. Revisá también el verificador
+por un canal confiable antes de ejecutar código de un origen desconocido.
+
+### Pruebas e interfaces
+
+Instalá el lock del README con Python 3.14. Después, con el Python del venv:
+
+```powershell
+.venv\Scripts\python.exe tools/audit_public.py --contract release-r2 --expected-commit $ExpectedCommit
+```
+
+`audit-output/ID/TEST_RESULTS.json` conserva entorno, dependencias, comandos y
+exit codes. `INTEGRITY.json` es el control stdlib/Git; las pruebas unittest, CLI,
+API y MCP stdio real se ejecutan por separado y conservan stdout/stderr.
+`ARTIFACT_VERIFICATION.json` añade el control independiente del informe generado.
+Falta de SDK no es una auditoría completa aprobada. Windows y Linux se declaran
+separadamente; un test que requiere enlaces POSIX conserva su omisión en Windows.
+
+### Cierre sin circularidad
+
+Finalizá archivos; ejecutá `python tools/update_manifest.py`; revisá el diff y
+creá el commit local; anotá commit/árbol fuera del producto; cloná sin enlaces
+duros ni alternates y verificá R2 con ese anclaje. Guardá el recibo externo.
+Si cambia cualquier archivo, regenerá el manifiesto y repetí los controles
+invalidados con la nueva identidad. Integrar o publicar requiere una decisión
+posterior: la verificación de este candidato no verifica un futuro merge.
+
+## R1: contrato histórico congelado
+
+R1 comprueba dos ramas completas: `main` raíz y `experiment` único hijo directo.
+Rechaza refs/tags adicionales, objetos extras, historia parcial y almacenamiento
+externo. No se exige PASS de R1 sobre el clon moderno con E8. Su fallo
+`unexpected ref/tag` refleja el contrato de distribución, no un fallo del motor.
+
+Para obtener sólo la distribución histórica desde un directorio de trabajo nuevo
+(estos commits deben seguir disponibles en el servidor):
 
 ```text
-python tools/audit_distribution.py --output audit-output/integrity.json
+git init --initial-branch=r1-setup pgop1-r1
+git -C pgop1-r1 fetch --no-tags https://github.com/nahuelvillarroel05/pgop1.git 04d469c0ef8e4b59209e7903f040f6635044ca89:refs/heads/main 1dca71b232d0c517a4379abeb3661e67caddea49:refs/heads/experiment
+git -C pgop1-r1 switch main
+cd pgop1-r1
+python tools/audit_distribution.py --expected-main 04d469c0ef8e4b59209e7903f040f6635044ca89 --expected-experiment 1dca71b232d0c517a4379abeb3661e67caddea49 --output audit-output/r1.json
 ```
 
-Acepta `--expected-main SHA --expected-experiment SHA` y
-`--expected-inventory INVENTARIO_JSON` para comparar con identidades obtenidas
-por un canal confiable de entrega. Un atacante que sustituye código y manifiestos
-podría fabricar un conjunto coherente; sin ancla externa no se prueba autenticidad.
-Se revisan las dos ramas completas aunque el worktree esté en main.
-
-Contrato del manifiesto: todos los archivos de fuentes/documentación/pruebas,
-por ruta ordenada, bytes y SHA-256. Sólo se excluye el propio manifiesto y los
-directorios generados enumerados en su campo exclusions (más __pycache__ a cualquier
-nivel). Los excluidos no se auditan como fuentes. No hay exclusión genérica para
-archivos nuevos. No enlaces, reparse points ni submódulos entre miembros.
-El manifiesto y SOURCE_PROVENANCE son blobs vinculados por el tree Git; su propio
-OID/SHA-256 aparece en el inventario externo para evitar autorreferencia imposible.
-
-Historia admitida: main raíz sin padres y experiment único hijo directo. Sólo
-esas ramas y, en clones, refs origin/main, origin/experiment y origin/HEAD->main.
-Tags, refs adicionales, historia parcial, alternates, grafts y objetos locales
-extra fallan explícitamente. Se enumeran todos los commits/trees/blobs por rama,
-unión, modos, pertenencia, tamaños, OID Git SHA-1 y SHA-256 del contenido sin header.
-Se recalcula cada OID y se ejecuta git fsck --full --strict. OID no es SHA-256.
-
-Controles negativos incluyen manifestación incompleta/falsificada, cambios,
-faltantes, enlaces de escape, padre/ref/objeto extra, credencial simulada y objeto
-Git perdido; los tests del motor cubren IDs/JSON inválidos, lecturas cruzadas y
-artefactos truncados/obsoletos. Los intentos quedan en audit-output.
-La búsqueda automática de patrones no sustituye revisar manualmente TODOS los
-objetos y licencias. Revisá el inventario y `git cat-file TIPO OID` usando sólo
-sus OIDs fijados. Los dos commits fueron seleccionados y revisados, sin heredar
-el historial original. Consultá PROVENANCE e HISTORY.
+El wrapper histórico de esos commits se invoca sin argumentos. El wrapper nuevo
+expone `--contract historical-r1` explícito, pero no vuelve compatible con R1 un
+candidato que tenga otro grafo. No borres refs u objetos del clon moderno para
+ocultar el fallo. R1 conserva `--expected-inventory` y su revisión de todos los
+objetos; sus evidencias anteriores pertenecen exclusivamente a su distribución.
