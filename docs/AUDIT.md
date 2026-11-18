@@ -13,9 +13,9 @@ git clone --no-hardlinks https://github.com/nahuelvillarroel05/pgop1.git pgop1-r
 cd pgop1-release
 ```
 
-La candidata local todavía no está publicada. Para revisarla ahora, cloná el Git
-local entregado con `git clone --no-local --no-hardlinks RUTA_CANDIDATA pgop1-release`.
-`RUTA_CANDIDATA` es un parámetro de entrega, no una ruta privada necesaria del autor.
+Si el recibo identifica una candidata disponible sólo como repositorio local,
+usá `git clone --no-local --no-hardlinks RUTA_CANDIDATA pgop1-release`.
+Sustituí `RUTA_CANDIDATA` por la ubicación del repositorio entregado.
 Obtené el commit esperado del recibo externo, verificá su procedencia y seleccioná
 esa identidad. En PowerShell, desde el clon:
 
