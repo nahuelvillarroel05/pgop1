@@ -1,4 +1,4 @@
-# pgopcore
+# Pgopcore
 
 Este repositorio contiene el prototipo de código abierto de **pgopcore**,
 desarrollado y coordinado por Nahuel Villarroel. Permite consultar evidencia
