@@ -39,8 +39,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 4136,
-      "sha256": "774d35de732b3f5599902b5b425d3418f17f2fff4aa711829b3420e8476d2d6d"
+      "bytes": 4460,
+      "sha256": "353868e46c67c0b8f715fb0a3f1c97ed7d98781a34d9870f5dfa427c92edb0a6"
     },
     {
       "path": "docs/ARCHITECTURE.md",
@@ -49,8 +49,8 @@
     },
     {
       "path": "docs/AUDIT.md",
-      "bytes": 7073,
-      "sha256": "ce8c7945a4ea850999b5da721b395681a9287aa9dc449b2dcbf1523c8c8c6d3d"
+      "bytes": 7038,
+      "sha256": "fa054c664f319b95412b62de6bead34abc66afd7a0a2466ddd0518270c0ce5c6"
     },
     {
       "path": "docs/DEMO.md",

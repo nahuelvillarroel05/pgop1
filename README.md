@@ -1,9 +1,16 @@
-# PGOP1
+# pgopcore
 
-PGOP1 es un prototipo para consultar evidencia identificada y generar informes
-trazables mediante CLI, API Python y MCP. La entrega basada en `main` recibe
+Este repositorio contiene el prototipo de código abierto de **pgopcore**,
+desarrollado y coordinado por Nahuel Villarroel. Permite consultar evidencia
+identificada y generar informes trazables mediante CLI, API Python y MCP.
+La entrega basada en `main` recibe
 agregados JSON registrados, comprueba sus hashes y consistencia acotada, y produce
 `REPORT.json`, `FINAL_HANDOFF.md` y recibos recuperables con paginación.
+
+[Sitio oficial](https://pgopcore.com) · [nahuel@pgopcore.com](mailto:nahuel@pgopcore.com)
+
+`PGOP1`/`pgop1` es el identificador técnico e histórico de este repositorio.
+La identidad pública actual es `pgopcore`.
 
 La hipótesis de usuario son equipos que necesitan revisar qué fuentes respaldan
 el trabajo de un agente y conservar sus límites junto al resultado. Esa necesidad
