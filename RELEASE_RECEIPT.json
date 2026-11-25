@@ -55,6 +55,17 @@
   },
   "publication_review": {
     "binding": "External exact-commit and exact-tree receipts",
-    "contract": "docs/AUDIT.md"
+    "contract": "PGOP1_RELEASE_R2_WHEELS_V1",
+    "instructions": "docs/AUDIT.md#r2-con-wheels-aprobadas",
+    "external_pins": {
+      "artifact": "ANCLAS.json",
+      "sha256": "1ff248f909af22c51ec81d9e3e2f90d97281cbf86ef092a84b32cb3350f1b106"
+    },
+    "historical_r2": {
+      "status": "FAIL",
+      "commit": "45462439275f5917b91de965a3a49d529611c9f2",
+      "tree": "356e6675779ebb7cd08153f14c46c2b1664e0955",
+      "cause": "STRICT_UTF8_SCAN_OF_APPROVED_BINARY_WHEEL"
+    }
   }
 }

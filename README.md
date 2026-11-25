@@ -28,6 +28,6 @@ En Windows, la apertura instalada pasó de 966 a 850 ms de mediana (10 por versi
 
 Context Engine Local usa consentimiento del operador y revalida por archivo en el momento de la lectura. La custodia independiente sigue `NOT_PROVEN`. GATE_11 sigue bloqueado, I7 formal incompleto y Physical C2 `DEFERRED_NOT_WAIVED`. [Limitaciones](docs/LIMITATIONS.md)
 
-La [demo histórica](docs/DEMO.md) conserva sus requisitos, anclas y resultados. La rama [experiment](https://github.com/nahuelvillarroel05/pgop1/tree/experiment) conserva el motor experimental y describe la evolución del panel. El [recibo de versión](RELEASE_RECEIPT.json) fija el origen de compilación y los bytes distribuidos. La [auditoría R2](docs/AUDIT.md) verifica una entrega fijada con un ancla externa.
+La [demo histórica](docs/DEMO.md) conserva sus requisitos, anclas y resultados. La rama [experiment](https://github.com/nahuelvillarroel05/pgop1/tree/experiment) conserva el motor experimental y describe la evolución del panel. El [recibo de versión](RELEASE_RECEIPT.json) fija el origen de compilación y los bytes distribuidos. La [auditoría R2 para wheels aprobadas](docs/AUDIT.md#r2-con-wheels-aprobadas) verifica el commit, el árbol y la copia de la entrega con anclas externas.
 
 [Sitio oficial](https://pgopcore.com/) · [Repositorio](https://github.com/nahuelvillarroel05/pgop1) · [Arquitectura](docs/ARCHITECTURE.md) · [Procedencia y avisos](docs/PROVENANCE.md) · [Apache-2.0 del núcleo](LICENSE)

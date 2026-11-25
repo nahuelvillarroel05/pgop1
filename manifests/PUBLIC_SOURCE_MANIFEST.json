@@ -39,13 +39,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 3615,
-      "sha256": "da18af55da84f7620be77317add935aa619abc86d0a8b4960b4184ca1450284a"
+      "bytes": 3687,
+      "sha256": "f8358c911a82cc9240d48d6d0af055dec9194ae4573c3bf61f1629de4b3d2a8d"
     },
     {
       "path": "RELEASE_RECEIPT.json",
-      "bytes": 2083,
-      "sha256": "4e95b2fd56ac62e55df8dd74ab96df6fe7334fc1b6ca77dcc4828453dd83665b"
+      "bytes": 2534,
+      "sha256": "954909e8dd92299990804c1f44eb9a8804292557fd0eb86008ab046b2489fdd7"
     },
     {
       "path": "cli/pgopcore/__init__.py",
@@ -214,8 +214,8 @@
     },
     {
       "path": "docs/AUDIT.md",
-      "bytes": 7264,
-      "sha256": "91f0ca6cbee4c080046520b900ac201f841d21eaf9820b91a149f1ba672b6f8d"
+      "bytes": 9988,
+      "sha256": "a4de0338ed72ab8acb17bd1fce4b8e94422d67745422b08f785887b69228aa02"
     },
     {
       "path": "docs/CLI.md",
@@ -244,8 +244,8 @@
     },
     {
       "path": "docs/LIMITATIONS.md",
-      "bytes": 2563,
-      "sha256": "d0b0e674d8ad801050e37eab0b33dca68f987096e3413010fd6916548c771fe2"
+      "bytes": 2647,
+      "sha256": "d8f7c634d3c8bb072537144ba58692bccc5a60d70f67e347f6ac7cb91e23bd50"
     },
     {
       "path": "docs/PROVENANCE.md",
@@ -284,8 +284,8 @@
     },
     {
       "path": "manifests/SOURCE_PROVENANCE.json",
-      "bytes": 26694,
-      "sha256": "af90e9f3c2670e20f433333bd63db9953a7c7da7cd4e8d465ac30633e4260aef"
+      "bytes": 30794,
+      "sha256": "6f70e1efbdf04fcf6b5bb0120e23771eda0eb3c858a0d8e9e04b998051aee0cc"
     },
     {
       "path": "pg_i7_mcp/__init__.py",
@@ -573,6 +573,11 @@
       "sha256": "c1dffa98a41329fa555e527199c3370e3d7a322957077fa6dee1b28a90e9c7fd"
     },
     {
+      "path": "tests/test_release_audit_wheels.py",
+      "bytes": 9814,
+      "sha256": "9c058eea485b20d7552b911b543501b7241537bf8e945cafc54b48b92f9f4022"
+    },
+    {
       "path": "tests/test_user_first.py",
       "bytes": 3103,
       "sha256": "b33e2b0b9712898fe2903ea301a2f35475938277ee4eedbe422926d72fe5c3bf"
@@ -608,6 +613,11 @@
       "sha256": "23394466bd47ae75aa80387e3dff0a81a7c401f25ecb17feae1cac84a20af1b2"
     },
     {
+      "path": "tools/audit_release_wheels.py",
+      "bytes": 9094,
+      "sha256": "4d22e78dabe8fc1892cfead8dd1322de5a6a3f037b820e293791a1c7acc3fda3"
+    },
+    {
       "path": "tools/build_public_profile.py",
       "bytes": 2048,
       "sha256": "ca53508dc861c69ef4d479469852ddcef10d1f9d95e4fee0e591920059a08b1b"
@@ -616,6 +626,11 @@
       "path": "tools/demo_public.py",
       "bytes": 1121,
       "sha256": "cbc3617bd9f62b1b0bfca7a52420c8bc60083da3ee4e6369b6c8e9e57afeaab3"
+    },
+    {
+      "path": "tools/release_wheel_review.py",
+      "bytes": 6237,
+      "sha256": "c05cc2d6c3135ed861777800eb70d075906f9aac1bc7730f884b4d305177ab7f"
     },
     {
       "path": "tools/test_public_mcp.py",

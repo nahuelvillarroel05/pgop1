@@ -333,17 +333,6 @@
       "current_sha256": "fef9642066f0efb285ff35c1f95bb8a9a720645bdc668714df42a28229595da6"
     },
     {
-      "path": "README.md",
-      "source_commit": "2c511e13b749261adf92a494885bf852b986ab09",
-      "source_tree": "5d36db54ac20af9414decd242f8041df63f4fdb0",
-      "source_path": "README.md",
-      "source_oid": "fa8927d7a36c92dc269553ec8a1a5727bc2decb2",
-      "source_sha256": "83b35cc4fff5550798e581f7121899d6b12e405606c23e0a6908ad15879ff91d",
-      "current_sha256": "da18af55da84f7620be77317add935aa619abc86d0a8b4960b4184ca1450284a",
-      "transformation": "Publication documentation or notice; runtime unchanged",
-      "license": "Apache-2.0"
-    },
-    {
       "path": "NOTICE",
       "source_commit": "2c511e13b749261adf92a494885bf852b986ab09",
       "source_tree": "5d36db54ac20af9414decd242f8041df63f4fdb0",
@@ -399,17 +388,6 @@
       "license": "Apache-2.0"
     },
     {
-      "path": "docs/LIMITATIONS.md",
-      "source_commit": "2c511e13b749261adf92a494885bf852b986ab09",
-      "source_tree": "5d36db54ac20af9414decd242f8041df63f4fdb0",
-      "source_path": "docs/LIMITATIONS.md",
-      "source_oid": "09ec98cc2175e959ba7a687f524670fe3756af22",
-      "source_sha256": "2aee41979e5bacfa86ab6bf7cd5fad312fb795ff14791f5c4986083993cb6c1a",
-      "current_sha256": "d0b0e674d8ad801050e37eab0b33dca68f987096e3413010fd6916548c771fe2",
-      "transformation": "Publication documentation or notice; runtime unchanged",
-      "license": "Apache-2.0"
-    },
-    {
       "path": "docs/PROVENANCE.md",
       "source_commit": "2c511e13b749261adf92a494885bf852b986ab09",
       "source_tree": "5d36db54ac20af9414decd242f8041df63f4fdb0",
@@ -429,6 +407,83 @@
       "source_sha256": "27c1e52f24e31c08a909663d155dd095864f285b05a794d05c5b886d578b2664",
       "current_sha256": "7751623be1d39a3e6cddda9a5b18f28c56daade661a2047f193084707afb795b",
       "transformation": "Publication documentation or notice; runtime unchanged",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "README.md",
+      "source_commit": "45462439275f5917b91de965a3a49d529611c9f2",
+      "source_tree": "356e6675779ebb7cd08153f14c46c2b1664e0955",
+      "source_path": "README.md",
+      "source_oid": "f969743caa1338db36f5dde9ea5fb17e183d6b86",
+      "source_sha256": "da18af55da84f7620be77317add935aa619abc86d0a8b4960b4184ca1450284a",
+      "current_sha256": "f8358c911a82cc9240d48d6d0af055dec9194ae4573c3bf61f1629de4b3d2a8d",
+      "transformation": "Versioned distribution audit or documentation binding for a12.post3",
+      "license": "Apache-2.0",
+      "previous_provenance": {
+        "path": "README.md",
+        "source_commit": "2c511e13b749261adf92a494885bf852b986ab09",
+        "source_tree": "5d36db54ac20af9414decd242f8041df63f4fdb0",
+        "source_path": "README.md",
+        "source_oid": "fa8927d7a36c92dc269553ec8a1a5727bc2decb2",
+        "source_sha256": "83b35cc4fff5550798e581f7121899d6b12e405606c23e0a6908ad15879ff91d",
+        "current_sha256": "da18af55da84f7620be77317add935aa619abc86d0a8b4960b4184ca1450284a",
+        "transformation": "Publication documentation or notice; runtime unchanged",
+        "license": "Apache-2.0"
+      }
+    },
+    {
+      "path": "docs/AUDIT.md",
+      "source_commit": "45462439275f5917b91de965a3a49d529611c9f2",
+      "source_tree": "356e6675779ebb7cd08153f14c46c2b1664e0955",
+      "source_path": "docs/AUDIT.md",
+      "source_oid": "69acc2ab9d4940854c22d7a6ff6c588dc3e67053",
+      "source_sha256": "91f0ca6cbee4c080046520b900ac201f841d21eaf9820b91a149f1ba672b6f8d",
+      "current_sha256": "a4de0338ed72ab8acb17bd1fce4b8e94422d67745422b08f785887b69228aa02",
+      "transformation": "Versioned distribution audit or documentation binding for a12.post3",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "docs/LIMITATIONS.md",
+      "source_commit": "45462439275f5917b91de965a3a49d529611c9f2",
+      "source_tree": "356e6675779ebb7cd08153f14c46c2b1664e0955",
+      "source_path": "docs/LIMITATIONS.md",
+      "source_oid": "57127eff6acbcaf30a2c8b7d4cba583029edc5af",
+      "source_sha256": "d0b0e674d8ad801050e37eab0b33dca68f987096e3413010fd6916548c771fe2",
+      "current_sha256": "d8f7c634d3c8bb072537144ba58692bccc5a60d70f67e347f6ac7cb91e23bd50",
+      "transformation": "Versioned distribution audit or documentation binding for a12.post3",
+      "license": "Apache-2.0",
+      "previous_provenance": {
+        "path": "docs/LIMITATIONS.md",
+        "source_commit": "2c511e13b749261adf92a494885bf852b986ab09",
+        "source_tree": "5d36db54ac20af9414decd242f8041df63f4fdb0",
+        "source_path": "docs/LIMITATIONS.md",
+        "source_oid": "09ec98cc2175e959ba7a687f524670fe3756af22",
+        "source_sha256": "2aee41979e5bacfa86ab6bf7cd5fad312fb795ff14791f5c4986083993cb6c1a",
+        "current_sha256": "d0b0e674d8ad801050e37eab0b33dca68f987096e3413010fd6916548c771fe2",
+        "transformation": "Publication documentation or notice; runtime unchanged",
+        "license": "Apache-2.0"
+      }
+    },
+    {
+      "path": "RELEASE_RECEIPT.json",
+      "source_commit": "45462439275f5917b91de965a3a49d529611c9f2",
+      "source_tree": "356e6675779ebb7cd08153f14c46c2b1664e0955",
+      "source_path": "RELEASE_RECEIPT.json",
+      "source_oid": "1ef875aa5a125c34b976133eeed53fe29ef9be1b",
+      "source_sha256": "4e95b2fd56ac62e55df8dd74ab96df6fe7334fc1b6ca77dcc4828453dd83665b",
+      "current_sha256": "954909e8dd92299990804c1f44eb9a8804292557fd0eb86008ab046b2489fdd7",
+      "transformation": "Versioned distribution audit or documentation binding for a12.post3",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "tools/audit_release_wheels.py",
+      "source_commit": "45462439275f5917b91de965a3a49d529611c9f2",
+      "source_tree": "356e6675779ebb7cd08153f14c46c2b1664e0955",
+      "source_path": "tools/audit_release.py",
+      "source_oid": "a5e9690907916cc2e13cb80493226f91c43f1d2e",
+      "source_sha256": "23394466bd47ae75aa80387e3dff0a81a7c401f25ecb17feae1cac84a20af1b2",
+      "current_sha256": "4d22e78dabe8fc1892cfead8dd1322de5a6a3f037b820e293791a1c7acc3fda3",
+      "transformation": "Versioned distribution audit or documentation binding for a12.post3",
       "license": "Apache-2.0"
     }
   ],
@@ -479,6 +534,27 @@
       "member_pins": "ANCLAS match the distribution manifest plus its own pinned hash",
       "license_scope": "Core and kit scripts Apache-2.0. Presentation wheels retain their own licenses.",
       "presentation_license_ledger": "releases/windows/0.1.0a12.post3/PRESENTATION_DEPENDENCIES.json"
+    }
+  },
+  "release_audit_wheels_v1": {
+    "contract": "PGOP1_RELEASE_R2_WHEELS_V1",
+    "external_pins_sha256": "1ff248f909af22c51ec81d9e3e2f90d97281cbf86ef092a84b32cb3350f1b106",
+    "historical_scanner_sha256": "74de9a393f1a10320155ba52e6d2608f40a352a43da414862b2b4279ba94d07f",
+    "historical_r2_sha256": "23394466bd47ae75aa80387e3dff0a81a7c401f25ecb17feae1cac84a20af1b2",
+    "reference": {
+      "artifact": "PGOP1_PUBLICATION_012_REMEDIATION_001_INSTRUCCIONES.zip",
+      "member": "wheel_review.py",
+      "sha256": "bd19a8b9dc7aa0c0f8fb10aec4b814acdac2d75e347d428a758ee11caf8cfb56"
+    },
+    "new_files": {
+      "tools/release_wheel_review.py": {
+        "sha256": "c05cc2d6c3135ed861777800eb70d075906f9aac1bc7730f884b4d305177ab7f",
+        "license": "Apache-2.0"
+      },
+      "tests/test_release_audit_wheels.py": {
+        "sha256": "9c058eea485b20d7552b911b543501b7241537bf8e945cafc54b48b92f9f4022",
+        "license": "Apache-2.0"
+      }
     }
   }
 }

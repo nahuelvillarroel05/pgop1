@@ -16,6 +16,6 @@
 - Los límites del AST legado pertenecen a ese perfil. El AST V2 del panel usa otro presupuesto. MCP se comprobó por stdio con procesos separados. Los demás clientes requieren su propia prueba.
 - Los perfiles distribuidos excluyen el productor legado, los evaluadores oficiales, el entrenamiento y el adaptador Git Governance E1. R1 y R2 tienen ámbitos distintos. [Auditoría](AUDIT.md)
 
-- R2 aplica un escaneo UTF-8 a todos los blobs. Las wheels binarias del kit impiden completar ese control con el auditor vigente. Su integridad se comprueba con las huellas fijadas y un cotejo separado de los miembros.
+- R2 histórico aplica un escaneo UTF-8 a todos los blobs. La preparación anterior de a12.post3 conserva su FAIL. El sucesor versionado coteja las diez wheels por ruta, OID y pin externo, e inspecciona su contenido de forma acotada. [Auditoría para wheels aprobadas](AUDIT.md#r2-con-wheels-aprobadas)
 
 GATE_11 sigue bloqueado, I7 formal incompleto y Physical C2 `DEFERRED_NOT_WAIVED`.

@@ -1,5 +1,25 @@
 # Auditoría de distribución
 
+## R2 con wheels aprobadas
+
+`tools/audit_release_wheels.py` implementa **PGOP1_RELEASE_R2_WHEELS_V1** para la entrega offline 0.1.0a12.post3. Conserva los controles R2 de almacenamiento autónomo, OID y SHA-256, árbol, manifiesto, procedencia, checkout, tipos, modos y privacidad. El límite de 2.000.000 bytes por cuerpo sigue vigente. La preparación `45462439275f5917b91de965a3a49d529611c9f2` conserva el FAIL de **PGOP1_RELEASE_R2** por aplicar UTF-8 a las wheels binarias. Los puntos de entrada y resultados históricos R1 y R2 mantienen su alcance.
+
+Obtené del expediente **PGOP1_PUBLICATION_012_FINAL_v002** la identidad de `main` en `PUBLICATION_PLAN.json` y el archivo externo `ANCLAS.json`. Cotejá la procedencia del expediente y el SHA-256 de `ANCLAS.json` por un canal confiable. El archivo aprobado tiene SHA-256 `1ff248f909af22c51ec81d9e3e2f90d97281cbf86ef092a84b32cb3350f1b106`; colocá el expediente fuera del checkout auditado. Seleccioná el checkout del commit fijado en un clon completo, sin alternates ni enlaces duros. Desde ese clon, en PowerShell, ajustá la ruta del expediente extraído:
+
+```powershell
+$Expediente = (Resolve-Path -LiteralPath '..\expediente-a12-post3').Path
+$Plan = Get-Content -LiteralPath (Join-Path $Expediente 'PUBLICATION_PLAN.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+$Pins = Join-Path $Expediente 'ANCLAS.json'
+git switch --detach $Plan.main_commit
+python -B tools/audit_release_wheels.py --expected-commit $Plan.main_commit --expected-tree $Plan.main_tree --wheel-pins $Pins --output audit-output/release-r2-wheels-v1.json
+```
+
+El sucesor exige las diez rutas aprobadas y rechaza cualquier alias de sus blobs. Coteja los pins externos, CRC, nombres, miembros y RECORD, incluidos los hashes y tamaños de las entradas. Usa el scanner UTF-8 histórico para los commits, demás blobs y contenido de wheels. Limita cada wheel a 1.000 miembros y a 16 MiB descomprimidos, con un máximo de 2.000.000 bytes por miembro. Inspecciona datos sin extraer, instalar ni ejecutar contenido.
+
+`platformdirs/windows.py` contiene un ejemplo de la carpeta pública de Windows. La excepción exige la ruta de wheel aprobada, su pin externo, el nombre exacto de miembro y el SHA-256 de miembro `9fac74e01b4944f912ff46bb2acb96199ed221a5c5dca11b5e8f7c633ced997a`. Solo se enmascara el ejemplo exacto de la línea 143 en la entrada temporal del scanner. Se conserva el resto del escaneo y los bytes originales.
+
+El recibo declara el contrato, el SHA-256 del pin externo, los resultados por wheel y cualquier excepción aplicable. La cobertura de objetos históricos ajenos al árbol seleccionado, autenticidad del productor y corrección semántica mantiene el alcance R2 descrito abajo.
+
 ## R2: una entrega fijada, en un clon ordinario
 
 `tools/audit_release.py` implementa **PGOP1_RELEASE_R2**, independiente del productor,
