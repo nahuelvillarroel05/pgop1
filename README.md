@@ -1,84 +1,33 @@
-# pgopcore
+# PGOPCore · alfa pública 0.1.0a12.post3
 
-Este repositorio contiene el prototipo de código abierto de **pgopcore**,
-desarrollado y coordinado por Nahuel Villarroel. Permite consultar evidencia
-identificada y generar informes trazables mediante CLI, API Python y MCP.
-La entrega basada en `main` recibe
-agregados JSON registrados, comprueba sus hashes y consistencia acotada, y produce
-`REPORT.json`, `FINAL_HANDOFF.md` y recibos recuperables con paginación.
+PGOPCore ayuda a encontrar, leer y volver a comprobar evidencia de un proyecto local. Podés buscar una cita, abrir su ubicación en el archivo, guardar referencias y exportar un informe con las fuentes y el alcance de la comprobación.
 
-[Sitio oficial](https://pgopcore.com) · [nahuel@pgopcore.com](mailto:nahuel@pgopcore.com)
+## Instalar y abrir en Windows
 
-`PGOP1`/`pgop1` es el identificador técnico e histórico de este repositorio.
-La identidad pública actual es `pgopcore`.
+La configuración probada es **Windows 10 x64 build 19045, NTFS local y Python 3.14** disponible mediante `py`. En GitHub, elegí **Code → Download ZIP** en `main` o cloná el repositorio. Copiá completa la carpeta [releases/windows/0.1.0a12.post3](releases/windows/0.1.0a12.post3/) a una carpeta local independiente. Abrí **pgop-panel.cmd** desde esa copia. La primera apertura instala las wheels incluidas en un entorno propio y offline.
 
-La hipótesis de usuario son equipos que necesitan revisar qué fuentes respaldan
-el trabajo de un agente y conservar sus límites junto al resultado. Esa necesidad
-comercial todavía no está validada con clientes. El desarrollo experimental añade
-lectura de fuentes autorizadas y contraste de determinadas afirmaciones estáticas.
+Usá `pgop-panel.cmd --plain` para la modalidad lineal. Para scripts y agentes, el mismo lanzador acepta subcomandos y salidas JSON. [Instalación](docs/WINDOWS_INSTALL.md) · [Referencia CLI](docs/CLI.md)
 
-| Estado | Alcance |
-|---|---|
-| Disponible en esta entrega de `main` | Consulta, integridad/consistencia de agregados públicos e informes locales. Auditoría independiente R2 del commit, árbol y checkout. |
-| Demostrable en `experiment` | Memoria de cuatro fuentes y contraste estático sintético, fijados a `1dca71b232d0c517a4379abeb3661e67caddea49`; [demo reproducible](docs/DEMO.md). |
-| Experimental en E8 | Desarrollo posterior en `feature/e8-windows-native-directory-enumeration-001`, observado en `ab93335ff3e843d154eeaaf48e05a281cde7b72e`; fuera de esta entrega, con calificación Windows parcial. |
-| Pendiente de medir | Beneficio comparativo en calidad, tiempo, tokens y coste; sin superioridad ni ahorro demostrado por esta entrega. |
+## Usar el panel
 
-## Probar el perfil público
+| Tecla | Pestaña | Operación |
+| --- | --- | --- |
+| 1 | Inicio | Elegir un proyecto o archivo y revisar su vista previa. |
+| 2 | Archivos | Filtrar por nombre parcial, extensión o carpeta y confirmar la lectura. |
+| 3 | Buscar | Buscar por nombre o por texto literal y abrir la evidencia. |
+| 4 | Informes | Consultar observaciones, exportar o abrir informes y guardar o recuperar contextos locales. |
+| 5 | Verificar | Comprobar el registro, las fuentes y la cobertura. |
 
-Requisitos: Git, Python 3.14 y un clon completo. Desde la raíz de esta entrega,
-en PowerShell o CMD:
+**F1** abre la ayuda de la vista y **0/Esc** vuelve. Se admiten Markdown por secciones, TXT por líneas, Python con AST V2 y vista por líneas, JSON por valores y CSV por filas y celdas. Inspeccionar una declaración de Python no ejecuta el archivo. [Formatos y topes](docs/CLI.md#panel-interactivo)
 
-```bat
-python -m venv .venv
-.venv\Scripts\python.exe -m pip install -r public_profile/requirements.lock
-.venv\Scripts\python.exe runtime/candidate/pg_i7.py --profile public --json query RUN012_PUBLIC
-.venv\Scripts\python.exe tools/demo_public.py
-```
+Para guardar contexto, elegí referencias dentro de los archivos y revisá el borrador en **Informes → Guardar contexto**. Confirmá nombre, propósito y un almacén local separado. Después de reiniciar, recuperá el contexto desde el mismo proyecto. La recuperación y la apertura individual vuelven a comprobar todas las fuentes. [Guía de contextos](docs/CONTEXTOS_LOCALES.md)
 
-La demo imprime la ruta del informe. Abrilo con un editor; junto a él quedan
-`REPORT.json`, `MANIFEST.json` y los recibos. [Ejemplo público](examples/public-r1/README.md).
-En Bash, los comandos equivalentes usan `python3 -m venv .venv` y
-`.venv/bin/python` en lugar de `.venv\Scripts\python.exe`. Linux no se ejecutó
-en la preparación de esta candidata; el lock incluye MCP 2.3.0.
+## Evidencia y alcance
 
-`RUN012_PUBLIC` contiene declaraciones históricas: leerlo no repite sus pruebas.
-Declara cero etiquetas independientes y métricas independientes no computables;
-sus decisiones no representan precisión del 100 %.
+En Windows, la apertura instalada pasó de 966 a 850 ms de mediana (10 por versión). El cambio de pestaña pasó de 34,5 a 37,8 ms y la primera instalación, de 12,48 a 14,20 s (3 por versión). Se registraron 69 regresiones aprobadas y 26 procesos de contexto, 13 satisfactorios y 13 controles negativos. Las cuatro tareas simuladas terminaron en 10, 16, 18 y 60 entradas. Una quedó dentro de 12. La separación fue procedimental y la aceptación humana completa sigue pendiente. [Resultados](docs/HISTORY.md#panel-009-a-012)
 
-## Verificar una entrega concreta
+Context Engine Local usa consentimiento del operador y revalida por archivo en el momento de la lectura. La custodia independiente sigue `NOT_PROVEN`. GATE_11 sigue bloqueado, I7 formal incompleto y Physical C2 `DEFERRED_NOT_WAIVED`. [Limitaciones](docs/LIMITATIONS.md)
 
-Obtené el SHA completo esperado del recibo externo de la entrega, por un canal
-confiable. En PowerShell, sustituyendo el texto entre comillas por ese SHA:
+La [demo histórica](docs/DEMO.md) conserva sus requisitos, anclas y resultados. La rama [experiment](https://github.com/nahuelvillarroel05/pgop1/tree/experiment) conserva el motor experimental y describe la evolución del panel. El [recibo de versión](RELEASE_RECEIPT.json) fija el origen de compilación y los bytes distribuidos. La [auditoría R2](docs/AUDIT.md) verifica una entrega fijada con un ancla externa.
 
-```powershell
-$ExpectedCommit = 'SHA_COMPLETO_DEL_RECIBO_EXTERNO'
-python tools/audit_release.py --expected-commit $ExpectedCommit --output audit-output/release-r2.json
-```
-
-Este control sólo requiere Python estándar y Git. R2 verifica el árbol completo,
-el manifiesto y el checkout frente al commit fijado. Permite otras referencias,
-como E8, fuera de su alcance: no certifica todo el historial ni todos los objetos.
-No obtengas el ancla esperada del mismo checkout que pretendés autenticar.
-
-Para añadir pruebas, CLI/API y MCP real, con el Python del venv y el mismo SHA:
-
-```powershell
-.venv\Scripts\python.exe tools/audit_public.py --contract release-r2 --expected-commit $ExpectedCommit
-```
-
-El recibo de integridad y los resultados de pruebas son controles distintos.
-Una dependencia ausente conserva el fallo de la comprobación afectada.
-[Contrato R2 y auditoría histórica R1](docs/AUDIT.md).
-
-## Interpretar los informes
-
-La integridad de una fuente y el estado de una afirmación son cosas distintas:
-una demo puede tener integridad `PASS` y una afirmación `CONTRADICTED`.
-`UNKNOWN` e `INSUFFICIENT_EVIDENCE` conservan lo que no se pudo establecer.
-Un informe generado no aprueba una tarea; un hash no autentica al productor y
-una propiedad sintáctica no demuestra corrección funcional. [Límites](docs/LIMITATIONS.md).
-
-[CLI/API/MCP](docs/TOOLS.md) · [Demo experimental](docs/DEMO.md) ·
-[Arquitectura](docs/ARCHITECTURE.md) · [Procedencia](docs/PROVENANCE.md) ·
-[Historia](docs/HISTORY.md) · [Licencia Apache-2.0](LICENSE)
+[Sitio oficial](https://pgopcore.com/) · [Repositorio](https://github.com/nahuelvillarroel05/pgop1) · [Arquitectura](docs/ARCHITECTURE.md) · [Procedencia y avisos](docs/PROVENANCE.md) · [Apache-2.0 del núcleo](LICENSE)

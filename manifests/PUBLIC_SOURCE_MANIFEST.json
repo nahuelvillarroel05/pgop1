@@ -29,28 +29,208 @@
     },
     {
       "path": "NOTICE",
-      "bytes": 842,
-      "sha256": "48973e91f0616bd1aa1412adf845dd49f98e694b34544424216dc55a64f48d8c"
+      "bytes": 772,
+      "sha256": "3c988b417e2dc03df53e5bd21665267415801c049fda07d34fac13e784e24018"
     },
     {
       "path": "PUBLIC_PROFILE_MANIFEST.json",
       "bytes": 3537,
-      "sha256": "dbffacd1189c20bda00fc126549ce9f6ae080f51c761543aabd7f1c7cc9961e0"
+      "sha256": "41bc927106d8423797dc2427d7ca8dd07d4ddf15be81a56db2f782898e54fbb8"
     },
     {
       "path": "README.md",
-      "bytes": 4460,
-      "sha256": "353868e46c67c0b8f715fb0a3f1c97ed7d98781a34d9870f5dfa427c92edb0a6"
+      "bytes": 3615,
+      "sha256": "da18af55da84f7620be77317add935aa619abc86d0a8b4960b4184ca1450284a"
+    },
+    {
+      "path": "RELEASE_RECEIPT.json",
+      "bytes": 2083,
+      "sha256": "4e95b2fd56ac62e55df8dd74ab96df6fe7334fc1b6ca77dcc4828453dd83665b"
+    },
+    {
+      "path": "cli/pgopcore/__init__.py",
+      "bytes": 67,
+      "sha256": "9e0dc9759af3120266836742e4eedc39eeb688eb75226740a416ab7e1615689c"
+    },
+    {
+      "path": "cli/pgopcore/cli.py",
+      "bytes": 25248,
+      "sha256": "29c6648ea09ae871b8d30416251f6d52582638fb4ffdeb5b1748c8531eb0e99c"
+    },
+    {
+      "path": "cli/pgopcore/context_local.py",
+      "bytes": 12958,
+      "sha256": "e1cbd360df49312664f1baa5aa810c1e98a09fdf9e58b557aca3a0557058093d"
+    },
+    {
+      "path": "cli/pgopcore/context_local_store.py",
+      "bytes": 12730,
+      "sha256": "9c9a925703de2f77b04c9c012498a1258df22f85d1cdc56196f87c01778e4ac8"
+    },
+    {
+      "path": "cli/pgopcore/literal_projection.py",
+      "bytes": 812,
+      "sha256": "1cedad0938543c8a782b8710a7d4aba39b0cac2a16152b5b7d724bfa4ca71769"
+    },
+    {
+      "path": "cli/pgopcore/panel.py",
+      "bytes": 70623,
+      "sha256": "cda54737d574c3a486ef83d81819ee98d27dec3b9c5e9c08371302a7f4ac7925"
+    },
+    {
+      "path": "cli/pgopcore/panel_controller.py",
+      "bytes": 25326,
+      "sha256": "a00d7567e65ef35f619469a45a1165cdbc1bdc040765512dfd5a92d95fd49c59"
+    },
+    {
+      "path": "cli/pgopcore/panel_messages.py",
+      "bytes": 485,
+      "sha256": "85651212850e1a0c28a76bcfb486cfe2de96655e3b5601cd3d2ca0fc9ab35787"
+    },
+    {
+      "path": "cli/pgopcore/panel_project.py",
+      "bytes": 6088,
+      "sha256": "36e5ae8bb9ae01aef636a8539506f33e98e4cfb46df35377ff5e549f7017eb29"
+    },
+    {
+      "path": "cli/pgopcore/panel_python.py",
+      "bytes": 5708,
+      "sha256": "dfa989abe15789fe74a27c806f5cc967baa6df70d3dd1fe6bc99736ecd035d4e"
+    },
+    {
+      "path": "cli/pgopcore/panel_report.py",
+      "bytes": 14078,
+      "sha256": "d3255a424ee8d41dbde267aa37739b51016d07643ca3ad005d1af5aca22565a8"
+    },
+    {
+      "path": "cli/pgopcore/panel_tui.py",
+      "bytes": 26990,
+      "sha256": "0b6210911e79b6cc6ee82fdcf3e28c25e083407f6b2af6517f87a87a1db0e431"
+    },
+    {
+      "path": "cli/pgopcore/panel_views.py",
+      "bytes": 11320,
+      "sha256": "aa205494557362476e3321f5d235ce0bc10f4dad040f19858e87b5321a6f2bb8"
+    },
+    {
+      "path": "cli/pgopcore/product.py",
+      "bytes": 5652,
+      "sha256": "9858bb9f44dd86ede70b0448265a10aec1cd1240fcc9a3abaed12537aacf48e3"
+    },
+    {
+      "path": "cli/pgopcore/report.py",
+      "bytes": 5605,
+      "sha256": "ac7c998dfee0839b9b2a0c16d89fa393691c65556d9e41c2dd466bd99c2f4898"
+    },
+    {
+      "path": "cli/pgopcore/runtime/candidate/acquisition_text_v1.py",
+      "bytes": 11261,
+      "sha256": "a0cf4f0fd9dbea04ece3eb56e9838890df56efd979abe0123252e78997dee82c"
+    },
+    {
+      "path": "cli/pgopcore/runtime/candidate/admission_contract_v2.py",
+      "bytes": 6609,
+      "sha256": "4749850a31fa1f5b4fc27d890637df87f16a8537ccfc2a5b39247c219bbabcc5"
+    },
+    {
+      "path": "cli/pgopcore/runtime/candidate/discovery_contract_v1.py",
+      "bytes": 5200,
+      "sha256": "cc081feb2f981929a7d1ccf61c7ba381a1dc284681625e2971c7adaa5d172deb"
+    },
+    {
+      "path": "cli/pgopcore/runtime/candidate/search_v1.py",
+      "bytes": 8727,
+      "sha256": "dd3fea0de58cfd8a28dd6e9dcbeeb2b74363f90d7ddd933a7a1403240ad65a70"
+    },
+    {
+      "path": "cli/pgopcore/runtime/candidate/selection_contract_v1.py",
+      "bytes": 4397,
+      "sha256": "a25f8a66a394a9bad2640d654325eace538090bd88fef9c5a4dbb198f9961dfc"
+    },
+    {
+      "path": "cli/pgopcore/runtime/candidate/static_ast_v2.py",
+      "bytes": 26104,
+      "sha256": "1e991a18f324d2c8d2f9f81dd446afc299b4d5a3519c8024caa5cd55175ade56"
+    },
+    {
+      "path": "cli/pgopcore/runtime/candidate/text_input.py",
+      "bytes": 293,
+      "sha256": "3f1889767a7db8a75234c0499b6fa0b68cfb7e83df76af48cb7419e4ed4638cb"
+    },
+    {
+      "path": "cli/pgopcore/runtime/candidate/windows_directory_enumeration_v1.py",
+      "bytes": 8412,
+      "sha256": "21e8ae0c92d0ce1b631d4f8a8bf095665072e9fdea8b64690486b1d942f93c39"
+    },
+    {
+      "path": "cli/pgopcore/runtime/candidate/windows_safe_io_v2.py",
+      "bytes": 15887,
+      "sha256": "fef9642066f0efb285ff35c1f95bb8a9a720645bdc668714df42a28229595da6"
+    },
+    {
+      "path": "cli/pgopcore/search.py",
+      "bytes": 8132,
+      "sha256": "d72455473c49f70b349e40c4fb30eb79b5d66d5fe9f617a2736b90bcbb0e8048"
+    },
+    {
+      "path": "cli/pgopcore/search_contract.py",
+      "bytes": 2335,
+      "sha256": "ace1b316ce4949a9d8cff18b0abbbf43393fb05f1add64dffc4564d9c6220f89"
+    },
+    {
+      "path": "cli/pgopcore/source_paths.py",
+      "bytes": 1791,
+      "sha256": "b8e9ee6f59f2f440e64a0ca6271d294efa7c7246c5124c855db96069e45828ac"
+    },
+    {
+      "path": "cli/pgopcore/text_bytes.py",
+      "bytes": 262,
+      "sha256": "bf66679edeb237c504a2773e9aea76b29f18682f32427ad48d9e85c3bb72492b"
+    },
+    {
+      "path": "cli/pgopcore/workspace.py",
+      "bytes": 29518,
+      "sha256": "d0905d33251740dcfcba5f5f25bfb85282364b1a8524ff95f2b24911d4e117a4"
+    },
+    {
+      "path": "cli/pgopcore/workspace_cli.py",
+      "bytes": 7489,
+      "sha256": "26ebbe80e92924f94c1351dd16c84aaeaf949449301201a8b62aa0d245009a28"
+    },
+    {
+      "path": "cli/pgopcore/workspace_report.py",
+      "bytes": 13711,
+      "sha256": "ef550f9fd7d103b536b7cf071c3772bd6b911aa130ec6765de290a6f525a680c"
+    },
+    {
+      "path": "cli/pgopcore/workspace_search.py",
+      "bytes": 13044,
+      "sha256": "353a2d69db5758a00a91e1a9ecd98a90127f8fa2f58efec61ac46bfaedfbecf3"
     },
     {
       "path": "docs/ARCHITECTURE.md",
-      "bytes": 976,
-      "sha256": "4ca59561abaed50349d39d35d9d414d9851383ddf073e4fdfe87a1890c0f222f"
+      "bytes": 2505,
+      "sha256": "1240dca573d98257445b89af58542b7bdddfd20a1d7aec34da3f056939b552d6"
     },
     {
       "path": "docs/AUDIT.md",
-      "bytes": 7038,
-      "sha256": "fa054c664f319b95412b62de6bead34abc66afd7a0a2466ddd0518270c0ce5c6"
+      "bytes": 7264,
+      "sha256": "91f0ca6cbee4c080046520b900ac201f841d21eaf9820b91a149f1ba672b6f8d"
+    },
+    {
+      "path": "docs/CLI.md",
+      "bytes": 16683,
+      "sha256": "eb402e7301005a2164745137deb200ff0018f2d17a0e4362df8f9ef0dd762cea"
+    },
+    {
+      "path": "docs/CONTEXTOS_LOCALES.md",
+      "bytes": 2164,
+      "sha256": "b77132f94abe0a72f99a556fac56653c130ae11dbe1664502c2ecbf27540dcc6"
+    },
+    {
+      "path": "docs/CONTEXT_LOCAL_POLICY.md",
+      "bytes": 3059,
+      "sha256": "a479efcb02be00d9ee33cd1be7027dc6f8d04616c2da5ddfdbe592e626c1c62c"
     },
     {
       "path": "docs/DEMO.md",
@@ -59,23 +239,33 @@
     },
     {
       "path": "docs/HISTORY.md",
-      "bytes": 1256,
-      "sha256": "e51ac9f15369772093010ee47d57599d1c7d5459bd6b3dda69c0417ac9876980"
+      "bytes": 3117,
+      "sha256": "243925109ec145eb5d23a403b9aace63bbdeec13532d6ecadd7b2a90cf278826"
     },
     {
       "path": "docs/LIMITATIONS.md",
-      "bytes": 1369,
-      "sha256": "e15cd18ba4956069f0ac344da5434b197eecd5fe83b09775c43ccce6c502bba9"
+      "bytes": 2563,
+      "sha256": "d0b0e674d8ad801050e37eab0b33dca68f987096e3413010fd6916548c771fe2"
     },
     {
       "path": "docs/PROVENANCE.md",
-      "bytes": 2100,
-      "sha256": "77297a54bcc1d7f018a1756031666deaffdb4e80fd795b804dc523c9bebe59dd"
+      "bytes": 5102,
+      "sha256": "3e6457c8b5d8867a7d888d259e1a6250fbf03c56bc82ee826f4c7d212fcb8632"
     },
     {
       "path": "docs/TOOLS.md",
       "bytes": 2714,
       "sha256": "4671c09d0e9a9c1376495e6772300768ab9eb03598db017c56ebe314ec3b6e26"
+    },
+    {
+      "path": "docs/WINDOWS_INSTALL.md",
+      "bytes": 1880,
+      "sha256": "7751623be1d39a3e6cddda9a5b18f28c56daade661a2047f193084707afb795b"
+    },
+    {
+      "path": "docs/WORKSPACE_CONTRACT.md",
+      "bytes": 11785,
+      "sha256": "871256a76ef5736dbc0f504d0905998d9d12f938e3bfdfc427a90da0b9b0de2a"
     },
     {
       "path": "examples/engineering-synthetic/README.md",
@@ -94,8 +284,8 @@
     },
     {
       "path": "manifests/SOURCE_PROVENANCE.json",
-      "bytes": 13333,
-      "sha256": "4619eb5a866aa876f4a4ec746f5d5ec73d89a221cf06b62bacf9959f1d26b2f0"
+      "bytes": 26694,
+      "sha256": "af90e9f3c2670e20f433333bd63db9953a7c7da7cd4e8d465ac30633e4260aef"
     },
     {
       "path": "pg_i7_mcp/__init__.py",
@@ -148,9 +338,174 @@
       "sha256": "1daf44ffb8ddae81b7be63c97648d5668d8b8d5e9829be3fe733245d48f37919"
     },
     {
+      "path": "pyproject.toml",
+      "bytes": 989,
+      "sha256": "bd72c07378978c34758fa37a4293dd27698cfe49af52749216200db32f30b6cf"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/ABRIR_PANEL.md",
+      "bytes": 874,
+      "sha256": "6163127d3013e0a2e534b235b67b67a28a70021b8da4f403cbc195ff0f893d74"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/CONTEXTOS_LOCALES.md",
+      "bytes": 2164,
+      "sha256": "b77132f94abe0a72f99a556fac56653c130ae11dbe1664502c2ecbf27540dcc6"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/LICENSE",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/MANIFEST_SHA256.json",
+      "bytes": 4788,
+      "sha256": "ee1de420f8077579c20771c93b050d01bd3118716cc8acc71f698265b3365d40"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/NOTICE",
+      "bytes": 842,
+      "sha256": "48973e91f0616bd1aa1412adf845dd49f98e694b34544424216dc55a64f48d8c"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/PRESENTATION_DEPENDENCIES.json",
+      "bytes": 3422,
+      "sha256": "d77c977374cc077841d6896d854b95834cbf072f4c58dd7ac1d7d8e5e57339e0"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/WHEEL.sha256",
+      "bytes": 107,
+      "sha256": "6fe5a09980b3d045fb29538d9adfe1a24f1eb0ff1172df2a5b26103ffda6d3bc"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/install-panel.py",
+      "bytes": 2573,
+      "sha256": "9844bfd0ef234f799be0f9730691140a9645bce1950b3c06dcdaa4dfaf98f9d8"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/licenses/Pygments/licenses/AUTHORS",
+      "bytes": 11048,
+      "sha256": "71a83872ad82f57be692cf827e048e2cd51d45169cfa1ea3f28706d97a872c0f"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/licenses/Pygments/licenses/LICENSE",
+      "bytes": 1331,
+      "sha256": "a9d66f1d526df02e29dce73436d34e56e8632f46c275bbdffc70569e882f9f17"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/licenses/linkify-it-py/licenses/LICENSE",
+      "bytes": 2234,
+      "sha256": "db5d71f61f0f781f5078df4b6a00d5d3c799fb0bb82bcf448a688e9762618a2e"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/licenses/markdown-it-py/licenses/LICENSE",
+      "bytes": 1078,
+      "sha256": "4a2260d6e2cd0f5a151a1e86dbfe7d3ed552b1e2beabf9941c1ba5c49cbce484"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/licenses/markdown-it-py/licenses/LICENSE.markdown-it",
+      "bytes": 1073,
+      "sha256": "792c48c5a849a15fdf9e37e8bcf9e6d1dd13b32b46c642a748a0a46a9919d473"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/licenses/mdit-py-plugins/licenses/LICENSE",
+      "bytes": 1078,
+      "sha256": "4a2260d6e2cd0f5a151a1e86dbfe7d3ed552b1e2beabf9941c1ba5c49cbce484"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/licenses/mdurl/LICENSE",
+      "bytes": 2338,
+      "sha256": "7c605df6e28667a9603118e98274f64a49ce3eed0d26fccce9534a345e0ef955"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/licenses/platformdirs/licenses/LICENSE",
+      "bytes": 1089,
+      "sha256": "29e0fd62e929850e86eb28c3fdccf0cefdf4fa94879011cffb3d0d4bed6d4db6"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/licenses/rich/licenses/LICENSE",
+      "bytes": 1056,
+      "sha256": "deed7c17a4318158190a3ea239cc879a5a50271cebb98ae7025f48fbe58dca15"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/licenses/textual/licenses/LICENSE",
+      "bytes": 1069,
+      "sha256": "94f290a762376dfdb7768e42070618b0abfd2a2799eab1b1c097816c3a39eb57"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/licenses/typing_extensions/licenses/LICENSE",
+      "bytes": 13936,
+      "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/pgop-panel.cmd",
+      "bytes": 247,
+      "sha256": "27773d352da6ca4ddf324be6e943dfb2d2b9d3576eec2fd8ce5d4b960dec3607"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/pgopcore-0.1.0a12.post3-py3-none-any.whl",
+      "bytes": 154583,
+      "sha256": "ac4a512717709be0fe8b276eefe65dbc9e1bae8c5e4365107e49547cb04c7458"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/requirements-tui.lock",
+      "bytes": 891,
+      "sha256": "d7c9160317e042e9fef95b2f02aeb6d269882a223d9869f5a168ea2511ad0321"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/start-panel.py",
+      "bytes": 4679,
+      "sha256": "ef976e539f76915cf5e3292e2cfc34513b7eb1cd5eb6978aed96e74606c41d8f"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/wheelhouse/linkify_it_py-2.2.0-py3-none-any.whl",
+      "bytes": 21971,
+      "sha256": "3adc40eb5af300b2605fcfdb968c24e1d780a90f1f2221af7c15e5111e94d443"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/wheelhouse/markdown_it_py-4.3.0-py3-none-any.whl",
+      "bytes": 96951,
+      "sha256": "7aa1511a46c39138de78d9eba92ce47e63124d8003fc98b3a351909e04239efa"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/wheelhouse/mdit_py_plugins-0.7.0-py3-none-any.whl",
+      "bytes": 72937,
+      "sha256": "7f8e30403f3dd8bfe3afcdcbc6e61066d3f2e714167507b9c26eb385ec399353"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/wheelhouse/mdurl-0.1.2-py3-none-any.whl",
+      "bytes": 9979,
+      "sha256": "84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/wheelhouse/platformdirs-4.14.8-py3-none-any.whl",
+      "bytes": 94267,
+      "sha256": "1e34af590de4d978631b751eb2202f2fee4497537a17c1720b12fcf57b331392"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/wheelhouse/pygments-2.21.0-py3-none-any.whl",
+      "bytes": 1250147,
+      "sha256": "2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/wheelhouse/rich-15.0.0-py3-none-any.whl",
+      "bytes": 310654,
+      "sha256": "33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/wheelhouse/textual-8.2.8-py3-none-any.whl",
+      "bytes": 731418,
+      "sha256": "267375fd402dc8d981457212efa71f0e3365fd17bba144ba9bb3ed7563cb374a"
+    },
+    {
+      "path": "releases/windows/0.1.0a12.post3/wheelhouse/typing_extensions-4.16.0-py3-none-any.whl",
+      "bytes": 45571,
+      "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8"
+    },
+    {
       "path": "runtime/candidate/i7_api.py",
-      "bytes": 41103,
-      "sha256": "904669b7aa289a944c8d262d9babc6b0651c79f8a337593db54cd1533462ab6d"
+      "bytes": 41190,
+      "sha256": "9aed262a36158a213605ce97cea8ffab0f8ab1cef1d6f9d0e91b47e935fe3965"
     },
     {
       "path": "runtime/candidate/pg_i7.py",
@@ -159,8 +514,8 @@
     },
     {
       "path": "runtime/candidate/public_handoff.py",
-      "bytes": 24880,
-      "sha256": "8d7107d9966dbf7792127ec4211eeed82e655f182a5f74ebace4b511dd6dd813"
+      "bytes": 28337,
+      "sha256": "b3481e80bbb49135b8d3c3d75211a7c46769fcb4e33b685344161e43d6b1e805"
     },
     {
       "path": "runtime/public_profile/CATALOG.json",
@@ -183,6 +538,31 @@
       "sha256": "97956877e0f220bd0c0cdc059630709e70a864829fec4e57cc148daa821229fe"
     },
     {
+      "path": "tests/test_installed_search.py",
+      "bytes": 14683,
+      "sha256": "4911f0f3e00e5f8e9931a7e30b3921afb741785a3bf0d3f32ed5b5d63e25e59a"
+    },
+    {
+      "path": "tests/test_panel.py",
+      "bytes": 27171,
+      "sha256": "3aee982a31780b75c729e99d7d3ce8401c73eaf740f09d0f8d861cd8393da4f1"
+    },
+    {
+      "path": "tests/test_panel_tui.py",
+      "bytes": 2083,
+      "sha256": "cba94c0feb36fb9956e7e9d2a76aafe2996ce86ce5f97d68c917b1e0b343a629"
+    },
+    {
+      "path": "tests/test_pgop_cli.py",
+      "bytes": 4500,
+      "sha256": "0e2e9b0b6422892c3469c0eb82b7548fcbe27fcd6c92b07ed7c718a37b0fb1e3"
+    },
+    {
+      "path": "tests/test_pgop_reports.py",
+      "bytes": 7185,
+      "sha256": "a52b7b09c487a870595b28009bd0c20c00a95d0e683322b643bacf9f6dcabf78"
+    },
+    {
       "path": "tests/test_public_handoff_v0.py",
       "bytes": 17704,
       "sha256": "cd818d61a13f4bc1921e7e9889c5fcd68385a2f28026e2bae798887dc27d69c3"
@@ -191,6 +571,26 @@
       "path": "tests/test_release_audit.py",
       "bytes": 9303,
       "sha256": "c1dffa98a41329fa555e527199c3370e3d7a322957077fa6dee1b28a90e9c7fd"
+    },
+    {
+      "path": "tests/test_user_first.py",
+      "bytes": 3103,
+      "sha256": "b33e2b0b9712898fe2903ea301a2f35475938277ee4eedbe422926d72fe5c3bf"
+    },
+    {
+      "path": "tests/test_workspace_registry.py",
+      "bytes": 8546,
+      "sha256": "3a99441342caa68e3ac4e494d3a07eb5f9cf3f80111b1f2f97260f619222517a"
+    },
+    {
+      "path": "tests/test_workspace_report.py",
+      "bytes": 7377,
+      "sha256": "ca791ae27f2fd346c7e829175f3c32158c33b0da314bce1f3296e3566abaa18e"
+    },
+    {
+      "path": "tests/test_workspace_search.py",
+      "bytes": 8321,
+      "sha256": "41a4d03c9c19d103e3a71d9488348464dbfc71f76775da9d3761f0d21eead338"
     },
     {
       "path": "tools/audit_distribution.py",
@@ -231,6 +631,26 @@
       "path": "tools/verify_public_profile.py",
       "bytes": 1769,
       "sha256": "55c69c115e05d24705738fd194b2b144cc1e29f7a9ca51e46b7f34dc45381870"
+    },
+    {
+      "path": "windows/install_pgop.py",
+      "bytes": 13259,
+      "sha256": "ce449234f8d03ef62ccf57cc0e72f77e20c57629ed008eb2517f91dab17e047d"
+    },
+    {
+      "path": "windows/panel_kit/install-panel.py",
+      "bytes": 2573,
+      "sha256": "9844bfd0ef234f799be0f9730691140a9645bce1950b3c06dcdaa4dfaf98f9d8"
+    },
+    {
+      "path": "windows/panel_kit/pgop-panel.cmd",
+      "bytes": 247,
+      "sha256": "27773d352da6ca4ddf324be6e943dfb2d2b9d3576eec2fd8ce5d4b960dec3607"
+    },
+    {
+      "path": "windows/panel_kit/start-panel.py",
+      "bytes": 4679,
+      "sha256": "ef976e539f76915cf5e3292e2cfc34513b7eb1cd5eb6978aed96e74606c41d8f"
     }
   ]
 }

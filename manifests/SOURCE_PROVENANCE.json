@@ -102,32 +102,12 @@
       "license": "Apache-2.0"
     },
     {
-      "path": "runtime/candidate/i7_api.py",
-      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
-      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
-      "source_path": "experiments/pgop1-tooling/baseline-public-r1/runtime/candidate/i7_api.py",
-      "source_oid": "cb308196b34f7f6c8f15c2317bae14e7ac2fa1b1",
-      "source_sha256": "904669b7aa289a944c8d262d9babc6b0651c79f8a337593db54cd1533462ab6d",
-      "transformation": "IDENTICAL_BYTES_RELOCATED",
-      "license": "Apache-2.0"
-    },
-    {
       "path": "runtime/candidate/pg_i7.py",
       "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
       "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
       "source_path": "experiments/pgop1-tooling/baseline-public-r1/runtime/candidate/pg_i7.py",
       "source_oid": "83e5c85de476e1ad3dd8a008250bbfa72ad22e64",
       "source_sha256": "cf3cf8d03663380e3cf68e6145b917a9e942469c827cf6d342a4eeb0d9093021",
-      "transformation": "IDENTICAL_BYTES_RELOCATED",
-      "license": "Apache-2.0"
-    },
-    {
-      "path": "runtime/candidate/public_handoff.py",
-      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
-      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
-      "source_path": "experiments/pgop1-tooling/baseline-public-r1/runtime/candidate/public_handoff.py",
-      "source_oid": "a27bb385af1eb9c1b4c7de19d9cfbf6d1dc18973",
-      "source_sha256": "8d7107d9966dbf7792127ec4211eeed82e655f182a5f74ebace4b511dd6dd813",
       "transformation": "IDENTICAL_BYTES_RELOCATED",
       "license": "Apache-2.0"
     },
@@ -200,9 +180,49 @@
       "source_sha256": "55c69c115e05d24705738fd194b2b144cc1e29f7a9ca51e46b7f34dc45381870",
       "transformation": "IDENTICAL_BYTES_RELOCATED",
       "license": "Apache-2.0"
+    },
+    {
+      "path": "cli/pgopcore/runtime/candidate/selection_contract_v1.py",
+      "source_commit": "5543d0a7b000b15ea09beb95efa67745faf8975a",
+      "source_tree": "d9dec558c7bfd0c3a8e478001ce8fdbab5364725",
+      "source_path": "runtime/candidate/selection_contract_v1.py",
+      "source_oid": "615fb6dab486a13050550fadf6b628aa3628a9cf",
+      "source_sha256": "a25f8a66a394a9bad2640d654325eace538090bd88fef9c5a4dbb198f9961dfc",
+      "license": "Apache-2.0",
+      "transformation": "IDENTICAL_BYTES_RELOCATED"
+    },
+    {
+      "path": "cli/pgopcore/runtime/candidate/discovery_contract_v1.py",
+      "source_commit": "5543d0a7b000b15ea09beb95efa67745faf8975a",
+      "source_tree": "d9dec558c7bfd0c3a8e478001ce8fdbab5364725",
+      "source_path": "runtime/candidate/discovery_contract_v1.py",
+      "source_oid": "1b2e3f142c814e4441f08a16682c31e1340f0112",
+      "source_sha256": "cc081feb2f981929a7d1ccf61c7ba381a1dc284681625e2971c7adaa5d172deb",
+      "license": "Apache-2.0",
+      "transformation": "IDENTICAL_BYTES_RELOCATED"
+    },
+    {
+      "path": "cli/pgopcore/runtime/candidate/admission_contract_v2.py",
+      "source_commit": "5543d0a7b000b15ea09beb95efa67745faf8975a",
+      "source_tree": "d9dec558c7bfd0c3a8e478001ce8fdbab5364725",
+      "source_path": "runtime/candidate/admission_contract_v2.py",
+      "source_oid": "371a58d5af3e4f733ed077f7307f0dc315605c04",
+      "source_sha256": "4749850a31fa1f5b4fc27d890637df87f16a8537ccfc2a5b39247c219bbabcc5",
+      "license": "Apache-2.0",
+      "transformation": "IDENTICAL_BYTES_RELOCATED"
+    },
+    {
+      "path": "cli/pgopcore/runtime/candidate/static_ast_v2.py",
+      "source_commit": "0416f1c5081a5f84fae69bc10f6c7c82a3ad61e8",
+      "source_tree": "ae0e64c694c6a2fe261075486b4dd8fbd2fbfd80",
+      "source_path": "runtime/candidate/static_ast_v2.py",
+      "source_oid": "49827bd1b6f9b900cd6bc01773a9c1a055915f59",
+      "source_sha256": "1e991a18f324d2c8d2f9f81dd446afc299b4d5a3519c8024caa5cd55175ade56",
+      "transformation": "IDENTICAL_BYTES_RELOCATED",
+      "license": "Apache-2.0"
     }
   ],
-  "new_files": "All other manifest members are prospective distribution documentation, audit tools or controlled fixtures under Apache-2.0; no historical authorship claimed.",
+  "new_files": "Other admitted source, documentation and controlled fixtures retain their Apache-2.0 scope; see publication_additions for the separately licensed offline kit.",
   "excluded": "Private archives, source bodies outside pinned selections, stores, transcripts, model data and historical Git excluded. Legacy producer dependencies and RUN013 runner excluded; legacy profile unavailable. Git Governance E1 adapter unavailable: not admitted in the specified candidates.",
   "adaptations": [
     {
@@ -217,26 +237,248 @@
       "license": "Apache-2.0"
     },
     {
-      "path": "NOTICE",
-      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
-      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
-      "source_path": "NOTICE",
-      "source_oid": "72e82238f41a7b17d02b3c8f432c7437874ac21b",
-      "source_sha256": "7ed69a7037e1cb04ef7f0252bb14fbe7d5da371ea5079b02f42e20fb4d1e91e9",
-      "current_sha256": "48973e91f0616bd1aa1412adf845dd49f98e694b34544424216dc55a64f48d8c",
-      "transformation": "Retain Apache and no new authorship notices; replace broad historical core inventory with exact selected-scope notice",
-      "license": "Apache-2.0"
-    },
-    {
       "path": "PUBLIC_PROFILE_MANIFEST.json",
       "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
       "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
       "source_path": "experiments/pgop1-tooling/baseline-public-r1/PUBLIC_PROFILE_MANIFEST.json",
       "source_oid": "508ece0768789097a740e0885be5de5b9bf967b9",
       "source_sha256": "5879e03653fa61cf6bf7082898593f545c2cca8706545cb9e106c3872585a3f6",
-      "current_sha256": "dbffacd1189c20bda00fc126549ce9f6ae080f51c761543aabd7f1c7cc9961e0",
+      "current_sha256": "41bc927106d8423797dc2427d7ca8dd07d4ddf15be81a56db2f782898e54fbb8",
       "transformation": "Deterministically regenerate files map for current R1 compatibility subset; preserve historical identity metadata",
       "license": "Apache-2.0"
+    },
+    {
+      "path": "runtime/candidate/i7_api.py",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/runtime/candidate/i7_api.py",
+      "source_oid": "cb308196b34f7f6c8f15c2317bae14e7ac2fa1b1",
+      "source_sha256": "904669b7aa289a944c8d262d9babc6b0651c79f8a337593db54cd1533462ab6d",
+      "transformation": "Resolve the public API import within its package for wheel isolation; preserve the original absolute import when loaded without a package.",
+      "license": "Apache-2.0",
+      "current_sha256": "9aed262a36158a213605ce97cea8ffab0f8ab1cef1d6f9d0e91b47e935fe3965"
+    },
+    {
+      "path": "runtime/candidate/public_handoff.py",
+      "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+      "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+      "source_path": "experiments/pgop1-tooling/baseline-public-r1/runtime/candidate/public_handoff.py",
+      "source_oid": "a27bb385af1eb9c1b4c7de19d9cfbf6d1dc18973",
+      "source_sha256": "8d7107d9966dbf7792127ec4211eeed82e655f182a5f74ebace4b511dd6dd813",
+      "transformation": "CLI-002 validates report completion, identity and same-handle artifact reads",
+      "license": "Apache-2.0",
+      "current_sha256": "b3481e80bbb49135b8d3c3d75211a7c46769fcb4e33b685344161e43d6b1e805"
+    },
+    {
+      "path": "cli/pgopcore/runtime/candidate/acquisition_text_v1.py",
+      "source_commit": "5543d0a7b000b15ea09beb95efa67745faf8975a",
+      "source_tree": "d9dec558c7bfd0c3a8e478001ce8fdbab5364725",
+      "source_path": "runtime/candidate/acquisition_text_v1.py",
+      "source_oid": "afafc666ac94a60d5e632c840f784951d5d4f88e",
+      "source_sha256": "f363824cb25f872d00056b59839f0a1d3312c0b92180480bac7b99204177f581",
+      "license": "Apache-2.0",
+      "transformation": "Bind expanded text admissions to v2 and check visible NTFS metadata in explicit file acquisition.",
+      "current_sha256": "a0cf4f0fd9dbea04ece3eb56e9838890df56efd979abe0123252e78997dee82c",
+      "previous_commit": "3fb47d5f7e8ce70b81fe00944089618822ae1db4",
+      "previous_sha256": "624e43374501c679fc7a7e026fc7b5301236b43b0241f8ae92cd859d748af5a8"
+    },
+    {
+      "path": "cli/pgopcore/runtime/candidate/search_v1.py",
+      "source_commit": "5543d0a7b000b15ea09beb95efa67745faf8975a",
+      "source_tree": "d9dec558c7bfd0c3a8e478001ce8fdbab5364725",
+      "source_path": "runtime/candidate/search_v1.py",
+      "source_oid": "0fb753637e0efb2c970b4629ff18e381c3a52991",
+      "source_sha256": "0c1f78f547364d1ee0f184d4235cc54df1921655d76d844b43ecc7f810a3a958",
+      "license": "Apache-2.0",
+      "transformation": "Pass the CLI visibility requirement through the two authenticated acquisitions.",
+      "current_sha256": "dd3fea0de58cfd8a28dd6e9dcbeeb2b74363f90d7ddd933a7a1403240ad65a70",
+      "previous_commit": "3fb47d5f7e8ce70b81fe00944089618822ae1db4",
+      "previous_sha256": "a458bd301d18ad7e680c42309ba261ebd9327e505c251cf93192dfecc517c063"
+    },
+    {
+      "path": "cli/pgopcore/runtime/candidate/text_input.py",
+      "source_commit": "5543d0a7b000b15ea09beb95efa67745faf8975a",
+      "source_tree": "d9dec558c7bfd0c3a8e478001ce8fdbab5364725",
+      "source_path": "runtime/candidate/acquisition_memory_v1.py",
+      "source_oid": "ce428e9d1a2cd402de5c57a7e6d03c25a29e5eda",
+      "source_sha256": "db558eba3cb79e849c22f84f2d9fd9aed86f0076e403554338a4b57a565d9405",
+      "license": "Apache-2.0",
+      "transformation": "Extract the original TextInput binding without loading persistent storage",
+      "current_sha256": "3f1889767a7db8a75234c0499b6fa0b68cfb7e83df76af48cb7419e4ed4638cb"
+    },
+    {
+      "path": "cli/pgopcore/runtime/candidate/windows_directory_enumeration_v1.py",
+      "source_commit": "5543d0a7b000b15ea09beb95efa67745faf8975a",
+      "source_tree": "d9dec558c7bfd0c3a8e478001ce8fdbab5364725",
+      "source_path": "runtime/candidate/windows_directory_enumeration_v1.py",
+      "source_oid": "0f86e6f7627e7f62d970ea7b2762d885279b1d86",
+      "source_sha256": "470ea3cec5af3008ffb36aa507911f92d306ab5537efbf91d676929bd68607e6",
+      "license": "Apache-2.0",
+      "transformation": "Share the visible source metadata check across CLI admission, reacquisition and workspace capture.",
+      "current_sha256": "21e8ae0c92d0ce1b631d4f8a8bf095665072e9fdea8b64690486b1d942f93c39",
+      "previous_commit": "3fb47d5f7e8ce70b81fe00944089618822ae1db4",
+      "previous_sha256": "9d9b778fbf9dd76e08cab167cc1da9cb0a02a437c99de51df75e8dfe602ec43a"
+    },
+    {
+      "path": "cli/pgopcore/runtime/candidate/windows_safe_io_v2.py",
+      "source_commit": "5543d0a7b000b15ea09beb95efa67745faf8975a",
+      "source_tree": "d9dec558c7bfd0c3a8e478001ce8fdbab5364725",
+      "source_path": "runtime/candidate/windows_safe_io_v2.py",
+      "source_oid": "c3a6a5c83d67e3337f53e997e1c8ae371bced097",
+      "source_sha256": "4f415bdaf7eb06b25cd5b0f0b74a7e4646f0ba036f881a5642bbf0d38234b920",
+      "license": "Apache-2.0",
+      "transformation": "Tighten ambiguous reserved names and detect case aliases of the reserved workspace marker.",
+      "previous_commit": "3fb47d5f7e8ce70b81fe00944089618822ae1db4",
+      "previous_sha256": "4f415bdaf7eb06b25cd5b0f0b74a7e4646f0ba036f881a5642bbf0d38234b920",
+      "current_sha256": "fef9642066f0efb285ff35c1f95bb8a9a720645bdc668714df42a28229595da6"
+    },
+    {
+      "path": "README.md",
+      "source_commit": "2c511e13b749261adf92a494885bf852b986ab09",
+      "source_tree": "5d36db54ac20af9414decd242f8041df63f4fdb0",
+      "source_path": "README.md",
+      "source_oid": "fa8927d7a36c92dc269553ec8a1a5727bc2decb2",
+      "source_sha256": "83b35cc4fff5550798e581f7121899d6b12e405606c23e0a6908ad15879ff91d",
+      "current_sha256": "da18af55da84f7620be77317add935aa619abc86d0a8b4960b4184ca1450284a",
+      "transformation": "Publication documentation or notice; runtime unchanged",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "NOTICE",
+      "source_commit": "2c511e13b749261adf92a494885bf852b986ab09",
+      "source_tree": "5d36db54ac20af9414decd242f8041df63f4fdb0",
+      "source_path": "NOTICE",
+      "source_oid": "4a6bf693d52193ccd3273af4cf59964488b329df",
+      "source_sha256": "48973e91f0616bd1aa1412adf845dd49f98e694b34544424216dc55a64f48d8c",
+      "current_sha256": "3c988b417e2dc03df53e5bd21665267415801c049fda07d34fac13e784e24018",
+      "transformation": "Publication documentation or notice; runtime unchanged",
+      "license": "Apache-2.0",
+      "previous_provenance": {
+        "path": "NOTICE",
+        "source_commit": "95400648833c63277039be87e12d18954e0fc1e3",
+        "source_tree": "c969b97177f5f0bd892ed22d8ab6d3546d272acb",
+        "source_path": "NOTICE",
+        "source_oid": "72e82238f41a7b17d02b3c8f432c7437874ac21b",
+        "source_sha256": "7ed69a7037e1cb04ef7f0252bb14fbe7d5da371ea5079b02f42e20fb4d1e91e9",
+        "current_sha256": "48973e91f0616bd1aa1412adf845dd49f98e694b34544424216dc55a64f48d8c",
+        "transformation": "Retain Apache and no new authorship notices; replace broad historical core inventory with exact selected-scope notice",
+        "license": "Apache-2.0"
+      }
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "source_commit": "2c511e13b749261adf92a494885bf852b986ab09",
+      "source_tree": "5d36db54ac20af9414decd242f8041df63f4fdb0",
+      "source_path": "docs/ARCHITECTURE.md",
+      "source_oid": "1fc0708c734a6c017a7a4686da3f427f2f04507d",
+      "source_sha256": "4ca59561abaed50349d39d35d9d414d9851383ddf073e4fdfe87a1890c0f222f",
+      "current_sha256": "1240dca573d98257445b89af58542b7bdddfd20a1d7aec34da3f056939b552d6",
+      "transformation": "Publication documentation or notice; runtime unchanged",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "docs/CLI.md",
+      "source_commit": "2c511e13b749261adf92a494885bf852b986ab09",
+      "source_tree": "5d36db54ac20af9414decd242f8041df63f4fdb0",
+      "source_path": "docs/CLI.md",
+      "source_oid": "a7336defce36bc49b602a991b3f95aa0a38dc9b5",
+      "source_sha256": "ef43d6ab668b89eeb9c7441f608be6e1a25c0c74c1375a6eb9acda739ba5f1e9",
+      "current_sha256": "eb402e7301005a2164745137deb200ff0018f2d17a0e4362df8f9ef0dd762cea",
+      "transformation": "Publication documentation or notice; runtime unchanged",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "docs/HISTORY.md",
+      "source_commit": "2c511e13b749261adf92a494885bf852b986ab09",
+      "source_tree": "5d36db54ac20af9414decd242f8041df63f4fdb0",
+      "source_path": "docs/HISTORY.md",
+      "source_oid": "3fcd3b86a4143eae68f72e09f9348b86c0d75ba5",
+      "source_sha256": "e51ac9f15369772093010ee47d57599d1c7d5459bd6b3dda69c0417ac9876980",
+      "current_sha256": "243925109ec145eb5d23a403b9aace63bbdeec13532d6ecadd7b2a90cf278826",
+      "transformation": "Publication documentation or notice; runtime unchanged",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "docs/LIMITATIONS.md",
+      "source_commit": "2c511e13b749261adf92a494885bf852b986ab09",
+      "source_tree": "5d36db54ac20af9414decd242f8041df63f4fdb0",
+      "source_path": "docs/LIMITATIONS.md",
+      "source_oid": "09ec98cc2175e959ba7a687f524670fe3756af22",
+      "source_sha256": "2aee41979e5bacfa86ab6bf7cd5fad312fb795ff14791f5c4986083993cb6c1a",
+      "current_sha256": "d0b0e674d8ad801050e37eab0b33dca68f987096e3413010fd6916548c771fe2",
+      "transformation": "Publication documentation or notice; runtime unchanged",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "docs/PROVENANCE.md",
+      "source_commit": "2c511e13b749261adf92a494885bf852b986ab09",
+      "source_tree": "5d36db54ac20af9414decd242f8041df63f4fdb0",
+      "source_path": "docs/PROVENANCE.md",
+      "source_oid": "d97a96f59c0c05fa6f11790772f91294deed4c7b",
+      "source_sha256": "2df8accd313e7011930b7b117d6a5ef8007a1e76d46af1b68945c5a726b3deb9",
+      "current_sha256": "3e6457c8b5d8867a7d888d259e1a6250fbf03c56bc82ee826f4c7d212fcb8632",
+      "transformation": "Publication documentation or notice; runtime unchanged",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "docs/WINDOWS_INSTALL.md",
+      "source_commit": "2c511e13b749261adf92a494885bf852b986ab09",
+      "source_tree": "5d36db54ac20af9414decd242f8041df63f4fdb0",
+      "source_path": "docs/WINDOWS_INSTALL.md",
+      "source_oid": "280a6f8ec14a84df389efd5c6fd94161171288b0",
+      "source_sha256": "27c1e52f24e31c08a909663d155dd095864f285b05a794d05c5b886d578b2664",
+      "current_sha256": "7751623be1d39a3e6cddda9a5b18f28c56daade661a2047f193084707afb795b",
+      "transformation": "Publication documentation or notice; runtime unchanged",
+      "license": "Apache-2.0"
     }
-  ]
+  ],
+  "context_local_derivation": {
+    "historical_origin": {
+      "commit": "0416f1c5081a5f84fae69bc10f6c7c82a3ad61e8",
+      "tree": "ae0e64c694c6a2fe261075486b4dd8fbd2fbfd80",
+      "modules": {
+        "source/runtime/candidate/context_engine.py": "21ce7dec011707d7119134714e8a540fb61d131613ae237d0ae0fac888403aee",
+        "source/runtime/candidate/acquisition_memory_v1.py": "e219381348f6b3248e65b8bf356cd98293990c0b64547425185248b7f5cc2dde",
+        "source/runtime/candidate/search_hybrid_v1.py": "0d4bc016657fbe797947c826fecaa0cde90084083faf069dfd8a80575a991369"
+      }
+    },
+    "build_commit": "2c511e13b749261adf92a494885bf852b986ab09",
+    "build_tree": "5d36db54ac20af9414decd242f8041df63f4fdb0",
+    "modules": {
+      "cli/pgopcore/context_local.py": {
+        "sha256": "e1cbd360df49312664f1baa5aa810c1e98a09fdf9e58b557aca3a0557058093d",
+        "symbols": [
+          "prepare",
+          "save",
+          "admit_source",
+          "packet",
+          "catalog",
+          "revoke"
+        ],
+        "status": "DERIVED",
+        "license": "Apache-2.0"
+      },
+      "cli/pgopcore/context_local_store.py": {
+        "sha256": "9c9a925703de2f77b04c9c012498a1258df22f85d1cdc56196f87c01778e4ac8",
+        "symbols": [
+          "Engine.ingest",
+          "Engine.query",
+          "Engine.rebuild_index",
+          "Engine.revoke"
+        ],
+        "status": "DERIVED",
+        "license": "Apache-2.0"
+      }
+    }
+  },
+  "publication_additions": {
+    "RELEASE_RECEIPT.json": "Publication metadata, Apache-2.0",
+    "releases/windows/0.1.0a12.post3": {
+      "artifact": "PGOP1_PANEL_012_PRODUCT_v003.zip",
+      "sha256": "0f4f844cbb40e627208c407e4a9c309964f5a208a5fdaf53286fc942ad4b7724",
+      "member_pins": "ANCLAS match the distribution manifest plus its own pinned hash",
+      "license_scope": "Core and kit scripts Apache-2.0. Presentation wheels retain their own licenses.",
+      "presentation_license_ledger": "releases/windows/0.1.0a12.post3/PRESENTATION_DEPENDENCIES.json"
+    }
+  }
 }

@@ -1,0 +1,115 @@
+[
+  {
+    "name": "linkify-it-py",
+    "version": "2.2.0",
+    "wheel": "linkify_it_py-2.2.0-py3-none-any.whl",
+    "sha256": "3adc40eb5af300b2605fcfdb968c24e1d780a90f1f2221af7c15e5111e94d443",
+    "license": "MIT",
+    "license_classifiers": [
+      "License :: OSI Approved :: MIT License"
+    ],
+    "license_files": [
+      "licenses/linkify-it-py/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "markdown-it-py",
+    "version": "4.3.0",
+    "wheel": "markdown_it_py-4.3.0-py3-none-any.whl",
+    "sha256": "7aa1511a46c39138de78d9eba92ce47e63124d8003fc98b3a351909e04239efa",
+    "license": null,
+    "license_classifiers": [
+      "License :: OSI Approved :: MIT License"
+    ],
+    "license_files": [
+      "licenses/markdown-it-py/licenses/LICENSE",
+      "licenses/markdown-it-py/licenses/LICENSE.markdown-it"
+    ]
+  },
+  {
+    "name": "mdit-py-plugins",
+    "version": "0.7.0",
+    "wheel": "mdit_py_plugins-0.7.0-py3-none-any.whl",
+    "sha256": "7f8e30403f3dd8bfe3afcdcbc6e61066d3f2e714167507b9c26eb385ec399353",
+    "license": null,
+    "license_classifiers": [
+      "License :: OSI Approved :: MIT License"
+    ],
+    "license_files": [
+      "licenses/mdit-py-plugins/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "mdurl",
+    "version": "0.1.2",
+    "wheel": "mdurl-0.1.2-py3-none-any.whl",
+    "sha256": "84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8",
+    "license": null,
+    "license_classifiers": [
+      "License :: OSI Approved :: MIT License"
+    ],
+    "license_files": [
+      "licenses/mdurl/LICENSE"
+    ]
+  },
+  {
+    "name": "platformdirs",
+    "version": "4.14.8",
+    "wheel": "platformdirs-4.14.8-py3-none-any.whl",
+    "sha256": "1e34af590de4d978631b751eb2202f2fee4497537a17c1720b12fcf57b331392",
+    "license": "MIT",
+    "license_classifiers": [],
+    "license_files": [
+      "licenses/platformdirs/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "Pygments",
+    "version": "2.21.0",
+    "wheel": "pygments-2.21.0-py3-none-any.whl",
+    "sha256": "2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9",
+    "license": "BSD-2-Clause",
+    "license_classifiers": [],
+    "license_files": [
+      "licenses/Pygments/licenses/AUTHORS",
+      "licenses/Pygments/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "rich",
+    "version": "15.0.0",
+    "wheel": "rich-15.0.0-py3-none-any.whl",
+    "sha256": "33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb",
+    "license": "MIT",
+    "license_classifiers": [
+      "License :: OSI Approved :: MIT License"
+    ],
+    "license_files": [
+      "licenses/rich/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "textual",
+    "version": "8.2.8",
+    "wheel": "textual-8.2.8-py3-none-any.whl",
+    "sha256": "267375fd402dc8d981457212efa71f0e3365fd17bba144ba9bb3ed7563cb374a",
+    "license": "MIT",
+    "license_classifiers": [
+      "License :: OSI Approved :: MIT License"
+    ],
+    "license_files": [
+      "licenses/textual/licenses/LICENSE"
+    ]
+  },
+  {
+    "name": "typing_extensions",
+    "version": "4.16.0",
+    "wheel": "typing_extensions-4.16.0-py3-none-any.whl",
+    "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8",
+    "license": "PSF-2.0",
+    "license_classifiers": [],
+    "license_files": [
+      "licenses/typing_extensions/licenses/LICENSE"
+    ]
+  }
+]

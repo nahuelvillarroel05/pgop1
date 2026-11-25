@@ -84,6 +84,37 @@ def read_bytes(path):
     return body
 
 
+def report_bytes(path):
+    """Read one bounded regular file and keep the bytes from that handle."""
+    def identity(info):
+        if (not stat.S_ISREG(info.st_mode) or info.st_nlink != 1
+                or getattr(info, "st_file_attributes", 0) & 0x400):
+            raise PublicError("UNSAFE_PATH", "Report files must be regular and singly linked")
+        return info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns
+
+    try:
+        before = identity(checked(path).lstat())
+        flags = os.O_RDONLY | getattr(os, "O_BINARY", 0)
+        flags |= getattr(os, "O_NOFOLLOW", 0) | getattr(os, "O_NONBLOCK", 0)
+        with os.fdopen(os.open(path, flags), "rb") as stream:
+            opened = identity(os.fstat(stream.fileno()))
+            if opened != before:
+                raise PublicError("ARTIFACT_INTEGRITY_ERROR", "Report file changed before reading")
+            body = stream.read(MAX_BYTES + 1)
+            after = identity(os.fstat(stream.fileno()))
+        if len(body) > MAX_BYTES:
+            raise PublicError("ARTIFACT_INTEGRITY_ERROR", "Report file exceeds the size limit")
+        if opened != after or after != identity(checked(path).lstat()) or len(body) != after[2]:
+            raise PublicError("ARTIFACT_INTEGRITY_ERROR", "Report file changed during reading")
+        return body
+    except FileNotFoundError:
+        raise
+    except PermissionError as exc:
+        raise PublicError("ACCESS_DENIED", "Report file access denied") from exc
+    except OSError as exc:
+        raise PublicError("IO_ERROR", "Report file read failed") from exc
+
+
 def parse(body):
     def pairs(items):
         result = {}
@@ -292,13 +323,12 @@ class PublicProfile:
         try:
             folder.mkdir()
         except FileExistsError:
-            try:
-                prior = parse(read_bytes(folder / "REQUEST.json"))
-            except PublicError:
-                raise PublicError("ATTEMPT_IN_PROGRESS_OR_INTERRUPTED", "Attempt retained; final artifact is not published")
+            if not stat.S_ISDIR(checked(folder).lstat().st_mode):
+                raise PublicError("UNSAFE_PATH", "Report directory collides with an existing file")
+            completion, _, prior = self._completed_artifacts(report_id)
             if prior != binding:
                 raise PublicError("REQUEST_KEY_CONFLICT", "Request key was already used with different parameters")
-            return self.completed(report_id)
+            return completion
         # Exclusive directory claim supports concurrent clients; incomplete attempts remain visible.
         self.write_new(folder / "REQUEST.json", encoded(binding))
         report = {"schema": "pgop1.report.v1", "generator_version": VERSION, "template_version": "1",
@@ -337,33 +367,63 @@ class PublicProfile:
             os.fsync(f.fileno())
 
     def completed(self, report_id):
-        identifier(report_id)
-        folder = checked(self.out / report_id)
-        if not (folder / "COMPLETE.json").exists():
-            raise PublicError("ATTEMPT_IN_PROGRESS_OR_INTERRUPTED", "Attempt retained without final publication")
-        complete = parse(read_bytes(folder / "COMPLETE.json"))
-        manifest_bytes = read_bytes(folder / "MANIFEST.json")
-        if sha(manifest_bytes) != complete.get("manifest_sha256"):
-            raise PublicError("ARTIFACT_INTEGRITY_ERROR", "Manifest differs from completion receipt")
-        manifest = parse(manifest_bytes)
-        files = manifest.get("files")
-        if not isinstance(files, dict) or set(files) != {"REPORT.json", "FINAL_HANDOFF.md"}:
-            raise PublicError("ARTIFACT_INTEGRITY_ERROR", "Unexpected artifact membership")
-        for name, item in files.items():
-            body = read_bytes(folder / name)
-            if item != {"sha256": sha(body), "bytes": len(body)}:
-                raise PublicError("ARTIFACT_INTEGRITY_ERROR", "Final artifact bytes changed")
+        completion, _, _ = self._completed_artifacts(report_id)
+        return completion
+
+    def _completed_artifacts(self, report_id):
+        folder = checked(self.out / identifier(report_id))
+        try:
+            complete_bytes = report_bytes(folder / "COMPLETE.json")
+        except FileNotFoundError as exc:
+            raise PublicError("ATTEMPT_IN_PROGRESS_OR_INTERRUPTED", "Attempt retained without final publication") from exc
+        try:
+            manifest_bytes = report_bytes(folder / "MANIFEST.json")
+            manifest_digest = sha(manifest_bytes)
+            if complete_bytes != encoded({"manifest_sha256": manifest_digest}):
+                raise PublicError("ARTIFACT_INTEGRITY_ERROR", "Manifest differs from completion receipt")
+            manifest = parse(manifest_bytes)
+            files = manifest.get("files")
+            if (manifest != {"schema": "pgop1.report-manifest.v1", "report_id": report_id, "files": files}
+                    or not isinstance(files, dict) or set(files) != {"REPORT.json", "FINAL_HANDOFF.md"}):
+                raise PublicError("ARTIFACT_INTEGRITY_ERROR", "Unexpected report identity or artifact membership")
+            bodies = {"MANIFEST.json": manifest_bytes}
+            for name, item in files.items():
+                body = report_bytes(folder / name)
+                if item != {"sha256": sha(body), "bytes": len(body)}:
+                    raise PublicError("ARTIFACT_INTEGRITY_ERROR", "Final artifact bytes changed")
+                bodies[name] = body
+            report = parse(bodies["REPORT.json"])
+            verification = report.get("verification")
+            binding = parse(report_bytes(folder / "REQUEST.json"))
+            key = binding.get("request_key")
+            if (not isinstance(key, str) or not ID.fullmatch(key)
+                    or "report-" + sha(key.encode())[:40] != report_id
+                    or not isinstance(verification, dict)
+                    or binding != {"package_id": report.get("package_id"), "receipt_id": verification.get("receipt_id"),
+                                   "request_key": key, "profile": PROFILE}
+                    or report.get("report_id") != report_id or report.get("profile") != PROFILE
+                    or report.get("schema") != "pgop1.report.v1" or report.get("generation") != "REPORT_GENERATED"):
+                raise PublicError("ARTIFACT_INTEGRITY_ERROR", "Report does not match its request binding")
+        except FileNotFoundError as exc:
+            raise PublicError("ARTIFACT_INTEGRITY_ERROR", "A completed report member is missing") from exc
+        except PublicError as exc:
+            if exc.code != "INVALID_JSON":
+                raise
+            raise PublicError("ARTIFACT_INTEGRITY_ERROR", "Report metadata is invalid") from exc
         return {"report_id": report_id, "generation": "REPORT_GENERATED",
-                "manifest_sha256": sha(manifest_bytes), "artifacts": list(files)+["MANIFEST.json"]}
+                "manifest_sha256": manifest_digest, "artifacts": list(files)+["MANIFEST.json"]}, bodies, binding
 
     def read(self, report_id, artifact="FINAL_HANDOFF.md", offset=0, limit=8000):
         bounded(offset, 0, MAX_BYTES)
         bounded(limit, 1, 16000)
         if artifact not in ("REPORT.json", "FINAL_HANDOFF.md", "MANIFEST.json"):
             raise PublicError("UNKNOWN_ARTIFACT", "Only report artifacts are readable")
-        self.completed(report_id)
-        body = read_bytes(checked(self.out / identifier(report_id) / artifact))
-        value = body.decode("utf-8")
+        _, bodies, _ = self._completed_artifacts(report_id)
+        body = bodies[artifact]
+        try:
+            value = body.decode("utf-8")
+        except UnicodeError as exc:
+            raise PublicError("ARTIFACT_INTEGRITY_ERROR", "Report artifact is not UTF-8") from exc
         return {"report_id": report_id, "artifact": artifact, "sha256": sha(body), "total_chars": len(value),
                 "offset": offset, "content": value[offset:offset+limit],
                 "next_offset": offset+limit if offset+limit < len(value) else None}

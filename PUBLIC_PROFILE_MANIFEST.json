@@ -14,12 +14,12 @@
       "bytes": 150422
     },
     "runtime/candidate/i7_api.py": {
-      "sha256": "904669b7aa289a944c8d262d9babc6b0651c79f8a337593db54cd1533462ab6d",
-      "bytes": 41103
+      "sha256": "9aed262a36158a213605ce97cea8ffab0f8ab1cef1d6f9d0e91b47e935fe3965",
+      "bytes": 41190
     },
     "runtime/candidate/public_handoff.py": {
-      "sha256": "8d7107d9966dbf7792127ec4211eeed82e655f182a5f74ebace4b511dd6dd813",
-      "bytes": 24880
+      "sha256": "b3481e80bbb49135b8d3c3d75211a7c46769fcb4e33b685344161e43d6b1e805",
+      "bytes": 28337
     },
     "pg_i7_mcp/__init__.py": {
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",

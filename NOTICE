@@ -1,14 +1,14 @@
-PGOP1 — selected Package-G project source and prospective distribution tooling
+PGOPCore — selected project source, Apache-2.0 core
 
 SPDX-License-Identifier: Apache-2.0
 
-This distribution contains Owner-authorized Package-G project source selected
-from its reusable implementation and engineering lineage. Original source
-identities and public adaptations are identified in manifests/SOURCE_PROVENANCE.json.
-No new copyright holder, human authorship or contribution date is asserted.
-External dependencies are installed separately and retain their original licenses.
-No dependency source, weights or protected operational evidence is bundled.
+This core contains Owner-authorized Package-G project source and distribution
+tooling. Original source identities and adaptations are documented in
+manifests/SOURCE_PROVENANCE.json. No new copyright holder, human authorship or
+contribution date is asserted. This notice preserves the adapted Package-G OP1
+Reusable attribution and does not change the Apache License 2.0 terms.
 
-Adapted from the original Package-G OP1 Reusable NOTICE: the broad historical
-snapshot description is replaced by this distribution's exact selected scope.
-This NOTICE is informational and does not change the Apache License 2.0 terms.
+The Windows presentation kit contains separately licensed third-party wheels.
+See its PRESENTATION_DEPENDENCIES.json and licenses/ directory. The historical
+NOTICE embedded in the pinned PGOPCore wheel describes the core distribution.
+The third-party wheels retain their own notices and license terms.

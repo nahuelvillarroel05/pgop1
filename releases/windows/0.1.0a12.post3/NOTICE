@@ -1,0 +1,14 @@
+PGOP1 — selected Package-G project source and prospective distribution tooling
+
+SPDX-License-Identifier: Apache-2.0
+
+This distribution contains Owner-authorized Package-G project source selected
+from its reusable implementation and engineering lineage. Original source
+identities and public adaptations are identified in manifests/SOURCE_PROVENANCE.json.
+No new copyright holder, human authorship or contribution date is asserted.
+External dependencies are installed separately and retain their original licenses.
+No dependency source, weights or protected operational evidence is bundled.
+
+Adapted from the original Package-G OP1 Reusable NOTICE: the broad historical
+snapshot description is replaced by this distribution's exact selected scope.
+This NOTICE is informational and does not change the Apache License 2.0 terms.

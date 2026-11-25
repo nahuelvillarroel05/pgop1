@@ -1,0 +1,128 @@
+{
+  "files": {
+    "ABRIR_PANEL.md": {
+      "bytes": 874,
+      "sha256": "6163127d3013e0a2e534b235b67b67a28a70021b8da4f403cbc195ff0f893d74"
+    },
+    "CONTEXTOS_LOCALES.md": {
+      "bytes": 2164,
+      "sha256": "b77132f94abe0a72f99a556fac56653c130ae11dbe1664502c2ecbf27540dcc6"
+    },
+    "install-panel.py": {
+      "bytes": 2573,
+      "sha256": "9844bfd0ef234f799be0f9730691140a9645bce1950b3c06dcdaa4dfaf98f9d8"
+    },
+    "LICENSE": {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "licenses/linkify-it-py/licenses/LICENSE": {
+      "bytes": 2234,
+      "sha256": "db5d71f61f0f781f5078df4b6a00d5d3c799fb0bb82bcf448a688e9762618a2e"
+    },
+    "licenses/markdown-it-py/licenses/LICENSE": {
+      "bytes": 1078,
+      "sha256": "4a2260d6e2cd0f5a151a1e86dbfe7d3ed552b1e2beabf9941c1ba5c49cbce484"
+    },
+    "licenses/markdown-it-py/licenses/LICENSE.markdown-it": {
+      "bytes": 1073,
+      "sha256": "792c48c5a849a15fdf9e37e8bcf9e6d1dd13b32b46c642a748a0a46a9919d473"
+    },
+    "licenses/mdit-py-plugins/licenses/LICENSE": {
+      "bytes": 1078,
+      "sha256": "4a2260d6e2cd0f5a151a1e86dbfe7d3ed552b1e2beabf9941c1ba5c49cbce484"
+    },
+    "licenses/mdurl/LICENSE": {
+      "bytes": 2338,
+      "sha256": "7c605df6e28667a9603118e98274f64a49ce3eed0d26fccce9534a345e0ef955"
+    },
+    "licenses/platformdirs/licenses/LICENSE": {
+      "bytes": 1089,
+      "sha256": "29e0fd62e929850e86eb28c3fdccf0cefdf4fa94879011cffb3d0d4bed6d4db6"
+    },
+    "licenses/Pygments/licenses/AUTHORS": {
+      "bytes": 11048,
+      "sha256": "71a83872ad82f57be692cf827e048e2cd51d45169cfa1ea3f28706d97a872c0f"
+    },
+    "licenses/Pygments/licenses/LICENSE": {
+      "bytes": 1331,
+      "sha256": "a9d66f1d526df02e29dce73436d34e56e8632f46c275bbdffc70569e882f9f17"
+    },
+    "licenses/rich/licenses/LICENSE": {
+      "bytes": 1056,
+      "sha256": "deed7c17a4318158190a3ea239cc879a5a50271cebb98ae7025f48fbe58dca15"
+    },
+    "licenses/textual/licenses/LICENSE": {
+      "bytes": 1069,
+      "sha256": "94f290a762376dfdb7768e42070618b0abfd2a2799eab1b1c097816c3a39eb57"
+    },
+    "licenses/typing_extensions/licenses/LICENSE": {
+      "bytes": 13936,
+      "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+    },
+    "NOTICE": {
+      "bytes": 842,
+      "sha256": "48973e91f0616bd1aa1412adf845dd49f98e694b34544424216dc55a64f48d8c"
+    },
+    "pgop-panel.cmd": {
+      "bytes": 247,
+      "sha256": "27773d352da6ca4ddf324be6e943dfb2d2b9d3576eec2fd8ce5d4b960dec3607"
+    },
+    "pgopcore-0.1.0a12.post3-py3-none-any.whl": {
+      "bytes": 154583,
+      "sha256": "ac4a512717709be0fe8b276eefe65dbc9e1bae8c5e4365107e49547cb04c7458"
+    },
+    "PRESENTATION_DEPENDENCIES.json": {
+      "bytes": 3422,
+      "sha256": "d77c977374cc077841d6896d854b95834cbf072f4c58dd7ac1d7d8e5e57339e0"
+    },
+    "requirements-tui.lock": {
+      "bytes": 891,
+      "sha256": "d7c9160317e042e9fef95b2f02aeb6d269882a223d9869f5a168ea2511ad0321"
+    },
+    "start-panel.py": {
+      "bytes": 4679,
+      "sha256": "ef976e539f76915cf5e3292e2cfc34513b7eb1cd5eb6978aed96e74606c41d8f"
+    },
+    "WHEEL.sha256": {
+      "bytes": 107,
+      "sha256": "6fe5a09980b3d045fb29538d9adfe1a24f1eb0ff1172df2a5b26103ffda6d3bc"
+    },
+    "wheelhouse/linkify_it_py-2.2.0-py3-none-any.whl": {
+      "bytes": 21971,
+      "sha256": "3adc40eb5af300b2605fcfdb968c24e1d780a90f1f2221af7c15e5111e94d443"
+    },
+    "wheelhouse/markdown_it_py-4.3.0-py3-none-any.whl": {
+      "bytes": 96951,
+      "sha256": "7aa1511a46c39138de78d9eba92ce47e63124d8003fc98b3a351909e04239efa"
+    },
+    "wheelhouse/mdit_py_plugins-0.7.0-py3-none-any.whl": {
+      "bytes": 72937,
+      "sha256": "7f8e30403f3dd8bfe3afcdcbc6e61066d3f2e714167507b9c26eb385ec399353"
+    },
+    "wheelhouse/mdurl-0.1.2-py3-none-any.whl": {
+      "bytes": 9979,
+      "sha256": "84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8"
+    },
+    "wheelhouse/platformdirs-4.14.8-py3-none-any.whl": {
+      "bytes": 94267,
+      "sha256": "1e34af590de4d978631b751eb2202f2fee4497537a17c1720b12fcf57b331392"
+    },
+    "wheelhouse/pygments-2.21.0-py3-none-any.whl": {
+      "bytes": 1250147,
+      "sha256": "2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9"
+    },
+    "wheelhouse/rich-15.0.0-py3-none-any.whl": {
+      "bytes": 310654,
+      "sha256": "33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb"
+    },
+    "wheelhouse/textual-8.2.8-py3-none-any.whl": {
+      "bytes": 731418,
+      "sha256": "267375fd402dc8d981457212efa71f0e3365fd17bba144ba9bb3ed7563cb374a"
+    },
+    "wheelhouse/typing_extensions-4.16.0-py3-none-any.whl": {
+      "bytes": 45571,
+      "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8"
+    }
+  }
+}

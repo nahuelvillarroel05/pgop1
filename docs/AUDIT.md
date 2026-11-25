@@ -74,10 +74,13 @@ por un canal confiable antes de ejecutar código de un origen desconocido.
 
 ### Pruebas e interfaces
 
-Instalá el lock del README con Python 3.14. Después, con el Python del venv:
+Desde la raíz del clon, creá un entorno dedicado a la auditoría con Python 3.14.
+Usá un directorio de entorno distinto del de la instalación de prueba de `pgop`.
 
 ```powershell
-.venv\Scripts\python.exe tools/audit_public.py --contract release-r2 --expected-commit $ExpectedCommit
+py -3.14 -m venv ..\pgop-audit-venv
+..\pgop-audit-venv\Scripts\python.exe -m pip install -r public_profile/requirements.lock
+..\pgop-audit-venv\Scripts\python.exe tools/audit_public.py --contract release-r2 --expected-commit $ExpectedCommit
 ```
 
 `audit-output/ID/TEST_RESULTS.json` conserva entorno, dependencias, comandos y

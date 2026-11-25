@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling==1.29.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pgopcore"
+version = "0.1.0a12.post3"
+description = "Terminal para buscar y comprobar fuentes de espacios de trabajo locales"
+readme = "README.md"
+requires-python = ">=3.14"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+dependencies = []
+
+[project.optional-dependencies]
+tui = ["textual==8.2.8"]
+
+[project.scripts]
+pgop = "pgopcore.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["cli/pgopcore"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"runtime/candidate/i7_api.py" = "pgopcore/_backend/i7_api.py"
+"runtime/candidate/public_handoff.py" = "pgopcore/_backend/public_handoff.py"
+"runtime/public_profile/CATALOG.json" = "pgopcore/_data/CATALOG.json"
+"runtime/public_profile/run012/EXECUTION_RESULTS.json" = "pgopcore/_data/run012/EXECUTION_RESULTS.json"
+"runtime/public_profile/run012/HISTORICAL_MANIFEST.json" = "pgopcore/_data/run012/HISTORICAL_MANIFEST.json"

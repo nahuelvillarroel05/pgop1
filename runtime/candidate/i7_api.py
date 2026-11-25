@@ -21,7 +21,10 @@ class APIError(ValueError):
 
 def public_profile(*, package_root=None, output_root=None):
     """Setup-only binding for the public aggregate service; no runtime initialization."""
-    from candidate.public_handoff import PublicProfile
+    if __package__:
+        from .public_handoff import PublicProfile
+    else:
+        from candidate.public_handoff import PublicProfile
     return PublicProfile(package_root=package_root, output_root=output_root)
 
 

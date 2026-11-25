@@ -1,0 +1,60 @@
+{
+  "schema": "pgop.release-receipt.v1",
+  "version": "0.1.0a12.post3",
+  "publication_base": "5c838a54d740e7d6d6c23af0297a7a33c903b44a",
+  "build_source": {
+    "commit": "2c511e13b749261adf92a494885bf852b986ab09",
+    "tree": "5d36db54ac20af9414decd242f8041df63f4fdb0",
+    "reachability": "LOCAL_BUILD_LINEAGE"
+  },
+  "wheel": {
+    "path": "releases/windows/0.1.0a12.post3/pgopcore-0.1.0a12.post3-py3-none-any.whl",
+    "sha256": "ac4a512717709be0fe8b276eefe65dbc9e1bae8c5e4365107e49547cb04c7458",
+    "bytes": 154583
+  },
+  "source_kit": {
+    "bytes": 2739993,
+    "sha256": "0f4f844cbb40e627208c407e4a9c309964f5a208a5fdaf53286fc942ad4b7724",
+    "artifact": "PGOP1_PANEL_012_PRODUCT_v003.zip",
+    "distribution_path": "releases/windows/0.1.0a12.post3",
+    "members": 32,
+    "member_manifest": {
+      "bytes": 4788,
+      "sha256": "ee1de420f8077579c20771c93b050d01bd3118716cc8acc71f698265b3365d40"
+    }
+  },
+  "metrics": {
+    "archive": {
+      "bytes": 6070267,
+      "sha256": "3570cd5a584e75bee67c1a70aeaf513916779fbd7aef9e5ee9cb71663e8b6a7f"
+    },
+    "underlying_receipts": {
+      "performance": {
+        "artifact": "PERFORMANCE.json",
+        "bytes": 6675,
+        "sha256": "472a6ae07fd041627a4e7947f2abeac3a132c6c53441ca185805f549c77fd85c"
+      },
+      "context": {
+        "artifact": "CAPABILITIES.json",
+        "bytes": 3582,
+        "sha256": "f688a5f40a173c0ce4030cfd554527c630a70ea5a8dbe5fe4ac3325c4ff34041"
+      },
+      "regressions": {
+        "artifact": "results.json",
+        "bytes": 191,
+        "sha256": "00eccae1a85f6536f6e8d69b07e4d4ae5b611e56c67c2e82ba1fcf74d26db109"
+      },
+      "simulated_usability": {
+        "artifact": "UX_FINAL_REVIEW.json",
+        "bytes": 10789,
+        "sha256": "7dea3c54581b833a1b43501ecc99f2b5d58caba1a4b3e0444dc73db47879fdb5"
+      }
+    },
+    "public_summary": "docs/HISTORY.md#panel-009-a-012",
+    "scope": "WINDOWS_LOCAL_ENGINEERING_AND_PROCEDURAL_SIMULATION"
+  },
+  "publication_review": {
+    "binding": "External exact-commit and exact-tree receipts",
+    "contract": "docs/AUDIT.md"
+  }
+}
