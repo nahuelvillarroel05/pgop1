@@ -90,12 +90,12 @@
     {
       "path": "experiments/pgopcore-panel-012/README.md",
       "bytes": 6164,
-      "sha256": "3b2e30f37e2e94285e0877e4e5f4ecbaf89d90dc14d8ecc417422ab2641e3dd6"
+      "sha256": "d13f7317a6f83d7b4d1160760f46f3cb26b51b203520f8f280d13a124d132092"
     },
     {
       "path": "manifests/SOURCE_PROVENANCE.json",
-      "bytes": 19680,
-      "sha256": "8c921bd90fc739d4ea448bc26bbbb5070174421ac709cbbf636c302792d728d6"
+      "bytes": 20752,
+      "sha256": "aced906b25fc4645db23ff51f7bd8cce040c32ef00d3fcfd1398c5c6e6b2f5fc"
     },
     {
       "path": "pg_i7_mcp/__init__.py",

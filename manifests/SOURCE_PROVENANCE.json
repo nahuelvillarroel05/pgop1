@@ -368,13 +368,31 @@
       "current_sha256": "28ac71253ed2a4219e1fe5082df0f42ebed66b0d6944286c3ed98584b9ceae9e",
       "transformation": "Add an index link to the Panel 009–012 report; preserve historical instructions",
       "license": "Apache-2.0"
+    },
+    {
+      "path": "experiments/pgopcore-panel-012/README.md",
+      "source_commit": "f42952c7bff12557242acf389a469182c978efa1",
+      "source_tree": "056a91022651d47b4fac00ad4902d0d122abfc15",
+      "source_path": "experiments/pgopcore-panel-012/README.md",
+      "source_oid": "b87a85b8771dee53a04dff1b80eea4628f793c90",
+      "source_sha256": "3b2e30f37e2e94285e0877e4e5f4ecbaf89d90dc14d8ecc417422ab2641e3dd6",
+      "current_sha256": "d13f7317a6f83d7b4d1160760f46f3cb26b51b203520f8f280d13a124d132092",
+      "transformation": "Versioned distribution audit or documentation binding for a12.post3",
+      "license": "Apache-2.0"
     }
   ],
   "panel_012_report": {
     "path": "experiments/pgopcore-panel-012/README.md",
-    "sha256": "3b2e30f37e2e94285e0877e4e5f4ecbaf89d90dc14d8ecc417422ab2641e3dd6",
+    "sha256": "d13f7317a6f83d7b4d1160760f46f3cb26b51b203520f8f280d13a124d132092",
     "license": "Apache-2.0",
-    "product_commit": "45462439275f5917b91de965a3a49d529611c9f2",
-    "source_anchors": "https://github.com/nahuelvillarroel05/pgop1/blob/45462439275f5917b91de965a3a49d529611c9f2/RELEASE_RECEIPT.json"
+    "product_commit": "cc8384055a2a536155a5fc3a5945a8ba997a5f79",
+    "source_anchors": "https://github.com/nahuelvillarroel05/pgop1/blob/cc8384055a2a536155a5fc3a5945a8ba997a5f79/RELEASE_RECEIPT.json",
+    "previous_provenance": {
+      "path": "experiments/pgopcore-panel-012/README.md",
+      "sha256": "3b2e30f37e2e94285e0877e4e5f4ecbaf89d90dc14d8ecc417422ab2641e3dd6",
+      "license": "Apache-2.0",
+      "product_commit": "45462439275f5917b91de965a3a49d529611c9f2",
+      "source_anchors": "https://github.com/nahuelvillarroel05/pgop1/blob/45462439275f5917b91de965a3a49d529611c9f2/RELEASE_RECEIPT.json"
+    }
   }
 }
