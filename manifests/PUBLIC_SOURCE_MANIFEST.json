@@ -39,8 +39,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 3475,
-      "sha256": "5bd3a9d3026e3108897f061cb61f142e99b4aefdd5a716f632c630173b973ec2"
+      "bytes": 3712,
+      "sha256": "28ac71253ed2a4219e1fe5082df0f42ebed66b0d6944286c3ed98584b9ceae9e"
     },
     {
       "path": "docs/ARCHITECTURE.md",
@@ -88,9 +88,14 @@
       "sha256": "b82b938631330c4693311c373e17f5f0bcd61527b214288aea9bb1aa3bf50e2c"
     },
     {
+      "path": "experiments/pgopcore-panel-012/README.md",
+      "bytes": 6164,
+      "sha256": "3b2e30f37e2e94285e0877e4e5f4ecbaf89d90dc14d8ecc417422ab2641e3dd6"
+    },
+    {
       "path": "manifests/SOURCE_PROVENANCE.json",
-      "bytes": 18673,
-      "sha256": "26809a61b1ba018456f64a5a9b491bd53ef01995ead8b20fc09485ad6c613428"
+      "bytes": 19680,
+      "sha256": "8c921bd90fc739d4ea448bc26bbbb5070174421ac709cbbf636c302792d728d6"
     },
     {
       "path": "pg_i7_mcp/__init__.py",

@@ -357,6 +357,24 @@
       "current_sha256": "595fe58ff487728dfe23e1204300c9ffa5df7bb4469ac3606722bbe2de2310bd",
       "transformation": "Deterministically regenerate files map for current R1 compatibility subset; preserve historical identity metadata",
       "license": "Apache-2.0"
+    },
+    {
+      "path": "README.md",
+      "source_commit": "52813dc77ead9a04ed1c08f96e46de53efeec9d2",
+      "source_tree": "66c61ae9f230563d66bcb4b638591e759a7aa9f7",
+      "source_path": "README.md",
+      "source_oid": "95c5ca0a62f3a7dab52efdde8eb7eeeaa6760b55",
+      "source_sha256": "5bd3a9d3026e3108897f061cb61f142e99b4aefdd5a716f632c630173b973ec2",
+      "current_sha256": "28ac71253ed2a4219e1fe5082df0f42ebed66b0d6944286c3ed98584b9ceae9e",
+      "transformation": "Add an index link to the Panel 009–012 report; preserve historical instructions",
+      "license": "Apache-2.0"
     }
-  ]
+  ],
+  "panel_012_report": {
+    "path": "experiments/pgopcore-panel-012/README.md",
+    "sha256": "3b2e30f37e2e94285e0877e4e5f4ecbaf89d90dc14d8ecc417422ab2641e3dd6",
+    "license": "Apache-2.0",
+    "product_commit": "45462439275f5917b91de965a3a49d529611c9f2",
+    "source_anchors": "https://github.com/nahuelvillarroel05/pgop1/blob/45462439275f5917b91de965a3a49d529611c9f2/RELEASE_RECEIPT.json"
+  }
 }

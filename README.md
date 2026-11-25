@@ -1,5 +1,7 @@
 # pgopcore — rama experimental
 
+La [evolución experimental del panel 009–012](experiments/pgopcore-panel-012/README.md) documenta a12.post3, sus resultados y el Context Engine Local. Las instrucciones que siguen corresponden a la entrega histórica de esta rama.
+
 Esta rama de [pgopcore](https://pgopcore.com/) verifica vínculos entre evidencia, conserva memoria de consultas y genera
 informes de auditoría estructural. Sus interfaces CLI y MCP usan el mismo backend.
 La rama `main` ofrece el perfil de agregados públicos; `experiment` añade memoria
